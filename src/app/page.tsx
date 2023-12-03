@@ -1,95 +1,107 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+/* eslint-disable @next/next/no-img-element */
+import React from "react";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import SearchIcon from "@mui/icons-material/Search";
+import InputAdornment from "@mui/material/InputAdornment";
+import Chip from "@mui/material/Chip";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Features from "./home/Features";
+import Help from "./home/Help";
+import MultiChain from "./home/MultiChain";
 
-export default function Home() {
+function HomePage() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <div>
+      <Box component="section" aria-label="Introduction">
+        <Container>
+          <Stack alignItems="center" marginBottom={4} textAlign="center">
+            <Box marginBottom={1} component="img" width={348} src="/images/logo.svg" />
+            <Typography color="text.disabled">
+              Super User-friendly Transaction Explorer for the Safe Eco-system
+            </Typography>
+          </Stack>
+          <Box maxWidth={950} marginX="auto">
+            <Stack spacing={1}>
+              <TextField
+                sx={{
+                  "& fieldset": {
+                    borderWidth: 2,
+                    borderColor: "primary.light",
+                  },
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                  sx: {
+                    pl: 2,
+                    "& input::placeholder": {
+                      color: "text.disabled",
+                      opacity: 1,
+                    },
+                  },
+                }}
+                fullWidth
+                placeholder="Search for addresses & hashes..."
+              />
+              <Stack
+                direction={{xs: "column", md: "row"}}
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Stack direction="row" alignItems="center" spacing={0.5}>
+                  <Typography color="text.disabled">Scanner Network Status</Typography>
+                  <Chip
+                    sx={{border: 0}}
+                    icon={<img src="/images/checkbox-marked-circle-outline.svg" alt="" />}
+                    variant="outlined"
+                    label="Available"
+                    color="primary"
+                  />
+                </Stack>
+                <Stack direction="row" alignItems="center" spacing={0.5}>
+                  <Typography color="text.disabled">Total Safe Transactions</Typography>
+                  <Chip
+                    sx={{border: 0}}
+                    icon={<img src="/images/safe-transactions.svg" alt="" />}
+                    variant="outlined"
+                    label="33 013 011"
+                    color="primary"
+                  />
+                </Stack>
+              </Stack>
+            </Stack>
+          </Box>
+        </Container>
+      </Box>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+      <Box
+        component="section"
+        aria-label="Services"
+        sx={{marginTop: {xs: 8, sm: 10, md: 16}, marginBottom: 6}}
+      >
+        <Container>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={4}>
+              <MultiChain />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <Features />
+            </Grid>
+            <Grid item xs={12} sm={12} md={4}>
+              <Help />
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+    </div>
+  );
 }
+
+export default HomePage;

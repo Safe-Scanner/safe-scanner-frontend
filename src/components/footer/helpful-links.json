@@ -1,0 +1,25 @@
+[
+  {
+    "label": "Resources",
+    "url": [
+      ["/", "Documentation"],
+      ["/", "Help Center"]
+    ]
+  },
+  {
+    "label": "Community",
+    "url": [
+      ["/", "Leave Feedback"],
+      ["/", "Twitter"],
+      ["/", "Github"]
+    ]
+  },
+  {
+    "label": "Legal",
+    "url": [
+      ["/", "Terms & Conditions"],
+      ["/", "Privacy Policy"],
+      ["/", "Cookie Policy"]
+    ]
+  }
+]
