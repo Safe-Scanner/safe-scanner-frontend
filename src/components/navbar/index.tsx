@@ -9,15 +9,10 @@ import IconButton from "@mui/material/IconButton";
 function Navbar() {
   return (
     <nav>
-      <Stack padding={3} aria-label="Navigation" direction="row">
+      <Stack padding={3} aria-label="Navigation" direction="row" alignItems="center">
         <Box sx={{flexGrow: 1}}>
           <Link href="/">
-            <Box
-              component={"img"}
-              width={134}
-              src="/images/logo.svg"
-              alt="Safe Scanner"
-            />
+            <Box component={"img"} width={134} src="/images/logo.svg" alt="Safe Scanner" />
           </Link>
         </Box>
         <Stack direction="row" alignItems="center" spacing={1}>

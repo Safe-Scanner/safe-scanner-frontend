@@ -20,10 +20,7 @@ const concepts = [
 
 function Features() {
   return (
-    <FeatureItem
-      title="Features"
-      description="See our latest features and leave feedback"
-    >
+    <FeatureItem title="Features" description="See our latest features and leave feedback">
       <Box>
         <Timeline
           sx={{
@@ -39,10 +36,7 @@ function Features() {
           {concepts.map((item, index) => (
             <TimelineItem sx={{minHeight: 48}} key={index}>
               <TimelineSeparator>
-                <TimelineDot
-                  variant={index !== 0 ? "outlined" : "filled"}
-                  color="primary"
-                />
+                <TimelineDot variant={index !== 0 ? "outlined" : "filled"} color="primary" />
                 {concepts.length > index + 1 && (
                   <TimelineConnector
                     sx={{
@@ -63,14 +57,7 @@ function Features() {
       </Box>
       <Box>
         <Button
-          startIcon={
-            <Image
-              width={24}
-              height={24}
-              src="/images/map-marker-path.svg"
-              alt=""
-            />
-          }
+          startIcon={<Image width={24} height={24} src="/images/map-marker-path.svg" alt="" />}
           size="large"
         >
           See Roadmap

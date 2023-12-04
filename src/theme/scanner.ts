@@ -25,7 +25,6 @@ declare module "@mui/material/Chip" {
     white: true;
   }
 }
-
 const verdeNight = createTheme({
   palette: {
     mode: "dark",
@@ -48,6 +47,9 @@ const verdeNight = createTheme({
       light: "#ffffff",
       dark: "#ffffff",
       contrastText: "#000000",
+    },
+    info: {
+      main: "#54D8FF",
     },
     text: {
       primary: "#ffffff",
@@ -156,6 +158,16 @@ const verdeNight = createTheme({
       },
       defaultProps: {
         elevation: 0,
+      },
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: "black",
+        },
+        arrow: {
+          color: "black",
+        },
       },
     },
   },
