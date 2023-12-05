@@ -1,23 +1,15 @@
-"use client";
-import React, {useState} from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Searchbar from "@/components/global/Searchbar";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Overview from "./Overview";
 import Confirmations from "./Confirmations";
-
-const tabs = ["Overview", "Confirmations"];
+import HashTab from "@/components/global/HashTab";
 
 function TransactionPage() {
-  const [currentTab, setCurrentTab] = useState(0);
-  const handleTabChange = (index: number) => {
-    setCurrentTab(index);
-  };
-
   return (
     <div>
       <Box component="section">
@@ -34,22 +26,11 @@ function TransactionPage() {
                 Transaction
               </Typography>
             </Stack>
-            <Stack direction="row" spacing={1}>
-              {tabs.map((tab, index) => (
-                <Button
-                  key={index}
-                  size="large"
-                  sx={{py: 1, px: 2, ...(currentTab === index ? {} : {bgcolor: "grey.600"})}}
-                  variant="contained"
-                  onClick={() => handleTabChange(index)}
-                >
-                  {tab}
-                </Button>
-              ))}
-            </Stack>
 
-            {currentTab === 0 && <Overview />}
-            {currentTab === 1 && <Confirmations />}
+            <HashTab tabs={["Overview", "Confirmations"]}>
+              <Overview />
+              <Confirmations />
+            </HashTab>
           </Stack>
         </Container>
       </Box>

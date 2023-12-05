@@ -8,16 +8,10 @@ import Image from "next/image";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Overview from "./Overview";
+import HashTab from "@/components/global/HashTab";
 // import Confirmations from "./Confirmations";
 
-const tabs = ["Overview", "Balance", "Transactions", "Owners"];
-
 function WalletPage() {
-  const [currentTab, setCurrentTab] = useState(0);
-  const handleTabChange = (index: number) => {
-    setCurrentTab(index);
-  };
-
   return (
     <div>
       <Box component="section">
@@ -34,21 +28,9 @@ function WalletPage() {
                 Wallet
               </Typography>
             </Stack>
-            <Stack direction="row" spacing={1}>
-              {tabs.map((tab, index) => (
-                <Button
-                  key={index}
-                  size="large"
-                  sx={{py: 1, px: 2, ...(currentTab === index ? {} : {bgcolor: "grey.600"})}}
-                  variant="contained"
-                  onClick={() => handleTabChange(index)}
-                >
-                  {tab}
-                </Button>
-              ))}
-            </Stack>
-
-            <Overview />
+            <HashTab tabs={["Overview", "Balance", "Transactions", "Owners"]}>
+              <Overview />
+            </HashTab>
           </Stack>
         </Container>
       </Box>
