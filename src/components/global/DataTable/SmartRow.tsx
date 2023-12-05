@@ -10,39 +10,39 @@ interface SmartRowProps {
     text: ReactNode;
     info?: string;
   };
-  body: ReactNode;
+  children?: ReactNode;
   action?: ReactNode;
   disabledBorder?: boolean;
   isLastRow?: boolean;
 }
 
 function SmartRow(props: SmartRowProps) {
-  const {label, body, action, disabledBorder, isLastRow} = props;
+  const {label, children, action, disabledBorder, isLastRow} = props;
 
   return (
     <Stack
-      direction="row"
-      alignItems="center"
+      direction={{xs: "column", md: "row"}}
+      alignItems={{xs: "flex-start", md: "center"}}
       paddingY={1.25}
       sx={{
-        borderTop: `2px solid rgba(255, 255, 255, 0.05);`,
+        borderTop: `2px solid`,
+        borderColor: disabledBorder ? "transparent" : "rgba(255, 255, 255, 0.05)",
+        borderBottom: isLastRow ? "2px solid" : "none",
         minHeight: 58,
-        ...(disabledBorder ? {borderColor: "transparent"} : {}),
-        ...(isLastRow ? {borderBottom: `2px solid rgba(255, 255, 255, 0.05);`} : {}),
       }}
       gap={3}
     >
-      <Box sx={{flex: `0 0 28%`}}>
+      <Box sx={{flex: {xs: `1`, md: `0 0 28%`}}}>
         {label && (
           <Stack
             direction="row"
-            spacing={2}
             alignItems="center"
             position="relative"
             display="inline-flex"
+            gap={2}
           >
-            {label.icon}
-            {label.text}
+            <Box sx={{display: {xs: "none", md: "block"}}}>{label.icon}</Box>
+            <Box>{label.text}</Box>
             {label.info && (
               <IconButton sx={{position: "absolute", right: -30, top: `-50%`, zIndex: 1}}>
                 <InfoOutlinedIcon color="info" sx={{fontSize: 16}} />
@@ -51,9 +51,22 @@ function SmartRow(props: SmartRowProps) {
           </Stack>
         )}
       </Box>
-      <Box sx={{flex: `1`, overflow: "hidden"}}>{body}</Box>
+      <Box sx={{flex: `1`, overflow: "hidden", display: {xs: "none", md: "block"}}}>{children}</Box>
+      <Stack direction="row" display={{xs: "flex", md: "none"}} alignItems="center">
+        <Box sx={{width: "calc(10%-180px)", overflow: "hidden"}}>{children}</Box>
+        {action && (
+          <Stack sx={{flex: `0 0 180px`}} direction="row" justifyContent="flex-end" spacing={0.5}>
+            {action}
+          </Stack>
+        )}
+      </Stack>
       {action && (
-        <Stack sx={{flex: `0 0 180px`}} direction="row" justifyContent="flex-end" spacing={0.5}>
+        <Stack
+          sx={{flex: `0 0 180px`, display: {xs: "none", md: "flex"}}}
+          direction="row"
+          justifyContent="flex-end"
+          spacing={0.5}
+        >
           {action}
         </Stack>
       )}

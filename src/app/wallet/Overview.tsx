@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Stack from "@mui/material/Stack";
 import Image from "next/image";
@@ -15,10 +16,36 @@ import Box from "@mui/material/Box";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import HistoryIcon from "@mui/icons-material/History";
 import Tooltip from "@mui/material/Tooltip";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 
 function Overview() {
+  const walletSortingOptions = [
+    "Show highest value",
+    "Show lowest value",
+    "Show most recent",
+    "Show least recent",
+    "Show all",
+  ];
+  const [walletSortedby, setWalletSortedby] = React.useState(0);
+  const [walletAnchorEl, setWalletAnchorEl] = React.useState<null | HTMLElement>(null);
+  const isOpenWallet = Boolean(walletAnchorEl);
+
+  const walletSortingHandle = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setWalletAnchorEl(event.currentTarget);
+  };
+
+  const walletSortingClose = () => {
+    setWalletAnchorEl(null);
+  };
+
+  const walletSortingSelect = (index: number) => {
+    setWalletAnchorEl(null);
+    setWalletSortedby(index);
+  };
+
   return (
     <Paper sx={{p: 3}}>
       <Stack direction="row" spacing={2} alignItems="center" marginBottom={1}>
@@ -39,20 +66,19 @@ function Overview() {
             </Typography>
           ),
         }}
-        body={
-          <Stack spacing={2} alignItems="center" direction="row">
-            <Image src="/images/Group 58.svg" alt="" width={20} height={20} />
-            <Typography fontWeight="medium" noWrap>
-              eth:0x3a12868E33505424aCbdf53F11C8d447D59A8cfc
-            </Typography>
-          </Stack>
-        }
         action={
           <IconButton>
             <ContentCopyIcon color="primary" sx={{fontSize: 20}} />
           </IconButton>
         }
-      />
+      >
+        <Stack spacing={2} alignItems="center" direction="row">
+          <Image src="/images/Group 58.svg" alt="" width={20} height={20} />
+          <Typography fontWeight="medium" noWrap>
+            eth:0x3a12868E33505424aCbdf53F11C8d447D59A8cfc
+          </Typography>
+        </Stack>
+      </SmartRow>
       <SmartRow
         label={{
           icon: <Image src="images/pound.svg" alt="" width={20} height={20} />,
@@ -62,11 +88,6 @@ function Overview() {
             </Typography>
           ),
         }}
-        body={
-          <Typography color="primary" textTransform="capitalize">
-            0x62ab...bc7d
-          </Typography>
-        }
         action={
           <>
             <IconButton>
@@ -77,7 +98,11 @@ function Overview() {
             </IconButton>
           </>
         }
-      />
+      >
+        <Typography color="primary" textTransform="capitalize">
+          0x62ab...bc7d
+        </Typography>
+      </SmartRow>
       <SmartRow
         label={{
           icon: <Image src="/images/tools.svg" alt="" width={20} height={20} />,
@@ -87,11 +112,6 @@ function Overview() {
             </Typography>
           ),
         }}
-        body={
-          <Typography color="primary" textTransform="capitalize">
-            0x00000000
-          </Typography>
-        }
         action={
           <>
             <IconButton>
@@ -102,7 +122,11 @@ function Overview() {
             </IconButton>
           </>
         }
-      />
+      >
+        <Typography color="primary" textTransform="capitalize">
+          0x00000000
+        </Typography>
+      </SmartRow>
       <SmartRow
         label={{
           icon: <Image src="/images/file-code.svg" alt="" width={20} height={20} />,
@@ -112,11 +136,6 @@ function Overview() {
             </Typography>
           ),
         }}
-        body={
-          <Typography color="primary" textTransform="capitalize">
-            0x00000000
-          </Typography>
-        }
         action={
           <>
             <IconButton>
@@ -127,7 +146,11 @@ function Overview() {
             </IconButton>
           </>
         }
-      />
+      >
+        <Typography color="primary" textTransform="capitalize">
+          0x00000000
+        </Typography>
+      </SmartRow>
       <SmartRow
         label={{
           icon: <Image src="images/shield-check.svg" alt="" width={20} height={20} />,
@@ -137,12 +160,6 @@ function Overview() {
             </Typography>
           ),
         }}
-        body={
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Image src="/images/Group 58.svg" alt="" width={20} height={20} />
-            <Typography color="primary">eth:0x62ab...bc7d</Typography>
-          </Stack>
-        }
         action={
           <>
             <IconButton>
@@ -153,7 +170,12 @@ function Overview() {
             </IconButton>
           </>
         }
-      />
+      >
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Image src="/images/Group 58.svg" alt="" width={20} height={20} />
+          <Typography color="primary">eth:0x62ab...bc7d</Typography>
+        </Stack>
+      </SmartRow>
       <SmartRow
         label={{
           icon: <Image src="images/Vector.svg" alt="" width={20} height={20} />,
@@ -164,13 +186,14 @@ function Overview() {
           ),
           info: "null",
         }}
-        body={<Typography fontWeight="medium">3 203 transactions done</Typography>}
         action={
           <Button size="small" endIcon={<KeyboardArrowRightIcon />}>
             View Transactions
           </Button>
         }
-      />
+      >
+        <Typography fontWeight="medium">3 203 transactions done</Typography>
+      </SmartRow>
 
       <SmartRow
         label={{
@@ -182,31 +205,12 @@ function Overview() {
           ),
           info: "null",
         }}
-        body={
-          <Typography fontWeight="medium" noWrap>
-            3 owners (2 signatures required for confirming transactions)
-          </Typography>
-        }
-      />
+      >
+        <Typography fontWeight="medium" noWrap>
+          3 owners (2 signatures required for confirming transactions)
+        </Typography>
+      </SmartRow>
       <SmartRow
-        body={
-          <Grid container>
-            <Grid item xs={6}>
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
-                <Typography textTransform="capitalize" color="text.secondary">
-                  Owner 1
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-                <Typography color="primary">eth:0x62ab...bc7d</Typography>
-              </Stack>
-            </Grid>
-          </Grid>
-        }
         action={
           <>
             <IconButton>
@@ -217,26 +221,25 @@ function Overview() {
             </IconButton>
           </>
         }
-      />
-      <SmartRow
-        body={
-          <Grid container>
-            <Grid item xs={6}>
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
-                <Typography textTransform="capitalize" color="text.secondary">
-                  Owner 2
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-                <Typography color="primary">eth:0x62ab...bc7d</Typography>
-              </Stack>
-            </Grid>
+      >
+        <Grid container>
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
+              <Typography textTransform="capitalize" color="text.secondary">
+                Owner 1
+              </Typography>
+            </Stack>
           </Grid>
-        }
+          <Grid item xs={6}>
+            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
+              <Typography color="primary">eth:0x62ab...bc7d</Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </SmartRow>
+      <SmartRow
         action={
           <>
             <IconButton>
@@ -247,26 +250,25 @@ function Overview() {
             </IconButton>
           </>
         }
-      />
-      <SmartRow
-        body={
-          <Grid container>
-            <Grid item xs={6}>
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
-                <Typography textTransform="capitalize" color="text.secondary">
-                  Owner 3
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-                <Typography color="primary">eth:0x62ab...bc7d</Typography>
-              </Stack>
-            </Grid>
+      >
+        <Grid container>
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
+              <Typography textTransform="capitalize" color="text.secondary">
+                Owner 2
+              </Typography>
+            </Stack>
           </Grid>
-        }
+          <Grid item xs={6}>
+            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
+              <Typography color="primary">eth:0x62ab...bc7d</Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </SmartRow>
+      <SmartRow
         action={
           <>
             <IconButton>
@@ -277,7 +279,24 @@ function Overview() {
             </IconButton>
           </>
         }
-      />
+      >
+        <Grid container>
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
+              <Typography textTransform="capitalize" color="text.secondary">
+                Owner 3
+              </Typography>
+            </Stack>
+          </Grid>
+          <Grid item xs={6}>
+            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
+              <Typography color="primary">eth:0x62ab...bc7d</Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </SmartRow>
 
       <SmartRow
         label={{
@@ -289,12 +308,11 @@ function Overview() {
           ),
           info: "null",
         }}
-        body={
-          <Typography fontWeight="medium" noWrap>
-            1
-          </Typography>
-        }
-      />
+      >
+        <Typography fontWeight="medium" noWrap>
+          1
+        </Typography>
+      </SmartRow>
       <SmartRow
         label={{
           icon: <Image src="images/code-array.svg" alt="" width={20} height={20} />,
@@ -305,12 +323,11 @@ function Overview() {
           ),
           info: "null",
         }}
-        body={
-          <Typography fontWeight="medium" noWrap>
-            1.3.0 + L2
-          </Typography>
-        }
-      />
+      >
+        <Typography fontWeight="medium" noWrap>
+          1.3.0 + L2
+        </Typography>
+      </SmartRow>
       <SmartRow
         label={{
           icon: <Image src="images/hand-coin.svg" alt="" width={20} height={20} />,
@@ -321,62 +338,66 @@ function Overview() {
           ),
           info: "null",
         }}
-        body={
-          <Typography fontWeight="medium" noWrap>
-            3 500 000 (75 tokens)
-          </Typography>
-        }
         action={
           <Box sx={{position: "absolute", transform: `translateY(-50%)`}}>
             <Button
-              endIcon={<KeyboardArrowDownIcon sx={{fontSize: 20}} color="primary" />}
+              endIcon={
+                <KeyboardArrowDownIcon
+                  sx={{
+                    fontSize: 20,
+                    transform: `rotate(${isOpenWallet ? "180deg" : "0deg"})`,
+                    transition: "transform 200ms ease-in-out",
+                  }}
+                  color="primary"
+                />
+              }
               variant="text"
+              onClick={walletSortingHandle}
             >
               <Typography fontWeight="medium" color="primary">
                 <Typography component="span" color="common.white">
                   Sort -{" "}
                 </Typography>
-                Show highest value
+                {walletSortingOptions[walletSortedby]}
               </Typography>
             </Button>
+            <Menu
+              id="wallet-value-preview"
+              anchorEl={walletAnchorEl}
+              open={isOpenWallet}
+              onClose={walletSortingClose}
+              MenuListProps={{
+                "aria-labelledby": "wallet value preview",
+              }}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              sx={{"& .MuiPaper-root": {bgcolor: "background.default"}}}
+            >
+              {walletSortingOptions.map((option, index) => (
+                <MenuItem
+                  key={option}
+                  selected={walletSortedby === index}
+                  onClick={() => walletSortingSelect(index)}
+                >
+                  {option}
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         }
-      />
+      >
+        <Typography fontWeight="medium" noWrap>
+          3 500 000 (75 tokens)
+        </Typography>
+      </SmartRow>
 
       <SmartRow
-        body={
-          <Grid container>
-            <Grid item xs={6}>
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Box
-                  sx={{
-                    aspectRatio: "1/1",
-                    height: 20,
-                    display: "grid",
-                    placeContent: "center",
-                    bgcolor: "#D7D9DC1A",
-                    borderRadius: 999,
-                    paddingTop: 0.25,
-                    marginRight: 0.25,
-                  }}
-                >
-                  <Typography component="span" variant="body2">
-                    1
-                  </Typography>
-                </Box>
-                <Typography textTransform="capitalize" color="text.secondary">
-                  Ethereum, ETH
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/Group 59.svg" alt="" width={20} height={20} />
-                <Typography>67.332 / $2,450,000.00</Typography>
-              </Stack>
-            </Grid>
-          </Grid>
-        }
         action={
           <>
             <Tooltip title="Coming Soon" arrow>
@@ -386,41 +407,40 @@ function Overview() {
             </Tooltip>
           </>
         }
-      />
-      <SmartRow
-        body={
-          <Grid container>
-            <Grid item xs={6}>
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Box
-                  sx={{
-                    aspectRatio: "1/1",
-                    height: 20,
-                    display: "grid",
-                    placeContent: "center",
-                    bgcolor: "#D7D9DC1A",
-                    borderRadius: 999,
-                    paddingTop: 0.25,
-                    marginRight: 0.25,
-                  }}
-                >
-                  <Typography component="span" variant="body2">
-                    2
-                  </Typography>
-                </Box>
-                <Typography textTransform="capitalize" color="text.secondary">
-                  Avalanche, AVAX
+      >
+        <Grid container>
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Box
+                sx={{
+                  aspectRatio: "1/1",
+                  height: 20,
+                  display: "grid",
+                  placeContent: "center",
+                  bgcolor: "#D7D9DC1A",
+                  borderRadius: 999,
+                  paddingTop: 0.25,
+                  marginRight: 0.25,
+                }}
+              >
+                <Typography component="span" variant="body2">
+                  1
                 </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/Group 60.svg" alt="" width={20} height={20} />
-                <Typography>67.332 / $2,450,000.00</Typography>
-              </Stack>
-            </Grid>
+              </Box>
+              <Typography textTransform="capitalize" color="text.secondary">
+                Ethereum, ETH
+              </Typography>
+            </Stack>
           </Grid>
-        }
+          <Grid item xs={6}>
+            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/Group 59.svg" alt="" width={20} height={20} />
+              <Typography>67.332 / $2,450,000.00</Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </SmartRow>
+      <SmartRow
         action={
           <>
             <Tooltip title="Coming Soon" arrow>
@@ -430,41 +450,41 @@ function Overview() {
             </Tooltip>
           </>
         }
-      />
-      <SmartRow
-        body={
-          <Grid container>
-            <Grid item xs={6}>
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Box
-                  sx={{
-                    aspectRatio: "1/1",
-                    height: 20,
-                    display: "grid",
-                    placeContent: "center",
-                    bgcolor: "#D7D9DC1A",
-                    borderRadius: 999,
-                    paddingTop: 0.25,
-                    marginRight: 0.25,
-                  }}
-                >
-                  <Typography component="span" variant="body2">
-                    3
-                  </Typography>
-                </Box>
-                <Typography textTransform="capitalize" color="text.secondary">
-                  EtheFantom, FTM
+      >
+        <Grid container>
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Box
+                sx={{
+                  aspectRatio: "1/1",
+                  height: 20,
+                  display: "grid",
+                  placeContent: "center",
+                  bgcolor: "#D7D9DC1A",
+                  borderRadius: 999,
+                  paddingTop: 0.25,
+                  marginRight: 0.25,
+                }}
+              >
+                <Typography component="span" variant="body2">
+                  2
                 </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/Group 61.svg" alt="" width={20} height={20} />
-                <Typography>67.332 / $2,450,000.00</Typography>
-              </Stack>
-            </Grid>
+              </Box>
+              <Typography textTransform="capitalize" color="text.secondary">
+                Avalanche, AVAX
+              </Typography>
+            </Stack>
           </Grid>
-        }
+          <Grid item xs={6}>
+            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/Group 60.svg" alt="" width={20} height={20} />
+              <Typography>67.332 / $2,450,000.00</Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </SmartRow>
+
+      <SmartRow
         action={
           <>
             <Tooltip title="Coming Soon" arrow>
@@ -474,15 +494,44 @@ function Overview() {
             </Tooltip>
           </>
         }
-      />
-      <SmartRow
-        isLastRow
-        body={
-          <Button size="small" endIcon={<KeyboardArrowRightIcon />}>
-            View All 75 Tokens
-          </Button>
-        }
-      />
+      >
+        <Grid container>
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Box
+                sx={{
+                  aspectRatio: "1/1",
+                  height: 20,
+                  display: "grid",
+                  placeContent: "center",
+                  bgcolor: "#D7D9DC1A",
+                  borderRadius: 999,
+                  paddingTop: 0.25,
+                  marginRight: 0.25,
+                }}
+              >
+                <Typography component="span" variant="body2">
+                  3
+                </Typography>
+              </Box>
+              <Typography textTransform="capitalize" color="text.secondary">
+                EtheFantom, FTM
+              </Typography>
+            </Stack>
+          </Grid>
+          <Grid item xs={6}>
+            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/Group 61.svg" alt="" width={20} height={20} />
+              <Typography>67.332 / $2,450,000.00</Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </SmartRow>
+      <SmartRow isLastRow>
+        <Button size="small" endIcon={<KeyboardArrowRightIcon />}>
+          View All 75 Tokens
+        </Button>
+      </SmartRow>
     </Paper>
   );
 }

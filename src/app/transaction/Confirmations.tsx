@@ -35,31 +35,12 @@ function Confirmations() {
           ),
           info: "null",
         }}
-        body={
-          <Typography fontWeight="medium" noWrap>
-            2/3 signatures left
-          </Typography>
-        }
-      />
+      >
+        <Typography fontWeight="medium" noWrap>
+          2/3 signatures left
+        </Typography>
+      </SmartRow>
       <SmartRow
-        body={
-          <Grid container>
-            <Grid item xs={6}>
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
-                <Typography textTransform="capitalize" color="text.secondary">
-                  Owner 2
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-                <Typography color="primary">eth:0x62ab...bc7d</Typography>
-              </Stack>
-            </Grid>
-          </Grid>
-        }
         action={
           <Button
             startIcon={<Image src="/images/qrcode-scan.svg" alt="" width={20} height={20} />}
@@ -68,26 +49,25 @@ function Confirmations() {
             Sign Now
           </Button>
         }
-      />
-      <SmartRow
-        body={
-          <Grid container>
-            <Grid item xs={6}>
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
-                <Typography textTransform="capitalize" color="text.secondary">
-                  Owner 3
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-                <Typography color="primary">eth:0x62ab...bc7d</Typography>
-              </Stack>
-            </Grid>
+      >
+        <Grid container>
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
+              <Typography textTransform="capitalize" color="text.secondary">
+                Owner 2
+              </Typography>
+            </Stack>
           </Grid>
-        }
+          <Grid item xs={6}>
+            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
+              <Typography color="primary">eth:0x62ab...bc7d</Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </SmartRow>
+      <SmartRow
         action={
           <Button
             startIcon={<Image src="/images/qrcode-scan.svg" alt="" width={20} height={20} />}
@@ -96,7 +76,24 @@ function Confirmations() {
             Sign Now
           </Button>
         }
-      />
+      >
+        <Grid container>
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
+              <Typography textTransform="capitalize" color="text.secondary">
+                Owner 3
+              </Typography>
+            </Stack>
+          </Grid>
+          <Grid item xs={6}>
+            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
+              <Typography color="primary">eth:0x62ab...bc7d</Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </SmartRow>
 
       <SmartRow
         label={{
@@ -108,52 +105,45 @@ function Confirmations() {
           ),
           info: "null",
         }}
-        body={
-          <Typography fontWeight="medium" noWrap>
-            1/3 successful signature
-          </Typography>
-        }
         action={
           <IconButton>
             <KeyboardArrowUpIcon sx={{fontSize: 20}} color="primary" />
           </IconButton>
         }
-      />
-      <SmartRow
-        body={
-          <Grid container>
-            <Grid item xs={6}>
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
-                <Typography textTransform="capitalize" color="text.secondary">
-                  Owner 2
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2}>
-                <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-                <Typography color="primary">eth:0x62ab...bc7d</Typography>
-              </Stack>
-            </Grid>
-          </Grid>
-        }
-        action={<Button size="small">View Hash</Button>}
-      />
-      <SmartRow
-        disabledBorder
-        body={
-          <Stack direction="row" spacing={4} alignItems="center">
-            <Typography textTransform="capitalize" color="text.secondary">
-              Time stamp
-            </Typography>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Image src="/images/Value Icon.svg" alt="" width={32} height={32} />
-              <Typography>1 hr ago (Oct-21-2023 04:55:23 PM +UTC)</Typography>
+      >
+        <Typography fontWeight="medium" noWrap>
+          1/3 successful signature
+        </Typography>
+      </SmartRow>
+      <SmartRow action={<Button size="small">View Hash</Button>}>
+        <Grid container>
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
+              <Typography textTransform="capitalize" color="text.secondary">
+                Owner 2
+              </Typography>
             </Stack>
+          </Grid>
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2}>
+              <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
+              <Typography color="primary">eth:0x62ab...bc7d</Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </SmartRow>
+      <SmartRow disabledBorder>
+        <Stack direction="row" spacing={4} alignItems="center">
+          <Typography textTransform="capitalize" color="text.secondary">
+            Time stamp
+          </Typography>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Image src="/images/Value Icon.svg" alt="" width={32} height={32} />
+            <Typography>1 hr ago (Oct-21-2023 04:55:23 PM +UTC)</Typography>
           </Stack>
-        }
-      />
+        </Stack>
+      </SmartRow>
 
       <SmartRow
         label={{
@@ -165,52 +155,45 @@ function Confirmations() {
           ),
           info: "null",
         }}
-        body={
-          <Typography fontWeight="medium" noWrap>
-            1 failed signing
-          </Typography>
-        }
         action={
           <IconButton>
             <KeyboardArrowUpIcon sx={{fontSize: 20}} color="primary" />
           </IconButton>
         }
-      />
-      <SmartRow
-        body={
-          <Grid container>
-            <Grid item xs={6}>
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
-                <Typography textTransform="capitalize" color="text.secondary">
-                  Owner 2
-                </Typography>
-              </Stack>
-            </Grid>
-            <Grid item xs={6}>
-              <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2}>
-                <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-                <Typography color="primary">eth:0x62ab...bc7d</Typography>
-              </Stack>
-            </Grid>
-          </Grid>
-        }
-        action={<Button size="small">View Error</Button>}
-      />
-      <SmartRow
-        disabledBorder
-        body={
-          <Stack direction="row" spacing={4} alignItems="center">
-            <Typography textTransform="capitalize" color="text.secondary">
-              Time stamp
-            </Typography>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Image src="/images/Value Icon.svg" alt="" width={32} height={32} />
-              <Typography>1 hr ago (Oct-21-2023 04:55:23 PM +UTC)</Typography>
+      >
+        <Typography fontWeight="medium" noWrap>
+          1 failed signing
+        </Typography>
+      </SmartRow>
+      <SmartRow action={<Button size="small">View Error</Button>}>
+        <Grid container>
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
+              <Typography textTransform="capitalize" color="text.secondary">
+                Owner 2
+              </Typography>
             </Stack>
+          </Grid>
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2}>
+              <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
+              <Typography color="primary">eth:0x62ab...bc7d</Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </SmartRow>
+      <SmartRow disabledBorder>
+        <Stack direction="row" spacing={4} alignItems="center">
+          <Typography textTransform="capitalize" color="text.secondary">
+            Time stamp
+          </Typography>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Image src="/images/Value Icon.svg" alt="" width={32} height={32} />
+            <Typography>1 hr ago (Oct-21-2023 04:55:23 PM +UTC)</Typography>
           </Stack>
-        }
-      />
+        </Stack>
+      </SmartRow>
     </Paper>
   );
 }

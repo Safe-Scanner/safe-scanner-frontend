@@ -48,9 +48,8 @@ function TransactionPage() {
               ))}
             </Stack>
 
-            <Overview />
-
-            <Confirmations />
+            {currentTab === 0 && <Overview />}
+            {currentTab === 1 && <Confirmations />}
           </Stack>
         </Container>
       </Box>
