@@ -170,6 +170,13 @@ const verdeNight = createTheme({
         },
       },
     },
+    MuiListItemText: {
+      styleOverrides: {
+        primary: {
+          fontSize: 13,
+        },
+      },
+    },
   },
 });
 
