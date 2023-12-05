@@ -49,8 +49,6 @@ function WalletPage() {
             </Stack>
 
             <Overview />
-
-            {/* <Confirmations /> */}
           </Stack>
         </Container>
       </Box>

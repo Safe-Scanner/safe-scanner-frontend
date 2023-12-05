@@ -11,6 +11,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import SubdirectoryArrowRightRoundedIcon from "@mui/icons-material/SubdirectoryArrowRightRounded";
 import Status from "../../components/global/DataTable/Status";
 import SmartRow from "../../components/global/DataTable/SmartRow";
+import Box from "@mui/material/Box";
 
 function Overview() {
   return (
@@ -23,7 +24,6 @@ function Overview() {
           <MoreHorizIcon color="primary" />
         </IconButton>
       </Stack>
-
       <SmartRow
         label={{
           icon: <Image src="images/pound.svg" alt="" width={20} height={20} />,

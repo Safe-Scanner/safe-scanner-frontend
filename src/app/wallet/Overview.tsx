@@ -339,7 +339,7 @@ function Overview() {
           info: "null",
         }}
         action={
-          <Box sx={{position: "absolute", transform: `translateY(-50%)`}}>
+          <Box sx={{position: "absolute"}}>
             <Button
               endIcon={
                 <KeyboardArrowDownIcon

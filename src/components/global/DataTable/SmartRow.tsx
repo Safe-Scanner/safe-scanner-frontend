@@ -26,13 +26,13 @@ function SmartRow(props: SmartRowProps) {
       paddingY={1.25}
       sx={{
         borderTop: `2px solid`,
-        borderColor: disabledBorder ? "transparent" : "rgba(255, 255, 255, 0.05)",
         borderBottom: isLastRow ? "2px solid" : "none",
+        borderColor: disabledBorder ? "transparent" : "rgba(255, 255, 255, 0.05)",
         minHeight: 58,
       }}
       gap={3}
     >
-      <Box sx={{flex: {xs: `1`, md: `0 0 28%`}}}>
+      <Box sx={{width: {xs: "100%", md: "28%"}}}>
         {label && (
           <Stack
             direction="row"
@@ -52,19 +52,27 @@ function SmartRow(props: SmartRowProps) {
         )}
       </Box>
       <Box sx={{flex: `1`, overflow: "hidden", display: {xs: "none", md: "block"}}}>{children}</Box>
-      <Stack direction="row" display={{xs: "flex", md: "none"}} alignItems="center">
-        <Box sx={{width: "calc(10%-180px)", overflow: "hidden"}}>{children}</Box>
+      <Stack direction="row" display={{xs: "flex", md: "none"}} width="100%">
+        <Box sx={{width: "100%", overflow: "hidden"}}>{children}</Box>
         {action && (
-          <Stack sx={{flex: `0 0 180px`}} direction="row" justifyContent="flex-end" spacing={0.5}>
+          <Stack
+            sx={{width: "180px"}}
+            alignItems="center"
+            direction="row"
+            justifyContent="flex-end"
+            spacing={0.5}
+            whiteSpace="nowrap"
+          >
             {action}
           </Stack>
         )}
       </Stack>
       {action && (
         <Stack
-          sx={{flex: `0 0 180px`, display: {xs: "none", md: "flex"}}}
+          sx={{width: "180px", display: {xs: "none", md: "flex"}}}
           direction="row"
           justifyContent="flex-end"
+          alignItems="center"
           spacing={0.5}
         >
           {action}

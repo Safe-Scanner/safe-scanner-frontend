@@ -50,8 +50,8 @@ function Confirmations() {
           </Button>
         }
       >
-        <Grid container>
-          <Grid item xs={6}>
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={6}>
             <Stack direction="row" alignItems="center" spacing={2}>
               <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
               <Typography textTransform="capitalize" color="text.secondary">
@@ -59,8 +59,13 @@ function Confirmations() {
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={6}>
-            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Stack
+              justifyContent={{xs: "flex-start", md: "flex-end"}}
+              direction="row"
+              alignItems="center"
+              spacing={2}
+            >
               <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
               <Typography color="primary">eth:0x62ab...bc7d</Typography>
             </Stack>
@@ -77,8 +82,8 @@ function Confirmations() {
           </Button>
         }
       >
-        <Grid container>
-          <Grid item xs={6}>
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={6}>
             <Stack direction="row" alignItems="center" spacing={2}>
               <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
               <Typography textTransform="capitalize" color="text.secondary">
@@ -86,8 +91,13 @@ function Confirmations() {
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={6}>
-            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Stack
+              justifyContent={{xs: "flex-start", md: "flex-end"}}
+              direction="row"
+              alignItems="center"
+              spacing={2}
+            >
               <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
               <Typography color="primary">eth:0x62ab...bc7d</Typography>
             </Stack>
@@ -116,8 +126,8 @@ function Confirmations() {
         </Typography>
       </SmartRow>
       <SmartRow action={<Button size="small">View Hash</Button>}>
-        <Grid container>
-          <Grid item xs={6}>
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={6}>
             <Stack direction="row" alignItems="center" spacing={2}>
               <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
               <Typography textTransform="capitalize" color="text.secondary">
@@ -125,8 +135,13 @@ function Confirmations() {
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={6}>
-            <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent={{xs: "flex-start", md: "flex-end"}}
+              spacing={2}
+            >
               <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
               <Typography color="primary">eth:0x62ab...bc7d</Typography>
             </Stack>
@@ -166,8 +181,8 @@ function Confirmations() {
         </Typography>
       </SmartRow>
       <SmartRow action={<Button size="small">View Error</Button>}>
-        <Grid container>
-          <Grid item xs={6}>
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={6}>
             <Stack direction="row" alignItems="center" spacing={2}>
               <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
               <Typography textTransform="capitalize" color="text.secondary">
@@ -175,8 +190,13 @@ function Confirmations() {
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={6}>
-            <Stack direction="row" alignItems="center" justifyContent="flex-end" spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent={{xs: "flex-start", md: "flex-end"}}
+              spacing={2}
+            >
               <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
               <Typography color="primary">eth:0x62ab...bc7d</Typography>
             </Stack>
