@@ -9,7 +9,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Overview from "./Overview";
 import HashTab from "@/components/global/HashTab";
-// import Confirmations from "./Confirmations";
+
+// This page will create more tabs whare I can show balance, transaxtion, owners
 
 function WalletPage() {
   return (
@@ -30,6 +31,7 @@ function WalletPage() {
             </Stack>
             <HashTab tabs={["Overview", "Balance", "Transactions", "Owners"]}>
               <Overview />
+              <Box></Box>
             </HashTab>
           </Stack>
         </Container>

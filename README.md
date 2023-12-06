@@ -34,3 +34,8 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Creating a New Project
+
+The most poper used react library is somethign is not working.
+So we have to make it more wasy to do somethig better. when we will trying to create something it should not be easy as we have exepct. Suppose I'm not awared with it I can not do id.
