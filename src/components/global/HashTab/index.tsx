@@ -9,10 +9,11 @@ import {usePathname} from "next/navigation";
 interface HashTabProps {
   children?: React.ReactNode;
   tabs: string[];
+  size?: "small" | "medium" | "large";
 }
 
 function HashTab(prop: HashTabProps) {
-  const {children, tabs} = prop;
+  const {children, tabs, size} = prop;
 
   const pathname = usePathname();
   const theme = useTheme();
@@ -42,10 +43,8 @@ function HashTab(prop: HashTabProps) {
         {tabs.map((tab, index) => (
           <Button
             key={index}
-            size="large"
+            size={size || "large"}
             sx={{
-              py: 1,
-              px: 2,
               ...(currentTab === index ? {} : {bgcolor: "grey.600"}),
             }}
             variant="contained"

@@ -109,10 +109,12 @@ const verdeNight = createTheme({
       },
       styleOverrides: {
         sizeSmall: {
-          padding: "6px 16px",
+          padding: "5px 16px",
         },
         sizeLarge: {
           fontSize: 16,
+          paddingTop: "6px",
+          paddingBottom: "6px",
         },
         root: {
           textTransform: "none",

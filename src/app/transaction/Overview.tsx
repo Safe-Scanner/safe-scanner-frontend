@@ -45,7 +45,14 @@ function Overview() {
       </SmartRow>
       <SmartRow
         label={{
-          icon: <Image src="images/circle-half-full.svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image
+              src="images/circle-half-full.svg"
+              alt=""
+              width={20}
+              height={20}
+            />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               Status
@@ -58,7 +65,14 @@ function Overview() {
       </SmartRow>
       <SmartRow
         label={{
-          icon: <Image src="images/account-arrow-right.svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image
+              src="images/account-arrow-right.svg"
+              alt=""
+              width={20}
+              height={20}
+            />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               Created Transaction
@@ -83,7 +97,14 @@ function Overview() {
       </SmartRow>
       <SmartRow
         label={{
-          icon: <Image src="images/account-arrow-down.svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image
+              src="images/account-arrow-down.svg"
+              alt=""
+              width={20}
+              height={20}
+            />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               To Safe address
@@ -108,7 +129,14 @@ function Overview() {
       </SmartRow>
       <SmartRow
         label={{
-          icon: <Image src="images/currency-eth.svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image
+              src="images/currency-eth.svg"
+              alt=""
+              width={20}
+              height={20}
+            />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               Value
@@ -141,7 +169,9 @@ function Overview() {
       </SmartRow>
       <SmartRow
         label={{
-          icon: <Image src="images/calendar.svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image src="images/calendar.svg" alt="" width={20} height={20} />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               Submission Date
@@ -153,7 +183,14 @@ function Overview() {
       </SmartRow>
       <SmartRow
         label={{
-          icon: <Image src="images/calendar (1).svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image
+              src="images/calendar (1).svg"
+              alt=""
+              width={20}
+              height={20}
+            />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               modified date
@@ -166,7 +203,9 @@ function Overview() {
       </SmartRow>
       <SmartRow
         label={{
-          icon: <Image src="images/code-array.svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image src="images/code-array.svg" alt="" width={20} height={20} />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               Data
