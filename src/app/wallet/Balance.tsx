@@ -14,36 +14,6 @@ function Balance() {
     <Stack spacing={3}>
       <div>
         <HashTab size="small" tabs={["Crypto (7)", "NFTs (15)"]}>
-          <Paper sx={{p: 3, mt: 2}} aria-label="Crypto">
-            <Grid container columnSpacing={4} rowSpacing={2.5}>
-              {[...Array(9)].map((_, index) => (
-                <Grid item key={index} xs={12} md={6} lg={4}>
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    <Stack flexGrow={1}>
-                      <Typography
-                        variant="subtitle2"
-                        color="text.disabled"
-                        fontWeight="medium"
-                      >
-                        NFT {index + 1}
-                      </Typography>
-                      <Typography color="text.secondary" fontWeight="medium">
-                        0x242a…6b96
-                      </Typography>
-                    </Stack>
-                    <Stack spacing={0.5} direction="row">
-                      <IconButton>
-                        <ContentCopyIcon color="primary" sx={{fontSize: 20}} />
-                      </IconButton>
-                      <IconButton href="/">
-                        <OpenInNewIcon color="primary" sx={{fontSize: 20}} />
-                      </IconButton>
-                    </Stack>
-                  </Stack>
-                </Grid>
-              ))}
-            </Grid>
-          </Paper>
           <Grid container sx={{marginTop: 2}} spacing={0.5} aria-label="NFT">
             {[...Array(12)].map((_, index) => (
               <Grid key={index} item xs={12} md={6} lg={4}>
@@ -80,6 +50,36 @@ function Balance() {
               </Grid>
             ))}
           </Grid>
+          <Paper sx={{p: 3, mt: 2}} aria-label="Crypto">
+            <Grid container columnSpacing={4} rowSpacing={2.5}>
+              {[...Array(9)].map((_, index) => (
+                <Grid item key={index} xs={12} md={6} lg={4}>
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <Stack flexGrow={1} spacing={0.5}>
+                      <Typography
+                        variant="subtitle2"
+                        color="text.disabled"
+                        fontWeight="medium"
+                      >
+                        NFT {index + 1}
+                      </Typography>
+                      <Typography color="text.secondary" fontWeight="medium">
+                        0x242a…6b96
+                      </Typography>
+                    </Stack>
+                    <Stack spacing={0.5} direction="row">
+                      <IconButton>
+                        <ContentCopyIcon color="primary" sx={{fontSize: 20}} />
+                      </IconButton>
+                      <IconButton href="/">
+                        <OpenInNewIcon color="primary" sx={{fontSize: 20}} />
+                      </IconButton>
+                    </Stack>
+                  </Stack>
+                </Grid>
+              ))}
+            </Grid>
+          </Paper>
         </HashTab>
       </div>
     </Stack>

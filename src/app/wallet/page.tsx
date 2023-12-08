@@ -11,6 +11,7 @@ import Overview from "./Overview";
 import HashTab from "@/components/global/HashTab";
 import Balance from "./Balance";
 import Transactions from "./transactions";
+import Owners from "./Owners";
 
 // This page will create more tabs whare I can show balance, transaxtion, owners
 
@@ -35,6 +36,7 @@ function WalletPage() {
               <Overview />
               <Balance />
               <Transactions />
+              <Owners />
             </HashTab>
           </Stack>
         </Container>
