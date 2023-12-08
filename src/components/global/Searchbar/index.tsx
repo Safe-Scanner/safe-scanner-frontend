@@ -8,17 +8,8 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import Chip from "@mui/material/Chip";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Image from "next/image";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import {IconButton} from "@mui/material";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import CloseIcon from "@mui/icons-material/Close";
 import DataGroup from "./DataGroup";
 import Popper from "@mui/material/Popper";
@@ -78,7 +69,13 @@ const searchData = [
   },
 ];
 
-function Searchbar() {
+interface SearchbarProps {
+  status?: boolean;
+}
+
+function Searchbar(props: SearchbarProps) {
+  const {status} = props;
+
   const [value, setValue] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -137,32 +134,43 @@ function Searchbar() {
           fullWidth
           placeholder="Search for addresses & hashes..."
         />
-        <Stack
-          direction={{xs: "column", md: "row"}}
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Stack direction="row" alignItems="center" spacing={0.5}>
-            <Typography color="text.disabled">Scanner Network Status</Typography>
-            <Chip
-              sx={{border: 0}}
-              icon={<img src="/images/checkbox-marked-circle-outline.svg" alt="" />}
-              variant="outlined"
-              label="Available"
-              color="primary"
-            />
+        {status && (
+          <Stack
+            direction={{xs: "column", md: "row"}}
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Stack direction="row" alignItems="center" spacing={0.5}>
+              <Typography color="text.disabled">
+                Scanner Network Status
+              </Typography>
+              <Chip
+                sx={{border: 0}}
+                icon={
+                  <img
+                    src="/images/checkbox-marked-circle-outline.svg"
+                    alt=""
+                  />
+                }
+                variant="outlined"
+                label="Available"
+                color="primary"
+              />
+            </Stack>
+            <Stack direction="row" alignItems="center" spacing={0.5}>
+              <Typography color="text.disabled">
+                Total Safe Transactions
+              </Typography>
+              <Chip
+                sx={{border: 0}}
+                icon={<img src="/images/safe-transactions.svg" alt="" />}
+                variant="outlined"
+                label="33 013 011"
+                color="primary"
+              />
+            </Stack>
           </Stack>
-          <Stack direction="row" alignItems="center" spacing={0.5}>
-            <Typography color="text.disabled">Total Safe Transactions</Typography>
-            <Chip
-              sx={{border: 0}}
-              icon={<img src="/images/safe-transactions.svg" alt="" />}
-              variant="outlined"
-              label="33 013 011"
-              color="primary"
-            />
-          </Stack>
-        </Stack>
+        )}
       </Stack>
 
       <Popper

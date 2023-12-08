@@ -11,12 +11,17 @@ function Introduction() {
     <Box marginTop={7} component="section" aria-label="Introduction">
       <Container>
         <Stack alignItems="center" marginBottom={4} textAlign="center">
-          <Box marginBottom={1} component="img" width={348} src="/images/logo.svg" />
+          <Box
+            marginBottom={1}
+            component="img"
+            width={348}
+            src="/images/logo.svg"
+          />
           <Typography color="text.disabled">
             Super User-friendly Transaction Explorer for the Safe Eco-system
           </Typography>
         </Stack>
-        <Searchbar />
+        <Searchbar status />
       </Container>
     </Box>
   );

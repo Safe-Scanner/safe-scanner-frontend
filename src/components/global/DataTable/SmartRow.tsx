@@ -27,7 +27,9 @@ function SmartRow(props: SmartRowProps) {
       sx={{
         borderTop: `2px solid`,
         borderBottom: isLastRow ? "2px solid" : "none",
-        borderColor: disabledBorder ? "transparent" : "rgba(255, 255, 255, 0.05)",
+        borderColor: disabledBorder
+          ? "transparent"
+          : "rgba(255, 255, 255, 0.05)",
         minHeight: 58,
       }}
       gap={3}
@@ -44,7 +46,9 @@ function SmartRow(props: SmartRowProps) {
             <Box sx={{display: {xs: "none", md: "block"}}}>{label.icon}</Box>
             <Box>{label.text}</Box>
             {label.info && (
-              <IconButton sx={{position: "absolute", right: -30, top: `-50%`, zIndex: 1}}>
+              <IconButton
+                sx={{position: "absolute", right: -30, top: `-50%`, zIndex: 1}}
+              >
                 <InfoOutlinedIcon color="info" sx={{fontSize: 16}} />
               </IconButton>
             )}

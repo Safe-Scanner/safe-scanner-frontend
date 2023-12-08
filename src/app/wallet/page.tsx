@@ -20,7 +20,7 @@ function WalletPage() {
     <div>
       <Box component="section">
         <Box marginBottom={6} marginTop={3}>
-          <Searchbar />
+          <Searchbar status />
         </Box>
       </Box>
       <Box component="section" marginBottom={8}>
