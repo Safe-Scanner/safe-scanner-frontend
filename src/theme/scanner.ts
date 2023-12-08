@@ -134,6 +134,13 @@ const verdeNight = createTheme({
         }),
       },
     },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: "#97999D",
+        },
+      },
+    },
     MuiIconButton: {
       styleOverrides: {
         sizeSmall: {

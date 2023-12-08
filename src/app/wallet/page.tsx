@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Overview from "./Overview";
 import HashTab from "@/components/global/HashTab";
 import Balance from "./Balance";
+import Transactions from "./transactions";
 
 // This page will create more tabs whare I can show balance, transaxtion, owners
 
@@ -33,6 +34,7 @@ function WalletPage() {
             <HashTab tabs={["Overview", "Balance", "Transactions", "Owners"]}>
               <Overview />
               <Balance />
+              <Transactions />
             </HashTab>
           </Stack>
         </Container>

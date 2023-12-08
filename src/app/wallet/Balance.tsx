@@ -14,7 +14,7 @@ function Balance() {
     <Stack spacing={3}>
       <div>
         <HashTab size="small" tabs={["Crypto (7)", "NFTs (15)"]}>
-          <Paper sx={{p: 3, mt: 2}}>
+          <Paper sx={{p: 3, mt: 2}} aria-label="Crypto">
             <Grid container columnSpacing={4} rowSpacing={2.5}>
               {[...Array(9)].map((_, index) => (
                 <Grid item key={index} xs={12} md={6} lg={4}>
@@ -44,7 +44,7 @@ function Balance() {
               ))}
             </Grid>
           </Paper>
-          <Grid container sx={{marginTop: 2}} spacing={0.5}>
+          <Grid container sx={{marginTop: 2}} spacing={0.5} aria-label="NFT">
             {[...Array(12)].map((_, index) => (
               <Grid key={index} item xs={12} md={6} lg={4}>
                 <Paper sx={{padding: 2}}>
