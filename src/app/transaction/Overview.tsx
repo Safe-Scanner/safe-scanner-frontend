@@ -39,7 +39,7 @@ function Overview() {
           </IconButton>
         }
       >
-        <Typography fontWeight="medium" noWrap>
+        <Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
           0xcbe165494374e8aadf6b3ce94d8c9db8311091674df25da1318d6811655f0200
         </Typography>
       </SmartRow>
@@ -92,7 +92,9 @@ function Overview() {
       >
         <Stack direction="row" alignItems="center" spacing={2}>
           <ArrowDownwardIcon sx={{fontSize: 20}} />
-          <Typography color="primary">eth:0x62ab...bc7d</Typography>
+          <Typography color="primary" fontFamily="'DM Mono'">
+            eth:0x62ab...bc7d
+          </Typography>
         </Stack>
       </SmartRow>
       <SmartRow
@@ -124,7 +126,9 @@ function Overview() {
       >
         <Stack direction="row" alignItems="center" spacing={2}>
           <SubdirectoryArrowRightRoundedIcon sx={{fontSize: 20}} />
-          <Typography color="primary">eth:0x62ab...bc7d</Typography>
+          <Typography color="primary" fontFamily="'DM Mono'">
+            eth:0x62ab...bc7d
+          </Typography>
         </Stack>
       </SmartRow>
       <SmartRow
@@ -219,7 +223,7 @@ function Overview() {
           </IconButton>
         }
       >
-        <Typography fontWeight="medium" noWrap>
+        <Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
           0xa9059cbb000000000000000000000000e95c4707ecf588dfd8ab3b253e00f45339ac305400000000000000000000000000000000000000000000000000000000000f42400xa9059cbb000000000000000000000000e95c4707ecf588dfd8ab3b253e00f45339ac305400000000000000000000000000000000000000000000000000000000000f4240
         </Typography>
       </SmartRow>

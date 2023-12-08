@@ -19,8 +19,6 @@ import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
-
 function Overview() {
   const walletSortingOptions = [
     "Show highest value",
@@ -29,8 +27,10 @@ function Overview() {
     "Show least recent",
     "Show all",
   ];
+
   const [walletSortedby, setWalletSortedby] = React.useState(0);
-  const [walletAnchorEl, setWalletAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [walletAnchorEl, setWalletAnchorEl] =
+    React.useState<null | HTMLElement>(null);
   const isOpenWallet = Boolean(walletAnchorEl);
 
   const walletSortingHandle = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -59,7 +59,9 @@ function Overview() {
 
       <SmartRow
         label={{
-          icon: <Image src="/images/Group 57.svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image src="/images/Group 57.svg" alt="" width={20} height={20} />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               safe Address
@@ -74,7 +76,7 @@ function Overview() {
       >
         <Stack spacing={2} alignItems="center" direction="row">
           <Image src="/images/Group 58.svg" alt="" width={20} height={20} />
-          <Typography fontWeight="medium" noWrap>
+          <Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
             eth:0x3a12868E33505424aCbdf53F11C8d447D59A8cfc
           </Typography>
         </Stack>
@@ -99,7 +101,11 @@ function Overview() {
           </>
         }
       >
-        <Typography color="primary" textTransform="capitalize">
+        <Typography
+          fontFamily="'DM Mono'"
+          color="primary"
+          textTransform="capitalize"
+        >
           0x62ab...bc7d
         </Typography>
       </SmartRow>
@@ -123,13 +129,19 @@ function Overview() {
           </>
         }
       >
-        <Typography color="primary" textTransform="capitalize">
+        <Typography
+          fontFamily="'DM Mono'"
+          color="primary"
+          textTransform="capitalize"
+        >
           0x00000000
         </Typography>
       </SmartRow>
       <SmartRow
         label={{
-          icon: <Image src="/images/file-code.svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image src="/images/file-code.svg" alt="" width={20} height={20} />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               master copy
@@ -147,13 +159,24 @@ function Overview() {
           </>
         }
       >
-        <Typography color="primary" textTransform="capitalize">
+        <Typography
+          fontFamily="'DM Mono'"
+          color="primary"
+          textTransform="capitalize"
+        >
           0x00000000
         </Typography>
       </SmartRow>
       <SmartRow
         label={{
-          icon: <Image src="images/shield-check.svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image
+              src="images/shield-check.svg"
+              alt=""
+              width={20}
+              height={20}
+            />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               Guardian
@@ -173,7 +196,9 @@ function Overview() {
       >
         <Stack direction="row" alignItems="center" spacing={2}>
           <Image src="/images/Group 58.svg" alt="" width={20} height={20} />
-          <Typography color="primary">eth:0x62ab...bc7d</Typography>
+          <Typography fontFamily="'DM Mono'" color="primary">
+            eth:0x62ab...bc7d
+          </Typography>
         </Stack>
       </SmartRow>
       <SmartRow
@@ -197,7 +222,14 @@ function Overview() {
 
       <SmartRow
         label={{
-          icon: <Image src="images/account-key 1.svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image
+              src="images/account-key 1.svg"
+              alt=""
+              width={20}
+              height={20}
+            />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               Total Owners
@@ -225,16 +257,28 @@ function Overview() {
         <Grid container>
           <Grid item xs={6}>
             <Stack direction="row" alignItems="center" spacing={2}>
-              <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
+              <Image
+                src="/images/account-key 1.svg"
+                alt=""
+                width={20}
+                height={20}
+              />
               <Typography textTransform="capitalize" color="text.secondary">
                 Owner 1
               </Typography>
             </Stack>
           </Grid>
           <Grid item xs={6}>
-            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+            <Stack
+              justifyContent="flex-end"
+              direction="row"
+              alignItems="center"
+              spacing={2}
+            >
               <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-              <Typography color="primary">eth:0x62ab...bc7d</Typography>
+              <Typography color="primary" fontFamily="'DM Mono'">
+                eth:0x62ab...bc7d
+              </Typography>
             </Stack>
           </Grid>
         </Grid>
@@ -254,16 +298,28 @@ function Overview() {
         <Grid container>
           <Grid item xs={6}>
             <Stack direction="row" alignItems="center" spacing={2}>
-              <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
+              <Image
+                src="/images/account-key 1.svg"
+                alt=""
+                width={20}
+                height={20}
+              />
               <Typography textTransform="capitalize" color="text.secondary">
                 Owner 2
               </Typography>
             </Stack>
           </Grid>
           <Grid item xs={6}>
-            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+            <Stack
+              justifyContent="flex-end"
+              direction="row"
+              alignItems="center"
+              spacing={2}
+            >
               <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-              <Typography color="primary">eth:0x62ab...bc7d</Typography>
+              <Typography color="primary" fontFamily="'DM Mono'">
+                eth:0x62ab...bc7d
+              </Typography>
             </Stack>
           </Grid>
         </Grid>
@@ -283,16 +339,28 @@ function Overview() {
         <Grid container>
           <Grid item xs={6}>
             <Stack direction="row" alignItems="center" spacing={2}>
-              <Image src="/images/account-key 1.svg" alt="" width={20} height={20} />
+              <Image
+                src="/images/account-key 1.svg"
+                alt=""
+                width={20}
+                height={20}
+              />
               <Typography textTransform="capitalize" color="text.secondary">
                 Owner 3
               </Typography>
             </Stack>
           </Grid>
           <Grid item xs={6}>
-            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+            <Stack
+              justifyContent="flex-end"
+              direction="row"
+              alignItems="center"
+              spacing={2}
+            >
               <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-              <Typography color="primary">eth:0x62ab...bc7d</Typography>
+              <Typography color="primary" fontFamily="'DM Mono'">
+                eth:0x62ab...bc7d
+              </Typography>
             </Stack>
           </Grid>
         </Grid>
@@ -309,13 +377,15 @@ function Overview() {
           info: "null",
         }}
       >
-        <Typography fontWeight="medium" noWrap>
+        <Typography fontFamily="'DM Mono'" fontWeight="medium" noWrap>
           1
         </Typography>
       </SmartRow>
       <SmartRow
         label={{
-          icon: <Image src="images/code-array.svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image src="images/code-array.svg" alt="" width={20} height={20} />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               Version
@@ -324,13 +394,15 @@ function Overview() {
           info: "null",
         }}
       >
-        <Typography fontWeight="medium" noWrap>
+        <Typography fontFamily="'DM Mono'" fontWeight="medium" noWrap>
           1.3.0 + L2
         </Typography>
       </SmartRow>
       <SmartRow
         label={{
-          icon: <Image src="images/hand-coin.svg" alt="" width={20} height={20} />,
+          icon: (
+            <Image src="images/hand-coin.svg" alt="" width={20} height={20} />
+          ),
           text: (
             <Typography color="text.secondary" textTransform="capitalize">
               Wallet Value
@@ -392,7 +464,7 @@ function Overview() {
           </Box>
         }
       >
-        <Typography fontWeight="medium" noWrap>
+        <Typography fontFamily="'DM Mono'" fontWeight="medium" noWrap>
           3 500 000 (75 tokens)
         </Typography>
       </SmartRow>
@@ -433,9 +505,16 @@ function Overview() {
             </Stack>
           </Grid>
           <Grid item xs={6}>
-            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+            <Stack
+              justifyContent="flex-end"
+              direction="row"
+              alignItems="center"
+              spacing={2}
+            >
               <Image src="/images/Group 59.svg" alt="" width={20} height={20} />
-              <Typography>67.332 / $2,450,000.00</Typography>
+              <Typography fontFamily="'DM Mono'">
+                67.332 / $2,450,000.00
+              </Typography>
             </Stack>
           </Grid>
         </Grid>
@@ -476,9 +555,16 @@ function Overview() {
             </Stack>
           </Grid>
           <Grid item xs={6}>
-            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+            <Stack
+              justifyContent="flex-end"
+              direction="row"
+              alignItems="center"
+              spacing={2}
+            >
               <Image src="/images/Group 60.svg" alt="" width={20} height={20} />
-              <Typography>67.332 / $2,450,000.00</Typography>
+              <Typography fontFamily="'DM Mono'">
+                67.332 / $2,450,000.00
+              </Typography>
             </Stack>
           </Grid>
         </Grid>
@@ -520,9 +606,16 @@ function Overview() {
             </Stack>
           </Grid>
           <Grid item xs={6}>
-            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+            <Stack
+              justifyContent="flex-end"
+              direction="row"
+              alignItems="center"
+              spacing={2}
+            >
               <Image src="/images/Group 61.svg" alt="" width={20} height={20} />
-              <Typography>67.332 / $2,450,000.00</Typography>
+              <Typography fontFamily="'DM Mono'">
+                67.332 / $2,450,000.00
+              </Typography>
             </Stack>
           </Grid>
         </Grid>

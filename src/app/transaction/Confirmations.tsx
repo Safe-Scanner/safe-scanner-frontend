@@ -48,7 +48,7 @@ function Confirmations() {
           info: "null",
         }}
       >
-        <Typography fontWeight="medium" noWrap>
+        <Typography fontFamily="'DM Mono'" fontWeight="medium" noWrap>
           2/3 signatures left
         </Typography>
       </SmartRow>
@@ -91,7 +91,9 @@ function Confirmations() {
               spacing={2}
             >
               <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-              <Typography color="primary">eth:0x62ab...bc7d</Typography>
+              <Typography color="primary" fontFamily="'DM Mono'">
+                eth:0x62ab...bc7d
+              </Typography>
             </Stack>
           </Grid>
         </Grid>
@@ -135,7 +137,9 @@ function Confirmations() {
               spacing={2}
             >
               <Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-              <Typography color="primary">eth:0x62ab...bc7d</Typography>
+              <Typography color="primary" fontFamily="'DM Mono'">
+                eth:0x62ab...bc7d
+              </Typography>
             </Stack>
           </Grid>
         </Grid>
@@ -165,7 +169,7 @@ function Confirmations() {
           </IconButton>
         }
       >
-        <Typography fontWeight="medium" noWrap>
+        <Typography fontFamily="'DM Mono'" fontWeight="medium" noWrap>
           1/3 successful signature
         </Typography>
       </SmartRow>
@@ -198,7 +202,9 @@ function Confirmations() {
                   width={20}
                   height={20}
                 />
-                <Typography color="primary">eth:0x62ab...bc7d</Typography>
+                <Typography color="primary" fontFamily="'DM Mono'">
+                  eth:0x62ab...bc7d
+                </Typography>
               </Stack>
             </Grid>
           </Grid>
@@ -215,7 +221,9 @@ function Confirmations() {
                 width={32}
                 height={32}
               />
-              <Typography>1 hr ago (Oct-21-2023 04:55:23 PM +UTC)</Typography>
+              <Typography fontFamily="'DM Mono'">
+                1 hr ago (Oct-21-2023 04:55:23 PM +UTC)
+              </Typography>
             </Stack>
           </Stack>
         </SmartRow>
@@ -245,7 +253,7 @@ function Confirmations() {
           </IconButton>
         }
       >
-        <Typography fontWeight="medium" noWrap>
+        <Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
           1 failed signing
         </Typography>
       </SmartRow>
@@ -278,7 +286,9 @@ function Confirmations() {
                   width={20}
                   height={20}
                 />
-                <Typography color="primary">eth:0x62ab...bc7d</Typography>
+                <Typography color="primary" fontFamily="'DM Mono'">
+                  eth:0x62ab...bc7d
+                </Typography>
               </Stack>
             </Grid>
           </Grid>
@@ -295,7 +305,9 @@ function Confirmations() {
                 width={32}
                 height={32}
               />
-              <Typography>1 hr ago (Oct-21-2023 04:55:23 PM +UTC)</Typography>
+              <Typography fontFamily="'DM Mono'">
+                1 hr ago (Oct-21-2023 04:55:23 PM +UTC)
+              </Typography>
             </Stack>
           </Stack>
         </SmartRow>
