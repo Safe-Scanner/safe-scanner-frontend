@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import SwipeableViews from "react-swipeable-views";
 import {useTheme} from "@mui/material/styles";
 import {usePathname} from "next/navigation";
+import ScrollContainer from "react-indiana-drag-scroll";
 
 interface HashTabProps {
   children?: React.ReactNode;
@@ -39,22 +40,24 @@ function HashTab(prop: HashTabProps) {
 
   return (
     <React.Fragment>
-      <Stack direction="row" spacing={1}>
-        {tabs.map((tab, index) => (
-          <Button
-            key={index}
-            size={size || "large"}
-            sx={{
-              ...(currentTab === index ? {} : {bgcolor: "grey.600"}),
-            }}
-            variant="contained"
-            onClick={() => handleTabChange(index)}
-            href={`${pathname}#${tab.toLowerCase()}`}
-          >
-            {tab}
-          </Button>
-        ))}
-      </Stack>
+      <ScrollContainer>
+        <Stack direction="row" spacing={1} sx={{minWidth: 900}}>
+          {tabs.map((tab, index) => (
+            <Button
+              key={index}
+              size={size || "large"}
+              sx={{
+                ...(currentTab === index ? {} : {bgcolor: "grey.600"}),
+              }}
+              variant="contained"
+              onClick={() => handleTabChange(index)}
+              href={`${pathname}#${tab.toLowerCase()}`}
+            >
+              {tab}
+            </Button>
+          ))}
+        </Stack>
+      </ScrollContainer>
 
       <SwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
