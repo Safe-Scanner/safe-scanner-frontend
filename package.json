@@ -14,12 +14,17 @@
     "@mui/icons-material": "^5.14.19",
     "@mui/lab": "^5.0.0-alpha.154",
     "@mui/material": "^5.14.19",
+    "@reduxjs/toolkit": "^2.0.1",
+    "axios": "^1.6.2",
+    "deps": "^1.0.0",
     "i": "^0.3.7",
     "next": "14.0.3",
     "npm": "^10.2.4",
     "react": "^18",
     "react-dom": "^18",
     "react-indiana-drag-scroll": "^2.2.0",
+    "react-redux": "^9.0.4",
+    "react-router-dom": "^6.21.1",
     "react-swipeable-views": "^0.14.0"
   },
   "devDependencies": {
