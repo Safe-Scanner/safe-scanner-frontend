@@ -23,31 +23,36 @@ import { storetransaction } from "../../store/feature/transactionSlice";
 
 function WalletPage() {
 	const dispatch = useDispatch();
-	const [balance, setBalance] = useState();
-	const [transcation, setTransaction] = useState();
-	const [balances, setBalances] = useState();
+	const [balance, setBalance] = useState(undefined);
+	const [transcation, setTransaction] = useState(undefined);
+	const [balances, setBalances] = useState(undefined);
 	const searchParams = useSearchParams();
 	const safe: any = searchParams.get("safe");
 	const network: any = searchParams.get("network");
 
+	const redux = useSelector((state: any) => state);
+	console.log(redux);
 	useEffect(() => {
-		if (!balance) {
-			balanceApi(safe, network, setBalance, dispatch);
+		if (balance === null || balance === undefined) {
+			if ((redux.balance = {})) {
+				balanceApi(safe, network, setBalance);
+			}
 		}
-		if (!transcation) {
-			transactionApi(safe, setTransaction, dispatch);
+		if (transcation === null || transcation === undefined) {
+			if ((redux.transaction = {})) {
+				transactionApi(safe, setTransaction);
+			}
 		}
-		if (!balances) {
-			balancesApi(safe, network, setBalances, dispatch);
+		if (balances === null || balances === undefined) {
+			if ((redux.balances = {})) {
+				balancesApi(safe, network, setBalances);
+			}
 		}
 	}, []);
 
 	dispatch(storebalance(balance));
 	dispatch(storetransaction(transcation));
 	dispatch(storebalances(balances));
-
-	const random = useSelector((state: any) => state);
-	console.log(random);
 
 	return (
 		<div>

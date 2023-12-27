@@ -171,7 +171,7 @@ function Overview({ balance }: any) {
 					color="primary"
 					textTransform="capitalize"
 				>
-					{data.masterCopy}
+					{data?.masterCopy}
 				</Typography>
 			</SmartRow>
 			<SmartRow
