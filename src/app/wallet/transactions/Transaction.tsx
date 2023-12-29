@@ -27,8 +27,8 @@ const variantIcon = {
 };
 
 function Transaction(props: TransactionProps) {
-	const data = useSelector((state: any) => state.transaction);
-	console.log("transactions are", data);
+	// const data = useSelector((state: any) => state.transaction);
+	// console.log("transactions are", data);
 	const { icon, variant, value, statusValue, statusSubValue, date, message } =
 		props;
 

@@ -73,7 +73,7 @@ function WalletPage() {
 							<Overview balance={balance} />
 							<Balance balances={balances} />
 							<Transactions />
-							<Owners />
+							<Owners balance={balance}/>
 						</HashTab>
 					</Stack>
 				</Container>

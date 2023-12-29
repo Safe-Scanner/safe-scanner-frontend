@@ -35,7 +35,7 @@ function Balance(props: any) {
 								{balanceData.map((el: any, index: any) => {
 									console.log("entered balances");
 									return (
-										<Grid key={index} item xs={12} md={6} lg={4}>
+										<Grid key={index} item xs={12} md={12} lg={12}>
 											<Paper sx={{ padding: 2 }}>
 												<Stack spacing={2}>
 													<Stack direction="row" spacing={2}>
@@ -81,7 +81,7 @@ function Balance(props: any) {
 							<Paper sx={{ p: 3, mt: 2 }} aria-label="NFT">
 								<Grid container columnSpacing={4} rowSpacing={2.5}>
 									{[...Array(9)].map((_, index) => (
-										<Grid item key={index} xs={12} md={6} lg={4}>
+										<Grid item key={index} xs={12} md={12} lg={12}>
 											<Stack direction="row" spacing={1} alignItems="center">
 												<Stack flexGrow={1} spacing={0.5}>
 													<Typography
