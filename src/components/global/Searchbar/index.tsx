@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -14,60 +14,62 @@ import CloseIcon from "@mui/icons-material/Close";
 import DataGroup from "./DataGroup";
 import Popper from "@mui/material/Popper";
 import Fade from "@mui/material/Fade";
+import { searchBar } from "@/apis/homepage";
+import { NETWORK_LIST } from "@/constants/constants";
 
-const searchData = [
-	{
-		id: 1,
-		name: "Ethereum",
-		icon: "/images/Group 614.svg",
-		values: [
-			{
-				avatar: "/images/image 89.svg",
-				name: "WalletName",
-				value: "matic:0x27ce...857e",
-			},
-			{
-				avatar: "/images/image 89.svg",
-				name: "WalletName",
-				value: "matic:0x27ce...857e",
-			},
-		],
-	},
-	{
-		id: 2,
-		name: "Polygon",
-		icon: "/images/Group 63.svg",
-		values: [
-			{
-				avatar: "/images/image 89.svg",
-				name: "WalletName",
-				value: "matic:0x27ce...857e",
-			},
-			{
-				avatar: "/images/image 89.svg",
-				name: "WalletName",
-				value: "matic:0x27ce...857e",
-			},
-		],
-	},
-	{
-		id: 3,
-		name: "Arbitrum",
-		icon: "/images/Group.svg",
-		values: [
-			{
-				avatar: "/images/image 89.svg",
-				name: "WalletName",
-				value: "matic:0x27ce...857e",
-			},
-			{
-				avatar: "/images/image 89.svg",
-				name: "WalletName",
-				value: "matic:0x27ce...857e",
-			},
-		],
-	},
-];
+// const searchData = [
+// 	{
+// 		id: 1,
+// 		name: "Ethereum",
+// 		icon: "/images/Group 614.svg",
+// 		values: [
+// 			{
+// 				avatar: "/images/image 89.svg",
+// 				name: "WalletName",
+// 				value: "matic:0x27ce...857e",
+// 			},
+// 			{
+// 				avatar: "/images/image 89.svg",
+// 				name: "WalletName",
+// 				value: "matic:0x27ce...857e",
+// 			},
+// 		],
+// 	},
+// 	{
+// 		id: 2,
+// 		name: "Polygon",
+// 		icon: "/images/Group 63.svg",
+// 		values: [
+// 			{
+// 				avatar: "/images/image 89.svg",
+// 				name: "WalletName",
+// 				value: "matic:0x27ce...857e",
+// 			},
+// 			{
+// 				avatar: "/images/image 89.svg",
+// 				name: "WalletName",
+// 				value: "matic:0x27ce...857e",
+// 			},
+// 		],
+// 	},
+// 	{
+// 		id: 3,
+// 		name: "Arbitrum",
+// 		icon: "/images/Group.svg",
+// 		values: [
+// 			{
+// 				avatar: "/images/image 89.svg",
+// 				name: "WalletName",
+// 				value: "matic:0x27ce...857e",
+// 			},
+// 			{
+// 				avatar: "/images/image 89.svg",
+// 				name: "WalletName",
+// 				value: "matic:0x27ce...857e",
+// 			},
+// 		],
+// 	},
+// ];
 
 // interface SearchbarProps {
 // 	status?: boolean;
@@ -76,7 +78,10 @@ const searchData = [
 // function Searchbar(props: SearchbarProps) {
 function Searchbar(props: any) {
 	// function Searchbar(setSearchString: any) {
-	const { status, setSearchString } = props;
+	const { status } = props;
+	const [search, setSearch] = useState("");
+	const [searchData, setSearchData] = useState([] as any);
+	const [rawSearchData, setRawSearchData] = useState({} as any);
 
 	const [value, setValue] = React.useState("");
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -98,6 +103,45 @@ function Searchbar(props: any) {
 
 	const open = Boolean(anchorEl) && value !== "";
 
+	useEffect(() => {
+		setTimeout(() => {
+			searchBar(value, setRawSearchData);
+		}, 2000);
+	}, [value]);
+
+	useEffect(() => {
+		if (
+			Object.keys(rawSearchData).length > 0 &&
+			Object.keys(rawSearchData)[0] != "statusCode"
+		) {
+			setSearchData([]);
+			const keys = Object.keys(rawSearchData);
+			keys.forEach((el: string, index: any) => {
+				let arr = [] as any;
+				let name = el;
+				let id = index;
+				let iconObject = NETWORK_LIST.find(
+					(icon: any) => icon.name.toLowerCase() === name
+				);
+				let icon = iconObject?.iconPath;
+				rawSearchData[el].forEach((item: any) => {
+					arr.push(item);
+					arr.forEach((e: any) => {
+						setSearchData((prev: any[]) => [
+							...prev,
+							{
+								id: id,
+								name: name,
+								icon: icon,
+								values: [{ avatar: icon, name: name, value: `matic:${e}` }],
+							},
+						]);
+					});
+				});
+			});
+		}
+	}, [rawSearchData]);
+
 	return (
 		<Box maxWidth={950} marginX="auto" sx={{ position: "relative", zIndex: 1 }}>
 			{/* <Box sx={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0}} /> */}
@@ -106,7 +150,8 @@ function Searchbar(props: any) {
 					value={value}
 					onChange={(e) => {
 						setValue(e.target.value);
-						setSearchString(e.target.value);
+						// setSearchString(e.target.value);
+						// setSearch(e.target.value);
 					}}
 					onClick={handleClick}
 					sx={{
@@ -188,7 +233,7 @@ function Searchbar(props: any) {
 					<Fade {...TransitionProps} timeout={350}>
 						<Box sx={{ p: 2 }}>
 							<List component="div" disablePadding>
-								{searchData.map(({ icon, id, name, values }) => (
+								{searchData.map(({ icon, id, name, values }: any) => (
 									<DataGroup icon={icon} name={name} values={values} key={id} />
 								))}
 							</List>

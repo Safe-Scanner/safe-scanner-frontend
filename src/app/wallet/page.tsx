@@ -31,7 +31,6 @@ function WalletPage() {
 	const network: any = searchParams.get("network");
 
 	const redux = useSelector((state: any) => state);
-	console.log(redux);
 	useEffect(() => {
 		if (balance === null || balance === undefined) {
 			if ((redux.balance = {})) {
@@ -72,7 +71,7 @@ function WalletPage() {
 						</Stack>
 						<HashTab tabs={["Overview", "Balance", "Transactions", "Owners"]}>
 							<Overview balance={balance} />
-							<Balance />
+							<Balance balances={balances} />
 							<Transactions />
 							<Owners />
 						</HashTab>

@@ -9,16 +9,16 @@ import Searchbar from "@/components/global/Searchbar";
 import { searchBar } from "@/apis/homepage";
 
 function Introduction() {
-	const [searchString, setSearchString] = useState("");
-	const [data, setData] = useState();
-	useEffect(() => {
-		setTimeout(() => {
-			searchBar(searchString, setData);
-		}, 4000);
-	}, [searchString]);
+	// const [searchString, setSearchString] = useState("");
+	// const [data, setData] = useState();
+	// useEffect(() => {
+	// 	setTimeout(() => {
+	// 		searchBar(searchString, setData);
+	// 	}, 2000);
+	// }, [searchString]);
 
-	console.log("search string is ", searchString);
-	console.log("Data is ", data);
+	// console.log("search string is ", searchString);
+	// console.log("Data is ", data);
 	return (
 		<Box marginTop={7} component="section" aria-label="Introduction">
 			<Container>
@@ -33,7 +33,7 @@ function Introduction() {
 						Super User-friendly Transaction Explorer for the Safe Eco-system
 					</Typography>
 				</Stack>
-				<Searchbar status setSearchString={setSearchString} />
+				<Searchbar status />
 				{/* <Searchbar setSearchString={setSearchString} /> */}
 			</Container>
 		</Box>

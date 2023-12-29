@@ -6,7 +6,8 @@ const searchBar = async (searchString: any, func: any) => {
 			`https://oyzii5yqy5.execute-api.us-east-2.amazonaws.com/dev/v1/search?query=${searchString}`
 		)
 		.then((response: any) => {
-			func(response.data);
+			const { data } = response;
+			func(data);
 		})
 		.catch((error) => console.warn(error));
 };
