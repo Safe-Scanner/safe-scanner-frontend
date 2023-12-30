@@ -26,6 +26,7 @@ function Overview({ balance }: any) {
 		const keys = Object.keys(balance);
 		data = balance[keys[0]];
 	}
+
 	const walletSortingOptions = [
 		"Show highest value",
 		"Show lowest value",
@@ -406,7 +407,7 @@ function Overview({ balance }: any) {
 				}}
 			>
 				<Typography fontFamily="'DM Mono'" fontWeight="medium" noWrap>
-					{data?.version} + L2
+					{data?.version}
 				</Typography>
 			</SmartRow>
 			<SmartRow

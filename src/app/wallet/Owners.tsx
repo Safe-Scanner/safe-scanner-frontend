@@ -14,9 +14,6 @@ import { useSelector } from "react-redux";
 
 function Owners(params: any) {
 	const { balance } = params;
-	// const balance = useSelector((state:any) => {
-	//   state.balance
-	// })
 
 	const [owners, setOwners] = useState([] as any[]);
 

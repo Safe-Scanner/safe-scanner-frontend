@@ -17,6 +17,12 @@ export const NETWORK_LIST = [
 		iconPath: "/images/ethereum-logo-rainbow.svg",
 		iconPathInverted: "/images/ethereum-logo-rainbow.svg",
 	},
+    {
+		name: "Ethereum Mainnet",
+		key: "ethereum mainnet",
+		iconPath: "/images/ethereum-logo-rainbow.svg",
+		iconPathInverted: "/images/ethereum-logo-rainbow.svg",
+	},
 	{
 		name: "Fuse",
 		key: "fuse",

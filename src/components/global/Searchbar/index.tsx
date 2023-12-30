@@ -121,7 +121,7 @@ function Searchbar(props: any) {
 				let name = el;
 				let id = index;
 				let iconObject = NETWORK_LIST.find(
-					(icon: any) => icon.name.toLowerCase() === name
+					(icon: any) => icon.name.toLowerCase() === name.toLowerCase()
 				);
 				let icon = iconObject?.iconPath;
 				rawSearchData[el].forEach((item: any) => {
