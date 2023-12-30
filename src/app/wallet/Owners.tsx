@@ -34,7 +34,7 @@ function Owners(params: any) {
 					</Typography>
 				</Stack>
 				<Chip
-					label={`${owners.length} Owners`} 
+					label={`${owners?.length} Owners`} 
 					color="black"
 					sx={{ color: "primary.light", borderRadius: 1, height: 24 }}
 				/>

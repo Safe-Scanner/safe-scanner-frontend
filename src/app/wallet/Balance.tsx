@@ -12,11 +12,18 @@ import { useSelector } from "react-redux";
 
 function Balance(props: any) {
 	const [balanceData, setBalanceData] = useState([] as any);
+	const [nft, setNft] = useState([] as any);
 	const { balances } = props;
 
 	useEffect(() => {
 		if (balances != undefined) {
-			setBalanceData(balances);
+			balances.forEach((el: any) => {
+				if (el.type === "nft") {
+					setNft((prev: any) => [...prev, el]);
+				} else {
+					setBalanceData((prev: any) => [...prev, el]);
+				}
+			});
 		}
 	}, [balances]);
 
@@ -33,7 +40,7 @@ function Balance(props: any) {
 								aria-label="Crypto"
 							>
 								{balanceData.map((el: any, index: any) => {
-									console.log("entered balances");
+									// console.log("entered balances");
 									return (
 										<Grid key={index} item xs={12} md={12} lg={12}>
 											<Paper sx={{ padding: 2 }}>
@@ -67,8 +74,7 @@ function Balance(props: any) {
 																variant="subtitle2"
 																fontWeight="medium"
 															>
-																{/* $4,163.44 */}
-																${el.quote}
+																{/* $4,163.44 */}${el.quote}
 															</Typography>
 														</Stack>
 													</Stack>
@@ -80,41 +86,42 @@ function Balance(props: any) {
 							</Grid>
 							<Paper sx={{ p: 3, mt: 2 }} aria-label="NFT">
 								<Grid container columnSpacing={4} rowSpacing={2.5}>
-									{[...Array(9)].map((_, index) => (
-										<Grid item key={index} xs={12} md={12} lg={12}>
-											<Stack direction="row" spacing={1} alignItems="center">
-												<Stack flexGrow={1} spacing={0.5}>
-													<Typography
-														variant="subtitle2"
-														color="text.disabled"
-														fontWeight="medium"
-													>
-														NFT {index + 1}
-													</Typography>
-													<Typography
-														color="text.secondary"
-														fontWeight="medium"
-													>
-														0x242a…6b96
-													</Typography>
+									{nft.length > 0 &&
+										nft.map((el: any, index: any) => (
+											<Grid item key={index} xs={12} md={12} lg={12}>
+												<Stack direction="row" spacing={1} alignItems="center">
+													<Stack flexGrow={1} spacing={0.5}>
+														<Typography
+															variant="subtitle2"
+															color="text.disabled"
+															fontWeight="medium"
+														>
+															NFT {index + 1}
+														</Typography>
+														<Typography
+															color="text.secondary"
+															fontWeight="medium"
+														>
+															{el.contract_address}
+														</Typography>
+													</Stack>
+													<Stack spacing={0.5} direction="row">
+														<IconButton>
+															<ContentCopyIcon
+																color="primary"
+																sx={{ fontSize: 20 }}
+															/>
+														</IconButton>
+														<IconButton href="/">
+															<OpenInNewIcon
+																color="primary"
+																sx={{ fontSize: 20 }}
+															/>
+														</IconButton>
+													</Stack>
 												</Stack>
-												<Stack spacing={0.5} direction="row">
-													<IconButton>
-														<ContentCopyIcon
-															color="primary"
-															sx={{ fontSize: 20 }}
-														/>
-													</IconButton>
-													<IconButton href="/">
-														<OpenInNewIcon
-															color="primary"
-															sx={{ fontSize: 20 }}
-														/>
-													</IconButton>
-												</Stack>
-											</Stack>
-										</Grid>
-									))}
+											</Grid>
+										))}
 								</Grid>
 							</Paper>
 						</HashTab>

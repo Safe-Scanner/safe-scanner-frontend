@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
@@ -21,11 +21,18 @@ import MenuItem from "@mui/material/MenuItem";
 
 function Overview({ balance }: any) {
 	let data: any = {};
+	// const [owner, setOwner] = useState([] as any[]);
+	const [owners, setOwners] = useState([] as any[]);
 
-	if (balance) {
+	if (balance != undefined) {
 		const keys = Object.keys(balance);
 		data = balance[keys[0]];
+		// setOwner(balance[keys[0]].owners);
 	}
+
+	useEffect(() => {
+		setOwners(data.owners);
+	}, [data]);
 
 	const walletSortingOptions = [
 		"Show highest value",
@@ -253,49 +260,63 @@ function Overview({ balance }: any) {
 					for confirming transactions)
 				</Typography>
 			</SmartRow>
-			<SmartRow
-				action={
-					<>
-						<IconButton>
-							<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
-						</IconButton>
-						<IconButton href="/">
-							<OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
-						</IconButton>
-					</>
-				}
-			>
-				<Grid container>
-					<Grid item xs={6}>
-						<Stack direction="row" alignItems="center" spacing={2}>
-							<Image
-								src="/images/account-key 1.svg"
-								alt=""
-								width={20}
-								height={20}
-							/>
-							<Typography textTransform="capitalize" color="text.secondary">
-								Owner 1
-							</Typography>
-						</Stack>
-					</Grid>
-					<Grid item xs={6}>
-						<Stack
-							justifyContent="flex-end"
-							direction="row"
-							alignItems="center"
-							spacing={2}
+
+			{owners?.length > 0 &&
+				owners.map((el: any, index: any) => {
+					return (
+						<SmartRow
+							action={
+								<>
+									<IconButton>
+										<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
+									</IconButton>
+									<IconButton href="/">
+										<OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
+									</IconButton>
+								</>
+							}
+							key={index}
 						>
-							<Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-							<Typography color="primary" fontFamily="'DM Mono'">
-								eth:
-								{/* {data != undefined ? `eth: ${data?.owner[0]}` : "eth : "} */}
-							</Typography>
-						</Stack>
-					</Grid>
-				</Grid>
-			</SmartRow>
-			<SmartRow
+							<Grid container>
+								<Grid item xs={6}>
+									<Stack direction="row" alignItems="center" spacing={2}>
+										<Image
+											src="/images/account-key 1.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+										<Typography
+											textTransform="capitalize"
+											color="text.secondary"
+										>
+											Owner {index+1}
+										</Typography>
+									</Stack>
+								</Grid>
+								<Grid item xs={6}>
+									<Stack
+										justifyContent="flex-end"
+										direction="row"
+										alignItems="center"
+										spacing={2}
+									>
+										<Image
+											src="/images/Group 56.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+										<Typography color="primary" fontFamily="'DM Mono'">
+											eth: {el}
+										</Typography>
+									</Stack>
+								</Grid>
+							</Grid>
+						</SmartRow>
+					);
+				})}
+			{/* <SmartRow
 				action={
 					<>
 						<IconButton>
@@ -376,7 +397,7 @@ function Overview({ balance }: any) {
 						</Stack>
 					</Grid>
 				</Grid>
-			</SmartRow>
+			</SmartRow> */}
 
 			<SmartRow
 				label={{
