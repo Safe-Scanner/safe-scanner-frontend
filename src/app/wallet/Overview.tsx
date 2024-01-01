@@ -18,6 +18,8 @@ import HistoryIcon from "@mui/icons-material/History";
 import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { shortenString } from "@/components/utils/utils";
+import CopyButton from "@/components/global/CopyButton";
 
 function Overview({ balance }: any) {
 	let data: any = {};
@@ -83,9 +85,10 @@ function Overview({ balance }: any) {
 					),
 				}}
 				action={
-					<IconButton>
-						<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
-					</IconButton>
+					// <IconButton>
+					// 	<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
+					// </IconButton>
+					<CopyButton text={data?.address} />
 				}
 			>
 				<Stack spacing={2} alignItems="center" direction="row">
@@ -135,9 +138,10 @@ function Overview({ balance }: any) {
 				}}
 				action={
 					<>
-						<IconButton>
+						{/* <IconButton>
 							<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
-						</IconButton>
+						</IconButton> */}
+						<CopyButton text={data?.fallbackHandler} />
 						<IconButton href="/">
 							<OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
 						</IconButton>
@@ -165,9 +169,10 @@ function Overview({ balance }: any) {
 				}}
 				action={
 					<>
-						<IconButton>
+						{/* <IconButton>
 							<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
-						</IconButton>
+						</IconButton> */}
+						<CopyButton text={data?.masterCopy} />
 						<IconButton href="/">
 							<OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
 						</IconButton>
@@ -200,9 +205,10 @@ function Overview({ balance }: any) {
 				}}
 				action={
 					<>
-						<IconButton>
+						{/* <IconButton>
 							<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
-						</IconButton>
+						</IconButton> */}
+						<CopyButton text={data?.guard} />
 						<IconButton href="/">
 							<OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
 						</IconButton>
@@ -267,9 +273,10 @@ function Overview({ balance }: any) {
 						<SmartRow
 							action={
 								<>
-									<IconButton>
+									{/* <IconButton>
 										<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
-									</IconButton>
+									</IconButton> */}
+									<CopyButton text={el} />
 									<IconButton href="/">
 										<OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
 									</IconButton>
@@ -290,7 +297,7 @@ function Overview({ balance }: any) {
 											textTransform="capitalize"
 											color="text.secondary"
 										>
-											Owner {index+1}
+											Owner {index + 1}
 										</Typography>
 									</Stack>
 								</Grid>
@@ -308,7 +315,7 @@ function Overview({ balance }: any) {
 											height={20}
 										/>
 										<Typography color="primary" fontFamily="'DM Mono'">
-											eth: {el}
+											eth: {shortenString(el)}
 										</Typography>
 									</Stack>
 								</Grid>

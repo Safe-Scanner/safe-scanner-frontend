@@ -33,7 +33,7 @@ function Transactions() {
 		<Grid container sx={{ marginTop: 2 }} spacing={0.5}>
 			{transactions.length > 0 &&
 				transactions.map((el: any, index: any) => (
-					<Grid key={index} item xs={12} md={6} lg={4}>
+					<Grid key={index} item xs={12} md={12} lg={12}>
 						<Transaction
 							value="0x242a…6b96"
 							message="Not supported"

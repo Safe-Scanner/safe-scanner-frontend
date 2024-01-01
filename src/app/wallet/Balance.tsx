@@ -16,8 +16,10 @@ function Balance(props: any) {
 	const { balances } = props;
 
 	useEffect(() => {
-		if (balances != undefined) {
-			balances.forEach((el: any) => {
+    setBalanceData([]);
+    setNft([]);
+		if (balances != undefined && balances) {
+			balances?.forEach((el: any) => {
 				if (el.type === "nft") {
 					setNft((prev: any) => [...prev, el]);
 				} else {
@@ -32,7 +34,10 @@ function Balance(props: any) {
 			{balanceData.length > 0 ? (
 				<Stack spacing={3}>
 					<div>
-						<HashTab size="small" tabs={["Crypto (7)", "NFTs (15)"]}>
+						<HashTab
+							size="small"
+							tabs={[`Crypto (${balanceData.length})`, `NFTs (${nft.length})`]}
+						>
 							<Grid
 								container
 								sx={{ marginTop: 2 }}
@@ -88,39 +93,78 @@ function Balance(props: any) {
 								<Grid container columnSpacing={4} rowSpacing={2.5}>
 									{nft.length > 0 &&
 										nft.map((el: any, index: any) => (
-											<Grid item key={index} xs={12} md={12} lg={12}>
-												<Stack direction="row" spacing={1} alignItems="center">
-													<Stack flexGrow={1} spacing={0.5}>
-														<Typography
-															variant="subtitle2"
-															color="text.disabled"
-															fontWeight="medium"
-														>
-															NFT {index + 1}
-														</Typography>
-														<Typography
-															color="text.secondary"
-															fontWeight="medium"
-														>
-															{el.contract_address}
-														</Typography>
+											<Grid key={index} item xs={12} md={12} lg={12}>
+												<Paper sx={{ padding: 2 }}>
+													<Stack spacing={2}>
+														<Stack direction="row" spacing={2}>
+															<Stack
+																direction="row"
+																spacing={2}
+																flexGrow={1}
+																alignItems="center"
+															>
+																<img
+																	// src="/images/ethereum.svg"
+																	src={`${el.logo_url}`}
+																	alt=""
+																	width={40}
+																	height={40}
+																/>
+																<Typography color="text.secondary">
+																	{el?.contract_ticker_symbol}
+																</Typography>
+															</Stack>
+															<Stack>
+																<Typography fontWeight="medium">
+																	{el?.balance /
+																		Math.pow(10, el?.contract_decimals)}{" "}
+																	{el?.contract_name}
+																</Typography>
+																<Typography
+																	color="text.disabled"
+																	variant="subtitle2"
+																	fontWeight="medium"
+																>
+																	{/* $4,163.44 */}${el.totalQuote}
+																</Typography>
+															</Stack>
+														</Stack>
 													</Stack>
-													<Stack spacing={0.5} direction="row">
-														<IconButton>
-															<ContentCopyIcon
-																color="primary"
-																sx={{ fontSize: 20 }}
-															/>
-														</IconButton>
-														<IconButton href="/">
-															<OpenInNewIcon
-																color="primary"
-																sx={{ fontSize: 20 }}
-															/>
-														</IconButton>
-													</Stack>
-												</Stack>
+												</Paper>
 											</Grid>
+											// <Grid item key={index} xs={12} md={12} lg={12}>
+											// 	<Stack direction="row" spacing={1} alignItems="center">
+											// 		<Stack flexGrow={1} spacing={0.5}>
+											// 			<Typography
+											// 				variant="subtitle2"
+											// 				color="text.disabled"
+											// 				fontWeight="medium"
+											// 			>
+											// 				NFT {index + 1}
+											// 			</Typography>
+											// 			<Typography
+											// 				color="text.secondary"
+											// 				fontWeight="medium"
+											// 			>
+											// 				{el.contract_address}
+											// 			</Typography>
+											// 		</Stack>
+											// 		<Stack spacing={0.5} direction="row">
+											// 			<IconButton>
+											// 				<ContentCopyIcon
+											// 					color="primary"
+											// 					sx={{ fontSize: 20 }}
+											// 				/>
+											// 			</IconButton>
+											// 			<IconButton href="/">
+											// 				<OpenInNewIcon
+											// 					color="primary"
+											// 					sx={{ fontSize: 20 }}
+											// 				/>
+											// 			</IconButton>
+											// 		</Stack>
+											// 	</Stack>
+											// </Grid>
 										))}
 								</Grid>
 							</Paper>

@@ -13,7 +13,13 @@ const CopyButton = ({ text }: Props) => {
                 color="primary"
                 sx={{ fontSize: 20 }}
                 onClick={() => {
-                    navigator.clipboard.writeText(text);
+                    navigator.clipboard.writeText(text).then(() => {
+                        console.log('Content copied to clipboard');
+                        /* Resolved - text copied to clipboard successfully */
+                      },() => {
+                        console.error('Failed to copy');
+                        /* Rejected - text failed to copy to the clipboard */
+                      });
                 }}
             />
         </IconButton>

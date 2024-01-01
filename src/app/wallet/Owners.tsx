@@ -11,6 +11,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import { useSelector } from "react-redux";
+import CopyButton from "@/components/global/CopyButton";
 
 function Owners(params: any) {
 	const { balance } = params;
@@ -40,7 +41,7 @@ function Owners(params: any) {
 				/>
 			</Stack>
 			<Grid container columnSpacing={4} rowSpacing={2}>
-				{owners.length > 0 && owners.map((el, index) => (
+				{owners?.length > 0 && owners.map((el, index) => (
 					<Grid item xs={12} md={12} lg={12} key={index}>
 						<Stack direction={"row"} spacing={2} alignItems="center">
 							<Avatar
@@ -60,9 +61,10 @@ function Owners(params: any) {
 									{el}
 								</Typography>
 							</Stack>
-							<IconButton>
+              <CopyButton text={el}/>
+							{/* <IconButton>
 								<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
-							</IconButton>
+							</IconButton> */}
 						</Stack>
 					</Grid>
 				))}
