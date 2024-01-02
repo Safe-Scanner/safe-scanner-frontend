@@ -75,11 +75,8 @@ import { NETWORK_LIST } from "@/constants/constants";
 // 	status?: boolean;
 // }
 
-// function Searchbar(props: SearchbarProps) {
 function Searchbar(props: any) {
-	// function Searchbar(setSearchString: any) {
-	const { status } = props;
-	const [search, setSearch] = useState("");
+	const { status, setLoading, loading } = props;
 	const [searchData, setSearchData] = useState([] as any);
 	const [rawSearchData, setRawSearchData] = useState({} as any);
 
@@ -104,9 +101,18 @@ function Searchbar(props: any) {
 	const open = Boolean(anchorEl) && value !== "";
 
 	useEffect(() => {
-		setTimeout(() => {
-			searchBar(value, setRawSearchData);
-		}, 2000);
+		if (value.length === 42 || value.length === 66) {
+			setSearchData([]);
+			const getData = setTimeout(() => {
+				if (value.length > 0) {
+					searchBar(value, setRawSearchData, setLoading);
+				}
+			}, 1000);
+
+			return () => {
+				clearTimeout(getData);
+			};
+		}
 	}, [value]);
 
 	useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -8,7 +8,6 @@ import Image from "next/image";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-import { useSelector } from "react-redux";
 
 interface TransactionProps {
 	icon: string;
@@ -27,8 +26,6 @@ const variantIcon = {
 };
 
 function Transaction(props: TransactionProps) {
-	// const data = useSelector((state: any) => state.transaction);
-	// console.log("transactions are", data);
 	const { icon, variant, value, statusValue, statusSubValue, date, message } =
 		props;
 

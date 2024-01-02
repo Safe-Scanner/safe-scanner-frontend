@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,CSSProperties } from "react";
 import Box from "@mui/material/Box";
 import Searchbar from "@/components/global/Searchbar";
 import Container from "@mui/material/Container";
@@ -18,14 +18,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { storebalance } from "../../store/feature/balanceSlice";
 import { storebalances } from "../../store/feature/balancesSlice";
 import { storetransaction } from "../../store/feature/transactionSlice";
-
+import ClipLoader from "react-spinners/ClipLoader";
 // This page will create more tabs whare I can show balance, transaxtion, owners
 
+const override: CSSProperties = {
+	display: "block",
+	margin: "0 auto",
+};
 function WalletPage() {
 	const dispatch = useDispatch();
 	const [balance, setBalance] = useState(undefined);
 	const [transcation, setTransaction] = useState(undefined);
 	const [balances, setBalances] = useState(undefined);
+	const [loading, setLoading] = useState(false);
 	const searchParams = useSearchParams();
 	const safe: any = searchParams.get("safe");
 	const network: any = searchParams.get("network");
@@ -34,7 +39,7 @@ function WalletPage() {
 	useEffect(() => {
 		if (balance === null || balance === undefined) {
 			if ((redux.balance = {})) {
-				balanceApi(safe, network, setBalance);
+				balanceApi(safe, network, setBalance, setLoading);
 			}
 		}
 		if (transcation === null || transcation === undefined) {
@@ -69,11 +74,19 @@ function WalletPage() {
 								Wallet
 							</Typography>
 						</Stack>
+						<ClipLoader
+							color="#fff"
+							loading={loading}
+							cssOverride={override}
+							size={60}
+							aria-label="Loading Spinner"
+							data-testid="loader"
+						/>
 						<HashTab tabs={["Overview", "Balance", "Transactions", "Owners"]}>
 							<Overview balance={balance} />
 							<Balance balances={balances} />
 							<Transactions />
-							<Owners balance={balance}/>
+							<Owners balance={balance} />
 						</HashTab>
 					</Stack>
 				</Container>

@@ -62,9 +62,6 @@ function Owners(params: any) {
 								</Typography>
 							</Stack>
               <CopyButton text={el}/>
-							{/* <IconButton>
-								<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
-							</IconButton> */}
 						</Stack>
 					</Grid>
 				))}

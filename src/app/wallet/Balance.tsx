@@ -1,14 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import HashTab from "@/components/global/HashTab";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import Image from "next/image";
 import Grid from "@mui/material/Grid";
-import { useSelector } from "react-redux";
 
 function Balance(props: any) {
 	const [balanceData, setBalanceData] = useState([] as any);
@@ -16,8 +11,9 @@ function Balance(props: any) {
 	const { balances } = props;
 
 	useEffect(() => {
-    setBalanceData([]);
-    setNft([]);
+		setBalanceData([]);
+		setNft([]);
+		console.log(balances);
 		if (balances != undefined && balances) {
 			balances?.forEach((el: any) => {
 				if (el.type === "nft") {
