@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, CSSProperties } from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -16,6 +16,12 @@ import Popper from "@mui/material/Popper";
 import Fade from "@mui/material/Fade";
 import { searchBar } from "@/apis/homepage";
 import { NETWORK_LIST } from "@/constants/constants";
+import ClipLoader from "react-spinners/ClipLoader";
+
+const override: CSSProperties = {
+	display: "block",
+	margin: "0 auto",
+};
 
 // const searchData = [
 // 	{
@@ -76,9 +82,10 @@ import { NETWORK_LIST } from "@/constants/constants";
 // }
 
 function Searchbar(props: any) {
-	const { status, setLoading, loading } = props;
+	const { status } = props;
 	const [searchData, setSearchData] = useState([] as any);
 	const [rawSearchData, setRawSearchData] = useState({} as any);
+	const [loading, setLoading] = useState(false);
 
 	const [value, setValue] = React.useState("");
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -101,6 +108,7 @@ function Searchbar(props: any) {
 	const open = Boolean(anchorEl) && value !== "";
 
 	useEffect(() => {
+		console.log(value.length);
 		if (value.length === 42 || value.length === 66) {
 			setSearchData([]);
 			const getData = setTimeout(() => {
@@ -239,9 +247,25 @@ function Searchbar(props: any) {
 					<Fade {...TransitionProps} timeout={350}>
 						<Box sx={{ p: 2 }}>
 							<List component="div" disablePadding>
-								{searchData.map(({ icon, id, name, values }: any) => (
-									<DataGroup icon={icon} name={name} values={values} key={id} />
-								))}
+								{searchData.length > 0 ? (
+									searchData.map(({ icon, id, name, values }: any) => (
+										<DataGroup
+											icon={icon}
+											name={name}
+											values={values}
+											key={id}
+										/>
+									))
+								) : (
+									<ClipLoader
+										color={"#fff"}
+										loading={loading}
+										cssOverride={override}
+										size={50}
+										aria-label="Loading Spinner"
+										data-testid="loader"
+									/>
+								)}
 							</List>
 						</Box>
 					</Fade>

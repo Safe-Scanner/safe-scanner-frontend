@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState,CSSProperties } from "react";
+import React, { useEffect, useState, CSSProperties } from "react";
 import Box from "@mui/material/Box";
 import Searchbar from "@/components/global/Searchbar";
 import Container from "@mui/material/Container";
@@ -84,7 +84,7 @@ function WalletPage() {
 						/>
 						<HashTab tabs={["Overview", "Balance", "Transactions", "Owners"]}>
 							<Overview balance={balance} />
-							<Balance balances={balances} />
+							<Balance balances={balances} loading={loading} />
 							<Transactions />
 							<Owners balance={balance} />
 						</HashTab>

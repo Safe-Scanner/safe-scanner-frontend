@@ -14,12 +14,9 @@ const override: CSSProperties = {
 };
 
 function Introduction() {
-	const [loading, setLoading] = useState(false);
-	const [color, setColor] = useState("#ffffff");
+	// const [loading, setLoading] = useState(false);
+	// const [color, setColor] = useState("#ffffff");
 
-	useEffect(() => {
-		console.log(loading);
-	}, [loading]);
 	return (
 		<>
 			<Box marginTop={7} component="section" aria-label="Introduction">
@@ -35,17 +32,9 @@ function Introduction() {
 							Super User-friendly Transaction Explorer for the Safe Eco-system
 						</Typography>
 					</Stack>
-					<Searchbar status setLoading={setLoading}/>
+					<Searchbar status/>
 				</Container>
 			</Box>
-			<ClipLoader
-				color={color}
-				loading={loading}
-				cssOverride={override}
-				size={60}
-				aria-label="Loading Spinner"
-				data-testid="loader"
-			/>
 		</>
 	);
 }

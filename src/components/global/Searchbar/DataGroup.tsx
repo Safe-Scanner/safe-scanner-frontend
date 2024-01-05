@@ -34,7 +34,7 @@ function DataGroup(props: DataGroupProps) {
 		const split = value.value.split(":");
 		// console.log("split is ", split);
 		if (split[1].length == 66) {
-			router.push(`/transactions?hash=${split[1]}`);
+			router.push(`/transaction?transactionHash=${split[1]}`);
 		} else {
 			router.push(`/wallet?safe=${split[1]}&network=${name}`);
 		}
