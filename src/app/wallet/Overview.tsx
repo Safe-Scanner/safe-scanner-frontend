@@ -21,12 +21,15 @@ import MenuItem from "@mui/material/MenuItem";
 import { shortenString } from "@/components/utils/utils";
 import CopyButton from "@/components/global/CopyButton";
 import { Skeleton } from "@mui/material";
+import { NETWORK_ICON_MAP } from "@/constants/constants";
+import { useSelector } from "react-redux";
 
-function Overview({ balance, loading }: any) {
+function Overview({ balance, balances }: any) {
 	let data: any = {};
 	// const [owner, setOwner] = useState([] as any[]);
-	console.log(loading);
+	// console.log(loading);
 	const [owners, setOwners] = useState([] as any[]);
+	const [walletBalances, setWalletBalances] = useState([] as any);
 
 	if (balance != undefined) {
 		const keys = Object.keys(balance);
@@ -37,6 +40,31 @@ function Overview({ balance, loading }: any) {
 	useEffect(() => {
 		setOwners(data.owners);
 	}, [data]);
+
+	useEffect(() => {
+		console.log("Balances in overview are", balances);
+
+		if (balances != null && balances.length > 0) {
+			setWalletBalances([]);
+			balances.forEach((el: any) => {
+				console.log(el);
+				if (el.type != "nft") {
+					setWalletBalances((prev: any) => [
+						...prev,
+						{
+							name: el.contract_display_name,
+							symbol: el.contract_ticker_symbol,
+							logo: el.logo_url,
+							balance: el.balance,
+							decimal: el.contract_decimals,
+							quote: el.quote,
+						},
+					]);
+				}
+			});
+		}
+		console.log("Wallet balance is ", walletBalances);
+	}, [balances]);
 
 	const walletSortingOptions = [
 		"Show highest value",
@@ -106,7 +134,12 @@ function Overview({ balance, loading }: any) {
 						}
 					>
 						<Stack spacing={2} alignItems="center" direction="row">
-							<Image src="/images/Group 58.svg" alt="" width={20} height={20} />
+							<Image
+								src={NETWORK_ICON_MAP[Object.keys(balance)[0]]}
+								alt=""
+								width={20}
+								height={20}
+							/>
 							<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
 								{/* eth:0x3a12868E33505424aCbdf53F11C8d447D59A8cfc */}
 								{data?.address}
@@ -239,7 +272,12 @@ function Overview({ balance, loading }: any) {
 						}
 					>
 						<Stack direction="row" alignItems="center" spacing={2}>
-							<Image src="/images/Group 58.svg" alt="" width={20} height={20} />
+							<Image
+								src={NETWORK_ICON_MAP[Object.keys(balance)[0]]}
+								alt=""
+								width={20}
+								height={20}
+							/>
 							<Typography fontFamily="'DM Mono'" color="primary">
 								eth:0x62ab...bc7d
 							</Typography>
@@ -339,13 +377,13 @@ function Overview({ balance, loading }: any) {
 												spacing={2}
 											>
 												<Image
-													src="/images/Group 56.svg"
+													src={NETWORK_ICON_MAP[Object.keys(balance)[0]]}
 													alt=""
 													width={20}
 													height={20}
 												/>
 												<Typography color="primary" fontFamily="'DM Mono'">
-													eth: {shortenString(el)}
+													{shortenString(el)}
 												</Typography>
 											</Stack>
 										</Grid>
@@ -549,66 +587,70 @@ function Overview({ balance, loading }: any) {
 						}
 					>
 						<Typography fontFamily="'DM Mono'" fontWeight="medium" noWrap>
-							3 500 000 (75 tokens)
+							3 500 000 ({walletBalances.length} tokens)
 						</Typography>
 					</SmartRow>
 
-					<SmartRow
-						action={
-							<>
-								<Tooltip title="Coming Soon" arrow>
-									<IconButton>
-										<HistoryIcon color="primary" sx={{ fontSize: 20 }} />
-									</IconButton>
-								</Tooltip>
-							</>
-						}
-					>
-						<Grid container>
-							<Grid item xs={6}>
-								<Stack direction="row" alignItems="center" spacing={2}>
-									<Box
-										sx={{
-											aspectRatio: "1/1",
-											height: 20,
-											display: "grid",
-											placeContent: "center",
-											bgcolor: "#D7D9DC1A",
-											borderRadius: 999,
-											paddingTop: 0.25,
-											marginRight: 0.25,
-										}}
-									>
-										<Typography component="span" variant="body2">
-											1
-										</Typography>
-									</Box>
-									<Typography textTransform="capitalize" color="text.secondary">
-										Ethereum, ETH
-									</Typography>
-								</Stack>
-							</Grid>
-							<Grid item xs={6}>
-								<Stack
-									justifyContent="flex-end"
-									direction="row"
-									alignItems="center"
-									spacing={2}
+					{walletBalances.length > 0 &&
+						walletBalances.map((el: any, index: string) => {
+							return (
+								<SmartRow
+									key={index}
+									action={
+										<>
+											<Tooltip title="Coming Soon" arrow>
+												<IconButton>
+													<HistoryIcon color="primary" sx={{ fontSize: 20 }} />
+												</IconButton>
+											</Tooltip>
+										</>
+									}
 								>
-									<Image
-										src="/images/Group 59.svg"
-										alt=""
-										width={20}
-										height={20}
-									/>
-									<Typography fontFamily="'DM Mono'">
-										67.332 / $2,450,000.00
-									</Typography>
-								</Stack>
-							</Grid>
-						</Grid>
-					</SmartRow>
-					<SmartRow
+									<Grid container>
+										<Grid item xs={6}>
+											<Stack direction="row" alignItems="center" spacing={2}>
+												<Box
+													sx={{
+														aspectRatio: "1/1",
+														height: 20,
+														display: "grid",
+														placeContent: "center",
+														bgcolor: "#D7D9DC1A",
+														borderRadius: 999,
+														paddingTop: 0.25,
+														marginRight: 0.25,
+													}}
+												>
+													<Typography component="span" variant="body2">
+														1
+													</Typography>
+												</Box>
+												<Typography
+													textTransform="capitalize"
+													color="text.secondary"
+												>
+													{el?.name}, {el?.symbol}
+												</Typography>
+											</Stack>
+										</Grid>
+										<Grid item xs={6}>
+											<Stack
+												justifyContent="flex-end"
+												direction="row"
+												alignItems="center"
+												spacing={2}
+											>
+												<img src={el.logo} alt="" width={20} height={20} />
+												<Typography fontFamily="'DM Mono'">
+													{el.balance / Math.pow(10, el?.decimal)} / ${el.quote}
+												</Typography>
+											</Stack>
+										</Grid>
+									</Grid>
+								</SmartRow>
+							);
+						})}
+					{/* <SmartRow
 						action={
 							<>
 								<Tooltip title="Coming Soon" arrow>
@@ -718,10 +760,10 @@ function Overview({ balance, loading }: any) {
 								</Stack>
 							</Grid>
 						</Grid>
-					</SmartRow>
+					</SmartRow> */}
 					<SmartRow isLastRow>
 						<Button size="small" endIcon={<KeyboardArrowRightIcon />}>
-							View All 75 Tokens
+							View All {walletBalances.length} Tokens
 						</Button>
 					</SmartRow>
 				</Paper>

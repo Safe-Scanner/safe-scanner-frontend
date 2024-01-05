@@ -83,7 +83,7 @@ function WalletPage() {
 							data-testid="loader"
 						/>
 						<HashTab tabs={["Overview", "Balance", "Transactions", "Owners"]}>
-							<Overview balance={balance} />
+							<Overview balance={balance} balances={balances} />
 							<Balance balances={balances} loading={loading} />
 							<Transactions />
 							<Owners balance={balance} />

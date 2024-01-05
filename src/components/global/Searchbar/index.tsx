@@ -15,7 +15,7 @@ import DataGroup from "./DataGroup";
 import Popper from "@mui/material/Popper";
 import Fade from "@mui/material/Fade";
 import { searchBar } from "@/apis/homepage";
-import { NETWORK_LIST } from "@/constants/constants";
+import { NETWORK_LIST, NETWORK_SCANNER_MAP } from "@/constants/constants";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const override: CSSProperties = {
@@ -147,7 +147,13 @@ function Searchbar(props: any) {
 								id: id,
 								name: name,
 								icon: icon,
-								values: [{ avatar: icon, name: name, value: `matic:${e}` }],
+								values: [
+									{
+										avatar: NETWORK_SCANNER_MAP.name,
+										name: name,
+										value: `${name}:${e}`,
+									},
+								],
 							},
 						]);
 					});
@@ -155,6 +161,8 @@ function Searchbar(props: any) {
 			});
 		}
 	}, [rawSearchData]);
+
+	console.log(searchData);
 
 	return (
 		<Box maxWidth={950} marginX="auto" sx={{ position: "relative", zIndex: 1 }}>
@@ -250,7 +258,7 @@ function Searchbar(props: any) {
 								{searchData.length > 0 ? (
 									searchData.map(({ icon, id, name, values }: any) => (
 										<DataGroup
-											icon={icon}
+											icon={NETWORK_SCANNER_MAP.name}
 											name={name}
 											values={values}
 											key={id}

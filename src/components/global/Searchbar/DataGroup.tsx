@@ -11,6 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Collapse from "@mui/material/Collapse";
 import { useRouter } from "next/navigation";
+import { NETWORK_SCANNER_MAP, NETWORK_ICON_MAP } from "@/constants/constants";
 
 interface DataGroupProps {
 	name: string;
@@ -40,11 +41,19 @@ function DataGroup(props: DataGroupProps) {
 		}
 	};
 
+	console.log("props in final list", props);
+	console.log("network image", NETWORK_ICON_MAP[name]);
+
 	return (
 		<div>
 			<ListItem component="div" disablePadding sx={{ pl: 0.25, pr: 1.25 }}>
 				<ListItemIcon sx={{ minWidth: 32 }}>
-					<Image src={icon} alt="" width={20} height={20} />
+					<Image
+						src={NETWORK_ICON_MAP[name]}
+						alt="network"
+						width={20}
+						height={20}
+					/>
 				</ListItemIcon>
 				<ListItemText primary={name} />
 				<IconButton onClick={toggle} color="primary">
@@ -76,7 +85,7 @@ function DataGroup(props: DataGroupProps) {
 									style={{ borderRadius: 6 }}
 									width={40}
 									height={40}
-									src={value.avatar}
+									src={NETWORK_ICON_MAP[value.name]}
 									alt=""
 								/>
 							</ListItemAvatar>
@@ -85,7 +94,7 @@ function DataGroup(props: DataGroupProps) {
 								primary={value.name}
 								secondary={value.value}
 							/>
-							<Image src={icon} alt="" width={24} height={24} />
+							<Image src={NETWORK_ICON_MAP[value.name]} alt="" width={24} height={24} />
 						</ListItemButton>
 					</ListItem>
 				))}

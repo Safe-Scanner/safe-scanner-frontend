@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Grid from "@mui/material/Grid";
 import Transaction from "./Transaction";
-import { NETWORK_LIST } from "@/constants/constants";
+import { NETWORK_ICON_MAP, NETWORK_LIST } from "@/constants/constants";
 import { useSelector } from "react-redux";
 import { shortenString } from "@/components/utils/utils";
 
@@ -14,17 +14,24 @@ function Transactions() {
 	const [networkIcon, setNetworkIcon] = useState("" as any);
 	useEffect(() => {
 		let keys = [] as any[];
-		if (transaction != null && transaction.length > 0) {
-			transaction.forEach((el: any) => {
-				let temp = Object.keys(el);
-				keys.push(...temp);
-				setNetworkIcon(
-					NETWORK_LIST.find((e: any) => {
-						return keys[0] === e.name;
-					})
-				);
-				setTransaction(transaction[0][keys[0]].results);
+		if (transaction != null) {
+			let network: any = Object.keys(transaction);
+			console.log("Transactions are", transaction[network[0]].results);
+			const temp = transaction[network[0]].results;
+			setTransaction([]);
+			temp.forEach((el: any) => {
+				setTransaction((prev: any) => [
+					...prev,
+					{
+						safe: el.safe,
+						icon: NETWORK_ICON_MAP[network[0]],
+						value: el.value,
+						date: el.submissionDate,
+					},
+				]);
 			});
+
+			console.log("Finla transcations", transactions);
 		}
 	}, [transaction]);
 	return (
@@ -35,11 +42,11 @@ function Transactions() {
 						<Transaction
 							value={shortenString(el?.safe)}
 							message="Not supported"
-							icon={networkIcon?.iconPath}
+							icon={el?.icon}
 							statusValue={el?.value}
 							statusSubValue="+$21.03"
 							variant="complete"
-							date="1 day ago"
+							date={new Date(el.date).toLocaleDateString("em-GB")}
 						/>
 					</Grid>
 				))}
