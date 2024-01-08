@@ -20,7 +20,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { shortenString } from "@/components/utils/utils";
 import CopyButton from "@/components/global/CopyButton";
-import { Skeleton } from "@mui/material";
+import { Alert, Skeleton, Snackbar } from "@mui/material";
 import { NETWORK_ICON_MAP } from "@/constants/constants";
 import { useSelector } from "react-redux";
 
@@ -30,12 +30,17 @@ function Overview({ balance, balances }: any) {
 	// console.log(loading);
 	const [owners, setOwners] = useState([] as any[]);
 	const [walletBalances, setWalletBalances] = useState([] as any);
+	const [open, setOpen] = useState(true);
 
 	if (balance != undefined) {
 		const keys = Object.keys(balance);
 		data = balance[keys[0]];
 		// setOwner(balance[keys[0]].owners);
 	}
+
+	const handleClose = () => {
+		setOpen((prev: any) => !prev);
+	};
 
 	useEffect(() => {
 		setOwners(data.owners);
@@ -130,7 +135,7 @@ function Overview({ balance, balances }: any) {
 							// <IconButton>
 							// 	<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
 							// </IconButton>
-							<CopyButton text={data?.address} />
+							<CopyButton text={data?.address} setOpen={setOpen} />
 						}
 					>
 						<Stack spacing={2} alignItems="center" direction="row">
@@ -192,7 +197,7 @@ function Overview({ balance, balances }: any) {
 								{/* <IconButton>
 							<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
 						</IconButton> */}
-								<CopyButton text={data?.fallbackHandler} />
+								<CopyButton text={data?.fallbackHandler} setOpen={setOpen} />
 								<IconButton href="/">
 									<OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
 								</IconButton>
@@ -228,7 +233,7 @@ function Overview({ balance, balances }: any) {
 								{/* <IconButton>
 							<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
 						</IconButton> */}
-								<CopyButton text={data?.masterCopy} />
+								<CopyButton text={data?.masterCopy} setOpen={setOpen} />
 								<IconButton href="/">
 									<OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
 								</IconButton>
@@ -264,7 +269,7 @@ function Overview({ balance, balances }: any) {
 								{/* <IconButton>
 							<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
 						</IconButton> */}
-								<CopyButton text={data?.guard} />
+								<CopyButton text={data?.guard} setOpen={setOpen} />
 								<IconButton href="/">
 									<OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
 								</IconButton>
@@ -344,7 +349,7 @@ function Overview({ balance, balances }: any) {
 											{/* <IconButton>
 										<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
 									</IconButton> */}
-											<CopyButton text={el} />
+											<CopyButton text={el} setOpen={setOpen} />
 											<IconButton href="/">
 												<OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
 											</IconButton>
@@ -783,9 +788,21 @@ function Overview({ balance, balances }: any) {
 						</IconButton>
 					</Stack>
 
-					<Skeleton variant="rounded" />
+					{/* <Skeleton variant="rounded" height={700}/> */}
 				</Paper>
 			)}
+
+			<div>
+				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+					<Alert
+						onClose={handleClose}
+						severity="success"
+						sx={{ width: "100%" }}
+					>
+						This is a success message!
+					</Alert>
+				</Snackbar>
+			</div>
 		</>
 	);
 }

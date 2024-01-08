@@ -35,7 +35,7 @@ function DataGroup(props: DataGroupProps) {
 		const split = value.value.split(":");
 		// console.log("split is ", split);
 		if (split[1].length == 66) {
-			router.push(`/transaction?transactionHash=${split[1]}`);
+			router.push(`/transaction?transactionHash=${split[1]}&network=${name}`);
 		} else {
 			router.push(`/wallet?safe=${split[1]}&network=${name}`);
 		}
@@ -94,7 +94,12 @@ function DataGroup(props: DataGroupProps) {
 								primary={value.name}
 								secondary={value.value}
 							/>
-							<Image src={NETWORK_ICON_MAP[value.name]} alt="" width={24} height={24} />
+							<Image
+								src={NETWORK_ICON_MAP[value.name]}
+								alt=""
+								width={24}
+								height={24}
+							/>
 						</ListItemButton>
 					</ListItem>
 				))}

@@ -15,7 +15,7 @@ import DataGroup from "./DataGroup";
 import Popper from "@mui/material/Popper";
 import Fade from "@mui/material/Fade";
 import { searchBar } from "@/apis/homepage";
-import { NETWORK_LIST, NETWORK_SCANNER_MAP } from "@/constants/constants";
+import { NETWORK_ICON_MAP, NETWORK_LIST, NETWORK_SCANNER_MAP } from "@/constants/constants";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const override: CSSProperties = {
@@ -258,7 +258,7 @@ function Searchbar(props: any) {
 								{searchData.length > 0 ? (
 									searchData.map(({ icon, id, name, values }: any) => (
 										<DataGroup
-											icon={NETWORK_SCANNER_MAP.name}
+											icon={NETWORK_ICON_MAP.name}
 											name={name}
 											values={values}
 											key={id}

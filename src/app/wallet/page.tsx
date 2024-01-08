@@ -74,14 +74,14 @@ function WalletPage() {
 								Wallet
 							</Typography>
 						</Stack>
-						<ClipLoader
+						{/* <ClipLoader
 							color="#fff"
 							loading={loading}
 							cssOverride={override}
 							size={60}
 							aria-label="Loading Spinner"
 							data-testid="loader"
-						/>
+						/> */}
 						<HashTab tabs={["Overview", "Balance", "Transactions", "Owners"]}>
 							<Overview balance={balance} balances={balances} />
 							<Balance balances={balances} loading={loading} />

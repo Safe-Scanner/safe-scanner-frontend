@@ -17,7 +17,7 @@ export const NETWORK_LIST = [
 		iconPath: "/images/ethereum-logo-rainbow.svg",
 		iconPathInverted: "/images/ethereum-logo-rainbow.svg",
 	},
-    {
+	{
 		name: "Ethereum Mainnet",
 		key: "ethereum mainnet",
 		iconPath: "/images/ethereum-logo-rainbow.svg",
@@ -150,6 +150,7 @@ interface NETWORK_ICON_MAP {
 
 export const NETWORK_ICON_MAP: NETWORK_ICON_MAP = {
 	mainnet: "/images/ethereum-logo-rainbow.svg",
+	eth: "/images/ethereum-logo-rainbow.svg",
 	goerli: "/images/eth-diamond-purple.svg",
 	sepolia: "/images/eth-diamond-purple.svg",
 	matic: "/images/polygon-icon.svg",
