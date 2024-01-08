@@ -19,8 +19,8 @@ import { NETWORK_ICON_MAP, NETWORK_LIST, NETWORK_SCANNER_MAP } from "@/constants
 import ClipLoader from "react-spinners/ClipLoader";
 
 const override: CSSProperties = {
-	display: "block",
-	margin: "0 auto",
+    display: "block",
+    margin: "0 auto",
 };
 
 // const searchData = [
@@ -82,30 +82,30 @@ const override: CSSProperties = {
 // }
 
 function Searchbar(props: any) {
-	const { status } = props;
-	const [searchData, setSearchData] = useState([] as any);
-	const [rawSearchData, setRawSearchData] = useState({} as any);
-	const [loading, setLoading] = useState(false);
+    const { status } = props;
+    const [searchData, setSearchData] = useState([] as any);
+    const [rawSearchData, setRawSearchData] = useState({} as any);
+    const [loading, setLoading] = useState(false);
 
-	const [value, setValue] = React.useState("");
-	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-	const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		setAnchorEl(event.currentTarget);
-	};
-	const handleClose = () => {
-		setAnchorEl(null);
-		setValue("");
-	};
+    const [value, setValue] = React.useState("");
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+        setValue("");
+    };
 
-	const getMenuWidth = () => {
-		// Get the width of the anchorEl
-		if (anchorEl) {
-			return anchorEl.clientWidth;
-		}
-		return null;
-	};
+    const getMenuWidth = () => {
+        // Get the width of the anchorEl
+        if (anchorEl) {
+            return anchorEl.clientWidth;
+        }
+        return null;
+    };
 
-	const open = Boolean(anchorEl) && value !== "";
+    const open = Boolean(anchorEl) && value !== "";
 
 	useEffect(() => {
 		if (value.length === 42 || value.length === 66) {
@@ -116,51 +116,47 @@ function Searchbar(props: any) {
 				}
 			}, 1000);
 
-			return () => {
-				clearTimeout(getData);
-			};
-		}
-	}, [value]);
+            return () => {
+                clearTimeout(getData);
+            };
+        }
+    }, [value]);
 
-	useEffect(() => {
-		if (
-			Object.keys(rawSearchData).length > 0 &&
-			Object.keys(rawSearchData)[0] != "statusCode"
-		) {
-			setSearchData([]);
-			const keys = Object.keys(rawSearchData);
-			keys.forEach((el: string, index: any) => {
-				let arr = [] as any;
-				let name = el;
-				let id = index;
-				let iconObject = NETWORK_LIST.find(
-					(icon: any) => icon.name.toLowerCase() === name.toLowerCase()
-				);
-				let icon = iconObject?.iconPath;
-				rawSearchData[el].forEach((item: any) => {
-					arr.push(item);
-					arr.forEach((e: any) => {
-						setSearchData((prev: any[]) => [
-							...prev,
-							{
-								id: id,
-								name: name,
-								icon: icon,
-								values: [
-									{
-										avatar: NETWORK_SCANNER_MAP.name,
-										name: name,
-										value: `${name}:${e}`,
-									},
-								],
-							},
-						]);
-					});
-				});
-			});
-		}
-	}, [rawSearchData]);
+    useEffect(() => {
+        if (Object.keys(rawSearchData).length > 0 && Object.keys(rawSearchData)[0] != "statusCode") {
+            setSearchData([]);
+            const networks = Object.keys(rawSearchData);
+            networks.forEach((network: string, index: any) => {
+                let addresses = [] as any;
+                let id = index;
+                let iconObject = NETWORK_LIST.find((icon: any) => icon.key.toLowerCase() === network.toLowerCase());
+                let icon = iconObject?.iconPath;
+                rawSearchData[network].forEach((item: any) => {
+                    addresses.push(item);
+                    addresses.forEach((address: any) => {
+                        setSearchData((prev: any[]) => [
+                            ...prev,
+                            {
+                                id: id,
+                                networkName: iconObject?.name,
+                                icon: icon,
+                                address: address,
+                                values: [
+                                    {
+                                        avatar: iconObject?.name,
+                                        networkKey: network,
+                                        value: `${network}:${address}`,
+                                    },
+                                ],
+                            },
+                        ]);
+                    });
+                });
+            });
+        }
+    }, [rawSearchData]);
 
+<<<<<<< HEAD
 	return (
 		<Box maxWidth={950} marginX="auto" sx={{ position: "relative", zIndex: 1 }}>
 			{/* <Box sx={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0}} /> */}
@@ -241,43 +237,104 @@ function Searchbar(props: any) {
 					</Stack>
 				)}
 			</Stack>
+=======
+    console.log(searchData);
 
-			<Popper
-				open={open}
-				anchorEl={anchorEl}
-				transition
-				sx={{ width: getMenuWidth(), bgcolor: "background.default" }}
-			>
-				{({ TransitionProps }) => (
-					<Fade {...TransitionProps} timeout={350}>
-						<Box sx={{ p: 2 }}>
-							<List component="div" disablePadding>
-								{searchData.length > 0 ? (
-									searchData.map(({ icon, id, name, values }: any) => (
-										<DataGroup
-											icon={NETWORK_ICON_MAP.name}
-											name={name}
-											values={values}
-											key={id}
-										/>
-									))
-								) : (
-									<ClipLoader
-										color={"#fff"}
-										loading={loading}
-										cssOverride={override}
-										size={50}
-										aria-label="Loading Spinner"
-										data-testid="loader"
-									/>
-								)}
-							</List>
-						</Box>
-					</Fade>
-				)}
-			</Popper>
-		</Box>
-	);
+    return (
+        <Box maxWidth={950} marginX="auto" sx={{ position: "relative", zIndex: 1 }}>
+            {/* <Box sx={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0}} /> */}
+            <Stack spacing={1}>
+                <TextField
+                    value={value}
+                    onChange={(e) => {
+                        setValue(e.target.value);
+                        // setSearchString(e.target.value);
+                        // setSearch(e.target.value);
+                    }}
+                    onClick={handleClick}
+                    sx={{
+                        "& fieldset": {
+                            borderWidth: 2,
+                            borderColor: "primary.light",
+                        },
+                    }}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon />
+                            </InputAdornment>
+                        ),
+                        endAdornment: open ? (
+                            <InputAdornment position="end">
+                                <IconButton onClick={handleClose}>
+                                    <CloseIcon />
+                                </IconButton>
+                            </InputAdornment>
+                        ) : null,
+                        sx: {
+                            pl: 2,
+                            "& input::placeholder": {
+                                color: "text.disabled",
+                                opacity: 1,
+                            },
+                        },
+                    }}
+                    fullWidth
+                    placeholder="Search for addresses & hashes..."
+                />
+                {status && (
+                    <Stack direction={{ xs: "column", md: "row" }} justifyContent="space-between" alignItems="center">
+                        <Stack direction="row" alignItems="center" spacing={0.5}>
+                            <Typography color="text.disabled">Scanner Network Status</Typography>
+                            <Chip
+                                sx={{ border: 0 }}
+                                icon={<img src="/images/checkbox-marked-circle-outline.svg" alt="" />}
+                                variant="outlined"
+                                label="Available"
+                                color="primary"
+                            />
+                        </Stack>
+                        <Stack direction="row" alignItems="center" spacing={0.5}>
+                            <Typography color="text.disabled">Total Safe Transactions</Typography>
+                            <Chip
+                                sx={{ border: 0 }}
+                                icon={<img src="/images/safe-transactions.svg" alt="" />}
+                                variant="outlined"
+                                label="33 013 011"
+                                color="primary"
+                            />
+                        </Stack>
+                    </Stack>
+                )}
+            </Stack>
+>>>>>>> b865dab (modifying search bar)
+
+            <Popper open={open} anchorEl={anchorEl} transition sx={{ width: getMenuWidth(), bgcolor: "background.default" }}>
+                {({ TransitionProps }) => (
+                    <Fade {...TransitionProps} timeout={350}>
+                        <Box sx={{ p: 2 }}>
+                            <List component="div" disablePadding>
+                                {searchData.length > 0 ? (
+                                    searchData.map(({ icon, address, id, name, values }: any) => (
+                                        <DataGroup icon={icon} address={address} networkName={name} values={values} key={id} />
+                                    ))
+                                ) : (
+                                    <ClipLoader
+                                        color={"#fff"}
+                                        loading={loading}
+                                        cssOverride={override}
+                                        size={50}
+                                        aria-label="Loading Spinner"
+                                        data-testid="loader"
+                                    />
+                                )}
+                            </List>
+                        </Box>
+                    </Fade>
+                )}
+            </Popper>
+        </Box>
+    );
 }
 
 export default Searchbar;
