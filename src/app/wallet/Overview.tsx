@@ -783,20 +783,25 @@ function Overview({ balance, balances }: any) {
 						</IconButton>
 					</Stack>
 
-					<Skeleton variant="rounded" height={700}/>
+					<Skeleton variant="rounded" height={700} />
 				</Paper>
 			)}
 
-			<div style={{ position: "absolute", bottom: 0 }}>
-				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+			<div style={{ position: "fixed", bottom: 0, left: 0 }}>
+				{/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 					<Alert
 						onClose={handleClose}
 						severity="success"
-						sx={{ width: "100%" }}
+						sx={{
+							width: "30%",
+							position: "fixed",
+							bottom: "10%",
+							left: "0",
+						}}
 					>
 						Content Copied to clipboard
 					</Alert>
-				</Snackbar>
+				</Snackbar> */}
 			</div>
 		</>
 	);
