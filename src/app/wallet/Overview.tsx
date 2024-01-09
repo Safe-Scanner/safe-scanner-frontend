@@ -30,7 +30,7 @@ function Overview({ balance, balances }: any) {
 	// console.log(loading);
 	const [owners, setOwners] = useState([] as any[]);
 	const [walletBalances, setWalletBalances] = useState([] as any);
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 
 	if (balance != undefined) {
 		const keys = Object.keys(balance);
@@ -792,14 +792,14 @@ function Overview({ balance, balances }: any) {
 				</Paper>
 			)}
 
-			<div>
+			<div style={{ position: "absolute", bottom: 0 }}>
 				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 					<Alert
 						onClose={handleClose}
 						severity="success"
 						sx={{ width: "100%" }}
 					>
-						This is a success message!
+						Content Copied to clipboard
 					</Alert>
 				</Snackbar>
 			</div>
