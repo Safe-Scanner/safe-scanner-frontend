@@ -1,3 +1,60 @@
+export const NETWORK_MAP = {
+	"matic": {
+		name: "Polygon",
+		key: "matic",
+		iconPath: "/images/polygon-icon.svg",
+		iconPathInverted: "/images/polygon-icon.svg",
+	},
+	"oeth": {
+		name: "Ethereum Mainnet",
+		key: "eth",
+		iconPath: "/images/ethereum-logo-rainbow.svg",
+		iconPathInverted: "/images/ethereum-logo-rainbow.svg",
+	},
+	"eth": {
+		name: "Ethereum Mainnet",
+		key: "eth",
+		iconPath: "/images/ethereum-logo-rainbow.svg",
+		iconPathInverted: "/images/ethereum-logo-rainbow.svg",
+	},
+	"base": {
+		name: "Base",
+		key: "base",
+		iconPath: "/images/base-logo.svg",
+		iconPathInverted: "/images/base-logo.svg",
+	},
+	"arb1": {
+		name: "Arbitrum One",
+		key: "arb1",
+		iconPath: "/images/arbitrum-logo.svg",
+		iconPathInverted: "/images/arbitrum-logo.svg",
+	},
+	"avax": {
+		name: "Avalanche Mainnet",
+		key: "avax",
+		iconPath: "/images/avalanche-logo-red.svg",
+		iconPathInverted: "/images/avalanche-logo-red.svg",
+	},
+	"sep": {
+		name: "Arbitrum Sepolia",
+		key: "sep",
+		iconPath: "/images/arbitrum-logo.svg",
+		iconPathInverted: "/images/arbitrum-logo.svg",
+	},
+	"gno": {
+		name: "Binance Smart Chain",
+		key: "bnb",
+		iconPath: "/images/bsc-logo.svg",
+		iconPathInverted: "/images/bsc-logo.svg",
+	},
+	"bnb": {
+		name: "Binance Smart Chain",
+		key: "bnb",
+		iconPath: "/images/bsc-logo.svg",
+		iconPathInverted: "/images/bsc-logo.svg",
+	}
+}
+
 export const NETWORK_LIST = [
 	{
 		name: "Polygon",
@@ -6,20 +63,14 @@ export const NETWORK_LIST = [
 		iconPathInverted: "/images/polygon-icon.svg",
 	},
 	{
-		name: "Optimism",
-		key: "optimism",
+		name: "Optimism Mainnet",
+		key: "oeth",
 		iconPath: "/images/icon-container (6).svg",
 		iconPathInverted: "/images/icon-container (6).svg",
 	},
 	{
-		name: "Mainnet",
-		key: "mainnet",
-		iconPath: "/images/ethereum-logo-rainbow.svg",
-		iconPathInverted: "/images/ethereum-logo-rainbow.svg",
-	},
-	{
 		name: "Ethereum Mainnet",
-		key: "ethereum mainnet",
+		key: "eth",
 		iconPath: "/images/ethereum-logo-rainbow.svg",
 		iconPathInverted: "/images/ethereum-logo-rainbow.svg",
 	},
@@ -42,8 +93,8 @@ export const NETWORK_LIST = [
 		iconPathInverted: "/images/icon-container (6).svg",
 	},
 	{
-		name: "Arbitrum One",
-		key: "arbitrum-one",
+		name: "Arbitrum One (Mainnet)",
+		key: "arb1",
 		iconPath: "/images/arbitrum-logo.svg",
 		iconPathInverted: "/images/arbitrum-logo.svg",
 	},
@@ -54,8 +105,8 @@ export const NETWORK_LIST = [
 		iconPathInverted: "/images/eth-diamond-purple.svg",
 	},
 	{
-		name: "Avalanche",
-		key: "avalanche",
+		name: "Avalanche Mainnet (AVAX)",
+		key: "avax",
 		iconPath: "/images/avalanche-logo-red.svg",
 		iconPathInverted: "/images/avalanche-logo-red.svg",
 	},
@@ -73,7 +124,7 @@ export const NETWORK_LIST = [
 	},
 	{
 		name: "Arbitrum Sepolia",
-		key: "arbitrum-sepolia",
+		key: "sep",
 		iconPath: "/images/arbitrum-logo.svg",
 		iconPathInverted: "/images/arbitrum-logo.svg",
 	},
@@ -103,7 +154,7 @@ export const NETWORK_LIST = [
 	},
 	{
 		name: "Gnosis",
-		key: "gnosis",
+		key: "gno",
 		iconPath: "/images/gnosis-logo.svg",
 		iconPathInverted: "/images/gnosis-logo.svg",
 	},
@@ -115,7 +166,7 @@ export const NETWORK_LIST = [
 	},
 	{
 		name: "Binance Smart Chain",
-		key: "bsc",
+		key: "bnb",
 		iconPath: "/images/bsc-logo.svg",
 		iconPathInverted: "/images/bsc-logo.svg",
 	},
