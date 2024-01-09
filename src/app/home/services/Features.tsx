@@ -59,6 +59,7 @@ function Features() {
         <Button
           startIcon={<Image width={24} height={24} src="/images/map-marker-path.svg" alt="" />}
           size="large"
+          disabled={true}
         >
           See Roadmap
         </Button>

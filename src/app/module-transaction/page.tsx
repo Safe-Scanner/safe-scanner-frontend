@@ -49,7 +49,7 @@ function ModuleTransactionPage() {
 						<Stack direction="row" alignItems="center" spacing={2}>
 							<Image src="/images/pound.svg" width={24} height={24} alt="" />
 							<Typography variant="h3" component="h1" fontWeight="medium">
-								Transaction
+								Module Transaction
 							</Typography>
 						</Stack>
 

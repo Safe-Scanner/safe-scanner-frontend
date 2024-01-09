@@ -1,59 +1,68 @@
 export const NETWORK_MAP = {
-	"matic": {
-		name: "Polygon",
+	matic: {
+		label: "Polygon",
 		key: "matic",
-		iconPath: "/images/polygon-icon.svg",
+		icon: "/images/polygon-icon.svg",
 		iconPathInverted: "/images/polygon-icon.svg",
+		isNew: true,
 	},
-	"oeth": {
-		name: "Ethereum Mainnet",
+	oeth: {
+		label: "Ethereum Mainnet",
 		key: "eth",
-		iconPath: "/images/ethereum-logo-rainbow.svg",
+		icon: "/images/ethereum-logo-rainbow.svg",
 		iconPathInverted: "/images/ethereum-logo-rainbow.svg",
+		isNew: true,
 	},
-	"eth": {
-		name: "Ethereum Mainnet",
+	eth: {
+		label: "Ethereum Mainnet",
 		key: "eth",
-		iconPath: "/images/ethereum-logo-rainbow.svg",
+		icon: "/images/ethereum-logo-rainbow.svg",
 		iconPathInverted: "/images/ethereum-logo-rainbow.svg",
+		isNew: true,
 	},
-	"base": {
-		name: "Base",
+	base: {
+		label: "Base",
 		key: "base",
-		iconPath: "/images/base-logo.svg",
+		icon: "/images/base-logo.svg",
 		iconPathInverted: "/images/base-logo.svg",
+		isNew: true,
 	},
-	"arb1": {
-		name: "Arbitrum One",
+	arb1: {
+		label: "Arbitrum One",
 		key: "arb1",
-		iconPath: "/images/arbitrum-logo.svg",
+		icon: "/images/arbitrum-logo.svg",
 		iconPathInverted: "/images/arbitrum-logo.svg",
+		isNew: true,
 	},
-	"avax": {
-		name: "Avalanche Mainnet",
+	avax: {
+		label: "Avalanche Mainnet",
 		key: "avax",
-		iconPath: "/images/avalanche-logo-red.svg",
+		icon: "/images/avalanche-logo-red.svg",
 		iconPathInverted: "/images/avalanche-logo-red.svg",
+		isNew: true,
 	},
-	"sep": {
-		name: "Arbitrum Sepolia",
+	sep: {
+		label: "Arbitrum Sepolia",
 		key: "sep",
-		iconPath: "/images/arbitrum-logo.svg",
+		icon: "/images/arbitrum-logo.svg",
 		iconPathInverted: "/images/arbitrum-logo.svg",
+		isNew: true,
 	},
-	"gno": {
-		name: "Binance Smart Chain",
+	gno: {
+		label: "Binance Smart Chain",
 		key: "bnb",
-		iconPath: "/images/bsc-logo.svg",
+		icon: "/images/bsc-logo.svg",
 		iconPathInverted: "/images/bsc-logo.svg",
+		isNew: true,
 	},
-	"bnb": {
-		name: "Binance Smart Chain",
+	bnb: {
+		label: "Binance Smart Chain",
 		key: "bnb",
-		iconPath: "/images/bsc-logo.svg",
+		icon: "/images/bsc-logo.svg",
 		iconPathInverted: "/images/bsc-logo.svg",
-	}
-}
+		isNew: true,
+	},
+};
 
 export const NETWORK_LIST = [
 	{

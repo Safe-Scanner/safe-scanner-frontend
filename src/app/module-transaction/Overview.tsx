@@ -5,13 +5,10 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import SubdirectoryArrowRightRoundedIcon from "@mui/icons-material/SubdirectoryArrowRightRounded";
 import Status, { StatusT } from "../../components/global/DataTable/Status";
 import SmartRow from "../../components/global/DataTable/SmartRow";
-import Box from "@mui/material/Box";
 import { CircularProgress } from "@mui/material";
 import { NETWORK_SCANNER_MAP } from "@/constants/constants";
 import CopyButton from "@/components/global/CopyButton";
@@ -38,7 +35,6 @@ function Overview({ transactionData }: any) {
 	const [network, setNetwork] = React.useState("");
 	const [status, setStatus] = React.useState<StatusT>("Signature Pending");
 	const [data, setData] = useState([] as any);
-
 
 	useEffect(() => {
 		if (transactionData != undefined) {
@@ -80,7 +76,8 @@ function Overview({ transactionData }: any) {
 						}
 					>
 						<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-							{data?.safeTxHash}
+							{/* {data?.moduleTransactionId} */}
+							{shortenString(data?.moduleTransactionId)}
 						</Typography>
 					</SmartRow>
 					<SmartRow
@@ -99,7 +96,7 @@ function Overview({ transactionData }: any) {
 								<CopyButton text={data?.safe} setOpen={setOpen} />
 								<RedirectButton
 									redirectLink={
-										"https://app.safe.global/apps?safe=matic:" + data?.safe
+										`/wallet?safe=${data?.safe}&network=${network}`
 									}
 								/>
 							</>
@@ -122,7 +119,7 @@ function Overview({ transactionData }: any) {
 						}}
 						action={
 							<>
-								<CopyButton text={data?.safe} setOpen={setOpen} />
+								<CopyButton text={data?.module} setOpen={setOpen} />
 								<RedirectButton
 									redirectLink={
 										"https://app.safe.global/apps?safe=matic:" + data?.module
@@ -132,7 +129,7 @@ function Overview({ transactionData }: any) {
 						}
 					>
 						<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-							{data?.safe}
+							{data?.module}
 						</Typography>
 					</SmartRow>
 					<SmartRow
@@ -376,7 +373,8 @@ function Overview({ transactionData }: any) {
 						}
 					>
 						<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-							{data?.data ? data?.data : "-"}
+							{/* {data?.data ? data?.data : "-"} */}
+							{shortenString(data?.data) ? shortenString(data?.data) : "-"}
 						</Typography>
 					</SmartRow>
 				</>

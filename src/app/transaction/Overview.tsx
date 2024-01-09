@@ -49,6 +49,10 @@ function Overview({ transactionData }: any) {
 		}
 	}, [transactionData]);
 
+	const handleRouting = () => {
+		console.log("clicked");
+	};
+
 	if (transactionData == undefined) return <CircularProgress />;
 
 	return (
@@ -87,7 +91,7 @@ function Overview({ transactionData }: any) {
 							),
 							text: (
 								<Typography color="text.secondary" textTransform="capitalize">
-									safe
+									Safe
 								</Typography>
 							),
 						}}
@@ -96,7 +100,8 @@ function Overview({ transactionData }: any) {
 								<CopyButton text={data?.safe} setOpen={setOpen} />
 								<RedirectButton
 									redirectLink={
-										"https://app.safe.global/apps?safe=matic:" + data?.safe
+										// "https://app.safe.global/apps?safe=matic:" + data?.safe
+										`/wallet?safe=${data?.to}&network=${network}`
 									}
 								/>
 							</>
@@ -180,7 +185,8 @@ function Overview({ transactionData }: any) {
 							<>
 								<CopyButton text={data?.to} setOpen={setOpen} />
 								<RedirectButton
-									redirectLink={NETWORK_SCANNER_MAP + "/address/" + data?.to}
+									// redirectLink={NETWORK_SCANNER_MAP + "/address/" + data?.to}
+									redirectLink={`/wallet?safe=${data?.to}&network=${network}`}
 								/>
 							</>
 						}
@@ -325,7 +331,7 @@ function Overview({ transactionData }: any) {
 						}
 					>
 						<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-							{data?.data ? data?.data : "-"}
+							{data?.data ? shortenString(data?.data) : "-"}
 						</Typography>
 					</SmartRow>
 				</>

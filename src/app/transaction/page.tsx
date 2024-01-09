@@ -14,23 +14,40 @@ import HashTab from "@/components/global/HashTab";
 import { useSearchParams } from "next/navigation";
 import { getTransactionData } from "@/apis/transctionPage";
 
+type OwnerInfo = {
+	owner: string;
+	signature: string;
+	signatureType: string;
+	submissionDate: string;
+	transactionHash: string | null;
+};
+
 function TransactionPage() {
 	const searchParams = useSearchParams();
 	const network: any = searchParams.get("network");
 	const [transactionData, setTransactionData] = useState<any>(null);
 	const safeTransactionhash: string = searchParams.get("transactionHash") || "";
 	const [key, setkey] = useState([] as any);
+	const [confirmation, setConfirmation] = useState<OwnerInfo[]>([]);
 
 	useEffect(() => {
 		const txData = getTransactionData(
 			safeTransactionhash,
 			network,
 			setTransactionData
-		).then(() => {
-			setkey(Object.keys(transactionData));
-			setTransactionData(transactionData.key[0]);
-		});
+		);
 	}, [safeTransactionhash]);
+
+	useEffect(() => {
+		if (transactionData != undefined) {
+			const keys = Object.keys(transactionData);
+			console.log(keys);
+			setConfirmation(transactionData[keys[0]][0]?.confirmations);
+			// console.log(transactionData[keys[0]]);
+		}
+	}, [transactionData]);
+
+	console.log(confirmation);
 
 	return (
 		<div>
@@ -45,14 +62,22 @@ function TransactionPage() {
 						<Stack direction="row" alignItems="center" spacing={2}>
 							<Image src="/images/pound.svg" width={24} height={24} alt="" />
 							<Typography variant="h3" component="h1" fontWeight="medium">
-								Transaction
+								Safe Transaction
 							</Typography>
 						</Stack>
 
-						<HashTab tabs={["Overview", "Confirmations"]}>
-							<Overview transactionData={transactionData} />
-							<Confirmations transactionData={transactionData} />
-						</HashTab>
+						{transactionData != undefined &&
+						Object.keys(transactionData)[0] != "statusCode" ? (
+							<HashTab tabs={["Overview", "Confirmations"]}>
+								<Overview transactionData={transactionData} />
+								{/* <Confirmations transactionData={transactionData} /> */}
+								{<Confirmations confirmation={confirmation} />}
+							</HashTab>
+						) : (
+							<Typography color="text.secondary" textTransform="capitalize">
+								No Record Found
+							</Typography>
+						)}
 					</Stack>
 				</Container>
 			</Box>

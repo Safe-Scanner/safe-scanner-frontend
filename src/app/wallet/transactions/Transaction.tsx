@@ -17,6 +17,8 @@ interface TransactionProps {
 	statusValue: string;
 	statusSubValue: string;
 	date: string;
+	txHash: string;
+	network: string;
 }
 
 const variantIcon = {
@@ -26,8 +28,36 @@ const variantIcon = {
 };
 
 function Transaction(props: TransactionProps) {
-	const { icon, variant, value, statusValue, statusSubValue, date, message } =
-		props;
+	const {
+		icon,
+		variant,
+		value,
+		statusValue,
+		statusSubValue,
+		date,
+		message,
+		txHash,
+		network,
+	} = props;
+
+	console.log("transaction hash is ", txHash);
+	const handleRedirect = () => {
+		if (txHash != undefined) {
+			if (txHash.length == 66) {
+				window.open(
+					`/transaction?transactionHash=${txHash}&network=${network}`,
+					"_blank"
+				);
+			} else {
+				window.open(
+					`/module-transaction?moduleTxId=${txHash}&network=${network}`,
+					"_blank"
+				);
+			}
+		} else {
+			console.error("Hash not found");
+		}
+	};
 
 	return (
 		<Paper sx={{ padding: 2 }}>
@@ -61,7 +91,7 @@ function Transaction(props: TransactionProps) {
 							{value}
 						</Typography>
 						<IconButton color="primary">
-							<OpenInNewIcon sx={{ fontSize: 20 }} />
+							<OpenInNewIcon sx={{ fontSize: 20 }} onClick={handleRedirect} />
 						</IconButton>
 					</Stack>
 				</Stack>
