@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import HashTab from "@/components/global/HashTab";
 import Grid from "@mui/material/Grid";
+import { Skeleton } from "@mui/material";
 
 function Balance(props: any) {
 	const [balanceData, setBalanceData] = useState([] as any);
@@ -165,7 +166,11 @@ function Balance(props: any) {
 						</HashTab>
 					</div>
 				</Stack>
-			) : null}
+			) : (
+				<Paper sx={{ p: 3 }}>
+					<Skeleton variant="rounded" height={100} />
+				</Paper>
+			)}
 		</>
 	);
 }

@@ -8,7 +8,6 @@ import Stack from "@mui/material/Stack";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
 import Overview from "./Overview";
-import Confirmations from "./Confirmations";
 import HashTab from "@/components/global/HashTab";
 
 import { useSearchParams } from "next/navigation";
@@ -32,7 +31,6 @@ function ModuleTransactionPage() {
 	useEffect(() => {
 		if (transactionData != null) {
 			const keys = Object.keys(transactionData);
-			// setTransactionData(transactionData[keys[0]][0]);
 		}
 	}, [transactionData]);
 
@@ -52,11 +50,8 @@ function ModuleTransactionPage() {
 								Module Transaction
 							</Typography>
 						</Stack>
-
-						{/* <HashTab tabs={["Overview", "Confirmations"]}> */}
 						<HashTab tabs={["Overview"]}>
 							<Overview transactionData={transactionData} />
-							{/* <Confirmations transactionData={transactionData} /> */}
 						</HashTab>
 					</Stack>
 				</Container>

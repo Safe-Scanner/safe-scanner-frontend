@@ -783,7 +783,7 @@ function Overview({ balance, balances }: any) {
 						</IconButton>
 					</Stack>
 
-					{/* <Skeleton variant="rounded" height={700}/> */}
+					<Skeleton variant="rounded" height={700}/>
 				</Paper>
 			)}
 
