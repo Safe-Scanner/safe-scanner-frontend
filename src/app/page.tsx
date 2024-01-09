@@ -8,6 +8,7 @@ function HomePage() {
 		<div>
 			<Introduction />
 			<Services />
+			
 		</div>
 	);
 }
