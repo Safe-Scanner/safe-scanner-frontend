@@ -13,7 +13,6 @@ function Balance(props: any) {
 	useEffect(() => {
 		setBalanceData([]);
 		setNft([]);
-		console.log(balances);
 		if (balances != undefined && balances) {
 			balances?.forEach((el: any) => {
 				if (el.type === "nft") {
@@ -41,7 +40,6 @@ function Balance(props: any) {
 								aria-label="Crypto"
 							>
 								{balanceData.map((el: any, index: any) => {
-									// console.log("entered balances");
 									return (
 										<Grid key={index} item xs={12} md={12} lg={12}>
 											<Paper sx={{ padding: 2 }}>

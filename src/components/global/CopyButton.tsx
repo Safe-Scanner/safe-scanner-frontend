@@ -16,12 +16,10 @@ const CopyButton = ({ text, setOpen }: Props) => {
 				onClick={() => {
 					navigator.clipboard.writeText(text).then(
 						() => {
-							console.log("Content copied to clipboard");
 							setOpen((prev: any) => !prev);
 							/* Resolved - text copied to clipboard successfully */
 						},
 						() => {
-							console.error("Failed to copy");
 							setOpen((prev: any) => !prev);
 							/* Rejected - text failed to copy to the clipboard */
 						}

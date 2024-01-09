@@ -108,7 +108,6 @@ function Searchbar(props: any) {
 	const open = Boolean(anchorEl) && value !== "";
 
 	useEffect(() => {
-		console.log(value.length);
 		if (value.length === 42 || value.length === 66) {
 			setSearchData([]);
 			const getData = setTimeout(() => {
@@ -161,8 +160,6 @@ function Searchbar(props: any) {
 			});
 		}
 	}, [rawSearchData]);
-
-	console.log(searchData);
 
 	return (
 		<Box maxWidth={950} marginX="auto" sx={{ position: "relative", zIndex: 1 }}>

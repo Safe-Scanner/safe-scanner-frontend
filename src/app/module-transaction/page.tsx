@@ -22,7 +22,6 @@ function ModuleTransactionPage() {
 	const [key, setkey] = useState([] as any);
 
 	useEffect(() => {
-		console.log(safeTransactionhash);
 		const txData = getModuleTranasction(
 			safeTransactionhash,
 			network,
@@ -31,10 +30,8 @@ function ModuleTransactionPage() {
 	}, [safeTransactionhash]);
 
 	useEffect(() => {
-		console.log(transactionData);
 		if (transactionData != null) {
 			const keys = Object.keys(transactionData);
-			console.log(transactionData[keys[0]]);
 			// setTransactionData(transactionData[keys[0]][0]);
 		}
 	}, [transactionData]);

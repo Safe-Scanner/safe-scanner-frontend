@@ -39,7 +39,6 @@ function Overview({ transactionData }: any) {
 	const [status, setStatus] = React.useState<StatusT>("Signature Pending");
 	const [data, setData] = useState([] as any);
 
-	console.log("transactionData is ", transactionData);
 
 	useEffect(() => {
 		if (transactionData != undefined) {
@@ -47,11 +46,9 @@ function Overview({ transactionData }: any) {
 			setNetwork(net);
 			let status = "";
 			determineAndSetStatus(transactionData[net], setStatus);
-			console.log("transaction data is ", transactionData);
 			setData(transactionData[net]);
 		}
 	}, [transactionData]);
-	console.log("Data is ", data);
 
 	if (transactionData == undefined) return <CircularProgress />;
 

@@ -45,11 +45,9 @@ function Overview({ transactionData }: any) {
 			setNetwork(net);
 			let status = "";
 			determineAndSetStatus(transactionData[net], setStatus);
-			console.log("transaction data is ", transactionData);
 			setData(transactionData[net][0]);
 		}
 	}, [transactionData]);
-	console.log("Data is ", data);
 
 	if (transactionData == undefined) return <CircularProgress />;
 

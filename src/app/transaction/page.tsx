@@ -17,13 +17,11 @@ import { getTransactionData } from "@/apis/transctionPage";
 function TransactionPage() {
 	const searchParams = useSearchParams();
 	const network: any = searchParams.get("network");
-	console.log(network);
 	const [transactionData, setTransactionData] = useState<any>(null);
 	const safeTransactionhash: string = searchParams.get("transactionHash") || "";
 	const [key, setkey] = useState([] as any);
 
 	useEffect(() => {
-		console.log(safeTransactionhash);
 		const txData = getTransactionData(
 			safeTransactionhash,
 			network,
@@ -33,10 +31,6 @@ function TransactionPage() {
 			setTransactionData(transactionData.key[0]);
 		});
 	}, [safeTransactionhash]);
-
-	useEffect(() => {
-		console.log(transactionData);
-	}, [transactionData]);
 
 	return (
 		<div>

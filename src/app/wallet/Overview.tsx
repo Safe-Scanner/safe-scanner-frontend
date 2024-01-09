@@ -27,7 +27,6 @@ import { useSelector } from "react-redux";
 function Overview({ balance, balances }: any) {
 	let data: any = {};
 	// const [owner, setOwner] = useState([] as any[]);
-	// console.log(loading);
 	const [owners, setOwners] = useState([] as any[]);
 	const [walletBalances, setWalletBalances] = useState([] as any);
 	const [open, setOpen] = useState(false);
@@ -47,12 +46,9 @@ function Overview({ balance, balances }: any) {
 	}, [data]);
 
 	useEffect(() => {
-		console.log("Balances in overview are", balances);
-
 		if (balances != null && balances.length > 0) {
 			setWalletBalances([]);
 			balances.forEach((el: any) => {
-				console.log(el);
 				if (el.type != "nft") {
 					setWalletBalances((prev: any) => [
 						...prev,
@@ -68,7 +64,6 @@ function Overview({ balance, balances }: any) {
 				}
 			});
 		}
-		console.log("Wallet balance is ", walletBalances);
 	}, [balances]);
 
 	const walletSortingOptions = [

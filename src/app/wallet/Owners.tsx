@@ -24,7 +24,6 @@ function Owners(params: any) {
 			setOwners(balance[keys[0]].owners);
 		}
 	}, [balance]);
-	console.log("owners are", owners);
 	return (
 		<Paper sx={{ p: 2 }}>
 			<Stack spacing={2} direction="row" marginBottom={3} alignItems="center">

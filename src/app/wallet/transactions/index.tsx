@@ -16,7 +16,6 @@ function Transactions() {
 		let keys = [] as any[];
 		if (transaction != null) {
 			let network: any = Object.keys(transaction);
-			console.log("Transactions are", transaction[network[0]].results);
 			const temp = transaction[network[0]].results;
 			setTransaction([]);
 			temp.forEach((el: any) => {
@@ -30,8 +29,6 @@ function Transactions() {
 					},
 				]);
 			});
-
-			console.log("Finla transcations", transactions);
 		}
 	}, [transaction]);
 	return (

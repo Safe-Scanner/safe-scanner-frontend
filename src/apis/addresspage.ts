@@ -45,11 +45,9 @@ const balancesApi = async (safe: string, network: string, func: any) => {
 		)
 		.then((response: any) => {
 			const keys = Object.keys(response.data);
-			console.log(response);
 			if (keys[0] != "statusCode") {
 				func(response.data);
 			}
-			// dispatch(storebalances(response.data));
 		})
 		.catch((error) => {
 			console.warn(error);

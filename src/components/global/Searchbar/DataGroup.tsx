@@ -31,18 +31,13 @@ function DataGroup(props: DataGroupProps) {
 	const toggle = () => setOpen((v) => !v);
 
 	const handleRouting = (value: any, name: any) => {
-		// console.log("Value is ", value);
 		const split = value.value.split(":");
-		// console.log("split is ", split);
 		if (split[1].length == 66) {
 			router.push(`/transaction?transactionHash=${split[1]}&network=${name}`);
 		} else {
 			router.push(`/wallet?safe=${split[1]}&network=${name}`);
 		}
 	};
-
-	console.log("props in final list", props);
-	console.log("network image", NETWORK_ICON_MAP[name]);
 
 	return (
 		<div>
