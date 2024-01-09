@@ -107,14 +107,14 @@ function Searchbar(props: any) {
 
     const open = Boolean(anchorEl) && value !== "";
 
-	useEffect(() => {
-		if (value.length === 42 || value.length === 66) {
-			setSearchData([]);
-			const getData = setTimeout(() => {
-				if (value.length > 0) {
-					searchBar(value, setRawSearchData, setLoading);
-				}
-			}, 1000);
+    useEffect(() => {
+        if (value.length === 42 || value.length === 66) {
+            setSearchData([]);
+            const getData = setTimeout(() => {
+                if (value.length > 0) {
+                    searchBar(value, setRawSearchData, setLoading);
+                }
+            }, 1000);
 
             return () => {
                 clearTimeout(getData);
@@ -155,90 +155,6 @@ function Searchbar(props: any) {
             });
         }
     }, [rawSearchData]);
-
-<<<<<<< HEAD
-	return (
-		<Box maxWidth={950} marginX="auto" sx={{ position: "relative", zIndex: 1 }}>
-			{/* <Box sx={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0}} /> */}
-			<Stack spacing={1}>
-				<TextField
-					value={value}
-					onChange={(e) => {
-						setValue(e.target.value);
-						// setSearchString(e.target.value);
-						// setSearch(e.target.value);
-					}}
-					onClick={handleClick}
-					sx={{
-						"& fieldset": {
-							borderWidth: 2,
-							borderColor: "primary.light",
-						},
-					}}
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position="start">
-								<SearchIcon />
-							</InputAdornment>
-						),
-						endAdornment: open ? (
-							<InputAdornment position="end">
-								<IconButton onClick={handleClose}>
-									<CloseIcon />
-								</IconButton>
-							</InputAdornment>
-						) : null,
-						sx: {
-							pl: 2,
-							"& input::placeholder": {
-								color: "text.disabled",
-								opacity: 1,
-							},
-						},
-					}}
-					fullWidth
-					placeholder="Search for addresses & hashes..."
-				/>
-				{status && (
-					<Stack
-						direction={{ xs: "column", md: "row" }}
-						justifyContent="space-between"
-						alignItems="center"
-					>
-						<Stack direction="row" alignItems="center" spacing={0.5}>
-							<Typography color="text.disabled">
-								Scanner Network Status
-							</Typography>
-							<Chip
-								sx={{ border: 0 }}
-								icon={
-									<img
-										src="/images/checkbox-marked-circle-outline.svg"
-										alt=""
-									/>
-								}
-								variant="outlined"
-								label="Available"
-								color="primary"
-							/>
-						</Stack>
-						<Stack direction="row" alignItems="center" spacing={0.5}>
-							<Typography color="text.disabled">
-								Total Safe Transactions
-							</Typography>
-							<Chip
-								sx={{ border: 0 }}
-								icon={<img src="/images/safe-transactions.svg" alt="" />}
-								variant="outlined"
-								label="33 013 011"
-								color="primary"
-							/>
-						</Stack>
-					</Stack>
-				)}
-			</Stack>
-=======
-    console.log(searchData);
 
     return (
         <Box maxWidth={950} marginX="auto" sx={{ position: "relative", zIndex: 1 }}>
@@ -307,7 +223,6 @@ function Searchbar(props: any) {
                     </Stack>
                 )}
             </Stack>
->>>>>>> b865dab (modifying search bar)
 
             <Popper open={open} anchorEl={anchorEl} transition sx={{ width: getMenuWidth(), bgcolor: "background.default" }}>
                 {({ TransitionProps }) => (

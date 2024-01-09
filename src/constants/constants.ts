@@ -24,13 +24,13 @@ export const NETWORK_MAP = {
 		iconPathInverted: "/images/base-logo.svg",
 	},
 	"arb1": {
-		name: "Arbitrum One (Mainnet)",
+		name: "Arbitrum One",
 		key: "arb1",
 		iconPath: "/images/arbitrum-logo.svg",
 		iconPathInverted: "/images/arbitrum-logo.svg",
 	},
 	"avax": {
-		name: "Avalanche Mainnet (AVAX)",
+		name: "Avalanche Mainnet",
 		key: "avax",
 		iconPath: "/images/avalanche-logo-red.svg",
 		iconPathInverted: "/images/avalanche-logo-red.svg",
