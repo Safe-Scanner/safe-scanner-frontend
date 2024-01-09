@@ -15,7 +15,7 @@ import CopyButton from "@/components/global/CopyButton";
 
 function Owners(params: any) {
 	const { balance } = params;
-
+	const [open, setOpen] = useState(false);
 	const [owners, setOwners] = useState([] as any[]);
 
 	useEffect(() => {
@@ -34,36 +34,37 @@ function Owners(params: any) {
 					</Typography>
 				</Stack>
 				<Chip
-					label={`${owners?.length} Owners`} 
+					label={`${owners?.length} Owners`}
 					color="black"
 					sx={{ color: "primary.light", borderRadius: 1, height: 24 }}
 				/>
 			</Stack>
 			<Grid container columnSpacing={4} rowSpacing={2}>
-				{owners?.length > 0 && owners.map((el, index) => (
-					<Grid item xs={12} md={12} lg={12} key={index}>
-						<Stack direction={"row"} spacing={2} alignItems="center">
-							<Avatar
-								alt=""
-								sx={{ width: 20, height: 20 }}
-								src="/images/account-key 1 (2).svg"
-							/>
-							<Stack flexGrow={1} spacing={0.5}>
-								<Typography
-									variant="subtitle2"
-									color="text.disabled"
-									fontWeight="medium"
-								>
-									Owner {index+1}
-								</Typography>
-								<Typography color="text.secondary" fontWeight="medium">
-									{el}
-								</Typography>
+				{owners?.length > 0 &&
+					owners.map((el, index) => (
+						<Grid item xs={12} md={12} lg={12} key={index}>
+							<Stack direction={"row"} spacing={2} alignItems="center">
+								<Avatar
+									alt=""
+									sx={{ width: 20, height: 20 }}
+									src="/images/account-key 1 (2).svg"
+								/>
+								<Stack flexGrow={1} spacing={0.5}>
+									<Typography
+										variant="subtitle2"
+										color="text.disabled"
+										fontWeight="medium"
+									>
+										Owner {index + 1}
+									</Typography>
+									<Typography color="text.secondary" fontWeight="medium">
+										{el}
+									</Typography>
+								</Stack>
+								<CopyButton text={el} setOpen={setOpen} />
 							</Stack>
-              <CopyButton text={el}/>
-						</Stack>
-					</Grid>
-				))}
+						</Grid>
+					))}
 			</Grid>
 		</Paper>
 	);

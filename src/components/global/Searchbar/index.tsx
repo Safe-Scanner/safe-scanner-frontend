@@ -114,7 +114,7 @@ function Searchbar(props: any) {
 				if (value.length > 0) {
 					searchBar(value, setRawSearchData, setLoading);
 				}
-			}, 1000);
+			}, 0);
 
 			return () => {
 				clearTimeout(getData);
