@@ -37,10 +37,12 @@ function Transaction(props: TransactionProps) {
     console.log("txHash is ", txHash);
     console.log(safeTxHash ? safeTxHash : txHash);
     const handleRedirect = () => {
-        if (txHash != undefined) {
+        if (txType != undefined) {
+            console.log("txType");
             if (txType == "ETHEREUM_TRANSACTION") {
                 window.open(`${NETWORK_MAP[network].explorerUrl}/tx/${txHash}`, "_blank");
             } else if (txType == "MULTISIG_TRANSACTION") {
+                console.log(`/transaction?transactionHash=${safeTxHash}&network=${network}`);
                 window.open(`/transaction?transactionHash=${safeTxHash}&network=${network}`, "_blank");
             } else {
                 window.open(`/module-transaction?moduleTxId=${safeTxHash}&network=${network}`, "_blank");
