@@ -6,6 +6,7 @@ import { NETWORK_ICON_MAP, NETWORK_LIST } from "@/constants/constants";
 import { useSelector } from "react-redux";
 import { shortenString } from "@/components/utils/utils";
 import { useSearchParams } from "next/navigation";
+import { Paper, Skeleton } from "@mui/material";
 
 type Width = {
 	width: number;
@@ -54,27 +55,33 @@ function Transactions() {
 			setWidth(screen.width);
 		}
 	}, []);
-
-	console.log("Width of the screen is ", width);
 	return (
-		<Grid container sx={{ marginTop: 2 }} spacing={0.5}>
-			{transactions.length > 0 &&
-				transactions.map((el: any, index: any) => (
-					<Grid key={index} item xs={12} md={12} lg={12}>
-						<Transaction
-							value={el?.safe}
-							message={el?.txType}
-							icon={el?.icon}
-							statusValue={el?.value}
-							statusSubValue="+$21.03"
-							variant="complete"
-							date={new Date(el.date).toLocaleDateString("em-GB")}
-							txHash={el?.transactionHash}
-							network={network}
-						/>
-					</Grid>
-				))}
-		</Grid>
+		<>
+			{transaction != undefined ? (
+				<Grid container sx={{ marginTop: 2 }} spacing={0.5}>
+					{transactions.length > 0 &&
+						transactions.map((el: any, index: any) => (
+							<Grid key={index} item xs={12} md={12} lg={12}>
+								<Transaction
+									value={el?.safe}
+									message={el?.txType}
+									icon={el?.icon}
+									statusValue={el?.value}
+									statusSubValue="+$21.03"
+									variant="complete"
+									date={new Date(el.date).toLocaleDateString("em-GB")}
+									txHash={el?.transactionHash}
+									network={network}
+								/>
+							</Grid>
+						))}
+				</Grid>
+			) : (
+				<Paper sx={{ p: 3 }}>
+					<Skeleton variant="rounded" height={500} />
+				</Paper>
+			)}
+		</>
 	);
 }
 

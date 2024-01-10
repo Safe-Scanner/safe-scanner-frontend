@@ -47,8 +47,6 @@ function TransactionPage() {
 		}
 	}, [transactionData]);
 
-	console.log(confirmation);
-
 	return (
 		<div>
 			<Box component="section">
@@ -65,19 +63,11 @@ function TransactionPage() {
 								Safe Transaction
 							</Typography>
 						</Stack>
-
-						{transactionData != undefined &&
-						Object.keys(transactionData)[0] != "statusCode" ? (
 							<HashTab tabs={["Overview", "Confirmations"]}>
 								<Overview transactionData={transactionData} />
 								{/* <Confirmations transactionData={transactionData} /> */}
 								{<Confirmations confirmation={confirmation} />}
 							</HashTab>
-						) : (
-							<Typography color="text.secondary" textTransform="capitalize">
-								No Record Found
-							</Typography>
-						)}
 					</Stack>
 				</Container>
 			</Box>

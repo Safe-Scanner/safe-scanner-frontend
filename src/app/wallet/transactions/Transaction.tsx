@@ -41,7 +41,6 @@ function Transaction(props: TransactionProps) {
 		network,
 	} = props;
 
-	console.log("transaction hash is ", txHash);
 	const handleRedirect = () => {
 		if (txHash != undefined) {
 			if (txHash.length == 66) {
