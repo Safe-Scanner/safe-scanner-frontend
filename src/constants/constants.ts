@@ -49,11 +49,10 @@ export const NETWORK_MAP = {
 		isNew: true,
 	},
 	gno: {
-		label: "Binance Smart Chain",
-		key: "bnb",
-		icon: "/images/bsc-logo.svg",
-		iconPathInverted: "/images/bsc-logo.svg",
-		isNew: true,
+		name: "Gnosis",
+		key: "gno",
+		iconPath: "/images/gnosis-logo.svg",
+		iconPathInverted: "/images/gnosis-logo.svg",
 	},
 	bnb: {
 		label: "Binance Smart Chain",

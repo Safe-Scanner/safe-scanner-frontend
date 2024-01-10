@@ -22,59 +22,59 @@ import ClipLoader from "react-spinners/ClipLoader";
 // This page will create more tabs whare I can show balance, transaxtion, owners
 
 const override: CSSProperties = {
-	display: "block",
-	margin: "0 auto",
+    display: "block",
+    margin: "0 auto",
 };
 function WalletPage() {
-	const dispatch = useDispatch();
-	const [balance, setBalance] = useState(undefined);
-	const [transcation, setTransaction] = useState(undefined);
-	const [balances, setBalances] = useState(undefined);
-	const [loading, setLoading] = useState(false);
-	const searchParams = useSearchParams();
-	const safe: any = searchParams.get("safe");
-	const network: any = searchParams.get("network");
+    const dispatch = useDispatch();
+    const [balance, setBalance] = useState(undefined);
+    const [transcation, setTransaction] = useState(undefined);
+    const [balances, setBalances] = useState(undefined);
+    const [loading, setLoading] = useState(false);
+    const searchParams = useSearchParams();
+    const safe: any = searchParams.get("safe");
+    const network: any = searchParams.get("network");
 
-	const redux = useSelector((state: any) => state);
-	useEffect(() => {
-		if (balance === null || balance === undefined) {
-			if ((redux.balance = {})) {
-				balanceApi(safe, network, setBalance, setLoading);
-			}
-		}
-		if (transcation === null || transcation === undefined) {
-			if ((redux.transaction = {})) {
-				transactionApi(safe, setTransaction);
-			}
-		}
-		if (balances === null || balances === undefined) {
-			if ((redux.balances = {})) {
-				balancesApi(safe, network, setBalances);
-			}
-		}
-	}, []);
+    const redux = useSelector((state: any) => state);
+    useEffect(() => {
+        if (balance === null || balance === undefined) {
+            if ((redux.balance = {})) {
+                balanceApi(safe, network, setBalance, setLoading);
+            }
+        }
+        if (transcation === null || transcation === undefined) {
+            if ((redux.transaction = {})) {
+                transactionApi(safe, network, setTransaction);
+            }
+        }
+        if (balances === null || balances === undefined) {
+            if ((redux.balances = {})) {
+                balancesApi(safe, network, setBalances);
+            }
+        }
+    }, []);
 
-	dispatch(storebalance(balance));
-	dispatch(storetransaction(transcation));
-	dispatch(storebalances(balances));
+    dispatch(storebalance(balance));
+    dispatch(storetransaction(transcation));
+    dispatch(storebalances(balances));
 
-	return (
-		<div>
-			<Box component="section">
-				<Box marginBottom={6} marginTop={3}>
-					<Searchbar status />
-				</Box>
-			</Box>
-			<Box component="section" marginBottom={8}>
-				<Container>
-					<Stack spacing={3}>
-						<Stack direction="row" alignItems="center" spacing={2}>
-							<Image src="/images/wallet.svg" width={24} height={24} alt="" />
-							<Typography variant="h3" component="h1" fontWeight="medium">
-								Wallet
-							</Typography>
-						</Stack>
-						{/* <ClipLoader
+    return (
+        <div>
+            <Box component="section">
+                <Box marginBottom={6} marginTop={3}>
+                    <Searchbar status />
+                </Box>
+            </Box>
+            <Box component="section" marginBottom={8}>
+                <Container>
+                    <Stack spacing={3}>
+                        <Stack direction="row" alignItems="center" spacing={2}>
+                            <Image src="/images/wallet.svg" width={24} height={24} alt="" />
+                            <Typography variant="h3" component="h1" fontWeight="medium">
+                                Wallet
+                            </Typography>
+                        </Stack>
+                        {/* <ClipLoader
 							color="#fff"
 							loading={loading}
 							cssOverride={override}
@@ -82,17 +82,17 @@ function WalletPage() {
 							aria-label="Loading Spinner"
 							data-testid="loader"
 						/> */}
-						<HashTab tabs={["Overview", "Balance", "Transactions", "Owners"]}>
-							<Overview balance={balance} balances={balances} />
-							<Balance balances={balances} loading={loading} />
-							<Transactions />
-							<Owners balance={balance} />
-						</HashTab>
-					</Stack>
-				</Container>
-			</Box>
-		</div>
-	);
+                        <HashTab tabs={["Overview", "Balance", "Transactions", "Owners"]}>
+                            <Overview balance={balance} balances={balances} />
+                            <Balance balances={balances} loading={loading} />
+                            <Transactions />
+                            <Owners balance={balance} />
+                        </HashTab>
+                    </Stack>
+                </Container>
+            </Box>
+        </div>
+    );
 }
 
 export default WalletPage;

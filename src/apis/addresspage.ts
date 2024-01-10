@@ -24,10 +24,10 @@ const balanceApi = async (
 		});
 };
 
-const transactionApi = async (safe: string, func: any) => {
+const transactionApi = async (safe: string, network: string, func: any) => {
 	await axios
 		.get(
-			`https://oyzii5yqy5.execute-api.us-east-2.amazonaws.com/dev/v1/all_transactions?query=${safe}`
+			`https://oyzii5yqy5.execute-api.us-east-2.amazonaws.com/dev/v1/all_transactions?query=${safe}&network=${network}`
 		)
 		.then((response: any) => {
 			const keys = Object.keys(response.data);
