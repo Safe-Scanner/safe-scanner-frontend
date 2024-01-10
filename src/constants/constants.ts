@@ -228,6 +228,7 @@ export const NETWORK_ICON_MAP: NETWORK_ICON_MAP = {
 	gnosis: "/images/gnosis-logo.svg",
 	bsc: "/images/bsc-logo.svg",
 	"bnb-testnet": "/images/bsc-logo.svg",
+	bnb: "/images/bsc-logo.svg",
 	fuse: "/images/fuse-logo.svg",
 	"celo-alfajores": "/images/Celo_logo_black.svg",
 };
