@@ -65,7 +65,6 @@ function TransactionPage() {
 						</Stack>
 							<HashTab tabs={["Overview", "Confirmations"]}>
 								<Overview transactionData={transactionData} />
-								{/* <Confirmations transactionData={transactionData} /> */}
 								{<Confirmations confirmation={confirmation} />}
 							</HashTab>
 					</Stack>
