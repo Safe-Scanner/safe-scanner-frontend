@@ -6,6 +6,7 @@ import { NETWORK_ICON_MAP, NETWORK_LIST } from "@/constants/constants";
 import { useSelector } from "react-redux";
 import { getFee, shortenString } from "@/components/utils/utils";
 import { useSearchParams } from "next/navigation";
+import { Paper, Skeleton } from "@mui/material";
 
 type Width = {
     width: number;

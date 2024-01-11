@@ -27,64 +27,6 @@ const override: CSSProperties = {
 	margin: "0 auto",
 };
 
-// const searchData = [
-// 	{
-// 		id: 1,
-// 		name: "Ethereum",
-// 		icon: "/images/Group 614.svg",
-// 		values: [
-// 			{
-// 				avatar: "/images/image 89.svg",
-// 				name: "WalletName",
-// 				value: "matic:0x27ce...857e",
-// 			},
-// 			{
-// 				avatar: "/images/image 89.svg",
-// 				name: "WalletName",
-// 				value: "matic:0x27ce...857e",
-// 			},
-// 		],
-// 	},
-// 	{
-// 		id: 2,
-// 		name: "Polygon",
-// 		icon: "/images/Group 63.svg",
-// 		values: [
-// 			{
-// 				avatar: "/images/image 89.svg",
-// 				name: "WalletName",
-// 				value: "matic:0x27ce...857e",
-// 			},
-// 			{
-// 				avatar: "/images/image 89.svg",
-// 				name: "WalletName",
-// 				value: "matic:0x27ce...857e",
-// 			},
-// 		],
-// 	},
-// 	{
-// 		id: 3,
-// 		name: "Arbitrum",
-// 		icon: "/images/Group.svg",
-// 		values: [
-// 			{
-// 				avatar: "/images/image 89.svg",
-// 				name: "WalletName",
-// 				value: "matic:0x27ce...857e",
-// 			},
-// 			{
-// 				avatar: "/images/image 89.svg",
-// 				name: "WalletName",
-// 				value: "matic:0x27ce...857e",
-// 			},
-// 		],
-// 	},
-// ];
-
-// interface SearchbarProps {
-// 	status?: boolean;
-// }
-
 function Searchbar(props: any) {
 	const { status } = props;
 	const [searchData, setSearchData] = useState([] as any);
@@ -109,7 +51,7 @@ function Searchbar(props: any) {
 		return null;
 	};
 
-	const open = Boolean(anchorEl) && value !== "";
+	const open = Boolean(anchorEl) && (value.length == 66 || value.length == 67 || value.length == 42);
 
 	useEffect(() => {
 		if (value.length === 42 || value.length === 66 || value.length === 67) {
