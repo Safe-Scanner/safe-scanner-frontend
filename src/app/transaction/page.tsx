@@ -63,6 +63,10 @@ function TransactionPage() {
 								Safe Transaction
 							</Typography>
 						</Stack>
+						<HashTab tabs={["Overview", "Confirmation"]}>
+							<Overview transactionData={transactionData} />
+							<Confirmations confirmation={confirmation} />
+						</HashTab>
 					</Stack>
 				</Container>
 			</Box>
