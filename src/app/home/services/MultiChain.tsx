@@ -55,10 +55,11 @@ type NetworkInfo = {
 };
 
 function MultiChain() {
-	const [networks, setNetworks] = useState<NetworkInfo[]>([]);
+	const [networks, setNetworks] = useState<any[]>([]);
 
 	useEffect(() => {
-		setNetworks(Object.values(NETWORK_MAP));
+		const networkMap = Object.values(NETWORK_MAP);
+		setNetworks(networkMap);
 	}, []);
 	return (
 		<FeatureItem
