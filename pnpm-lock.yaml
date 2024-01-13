@@ -56,6 +56,9 @@ dependencies:
   react-router-dom:
     specifier: ^6.21.1
     version: 6.21.1(react-dom@18.2.0)(react@18.2.0)
+  react-simple-toasts:
+    specifier: ^5.10.0
+    version: 5.10.0(react-dom@18.2.0)(react@18.2.0)
   react-spinners:
     specifier: ^0.13.8
     version: 0.13.8(react-dom@18.2.0)(react@18.2.0)
@@ -2827,6 +2830,17 @@ packages:
     dependencies:
       '@remix-run/router': 1.14.1
       react: 18.2.0
+    dev: false
+
+  /react-simple-toasts@5.10.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-GIsBaLkZnyqeTzs0fSmXoLr5GtSnHv9C35tEx/2mc8H7/OaTlwXRHjm0ssDP454gvI4rZFS+rnj2HOL5zuiiwA==}
+    engines: {node: '>=16.17.0'}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-spinners@0.13.8(react-dom@18.2.0)(react@18.2.0):
