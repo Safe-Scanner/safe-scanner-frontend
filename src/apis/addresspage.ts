@@ -1,3 +1,4 @@
+import FailureToast from "@/components/global/Toasts/FailureToast";
 import axios from "axios";
 
 const balanceApi = async (
@@ -15,6 +16,8 @@ const balanceApi = async (
 			const keys = Object.keys(response.data);
 			if (keys[0] != "statusCode") {
 				func(response.data);
+			} else {
+				FailureToast(`${response?.data?.body?.message} for balances request`);
 			}
 			load((prev: any) => !prev);
 		})
@@ -33,6 +36,10 @@ const transactionApi = async (safe: string, network: string, func: any) => {
 			const keys = Object.keys(response.data);
 			if (keys[0] != "statusCode") {
 				func(response.data);
+			} else {
+				FailureToast(
+					`${response?.data?.body?.message} for transactions request`
+				);
 			}
 		})
 		.catch((error) => console.warn(error));
@@ -47,6 +54,10 @@ const balancesApi = async (safe: string, network: string, func: any) => {
 			const keys = Object.keys(response.data);
 			if (keys[0] != "statusCode") {
 				func(response.data);
+			} else {
+				FailureToast(
+					`${response?.data?.body?.message} for transactions balances`
+				);
 			}
 		})
 		.catch((error) => {

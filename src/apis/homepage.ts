@@ -1,3 +1,4 @@
+import FailureToast from "@/components/global/Toasts/FailureToast";
 import axios from "axios";
 
 const searchBar = async (searchString: any, func: any, load: any) => {
@@ -8,10 +9,18 @@ const searchBar = async (searchString: any, func: any, load: any) => {
 		)
 		.then((response: any) => {
 			const { data } = response;
-			func(data);
-			load((prev: any) => !prev);
+			let keys = Object.keys(data);
+			if (keys[0] == "statusCode") {
+				FailureToast(data.body.message);
+				load((prev: any) => !prev);
+			} else {
+				func(data);
+				load((prev: any) => !prev);
+			}
 		})
-		.catch((error) => console.warn(error));
+		.catch((error: any) => {
+			FailureToast(error.message);
+		});
 };
 
 export { searchBar };
