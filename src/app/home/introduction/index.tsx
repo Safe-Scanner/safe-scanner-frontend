@@ -9,34 +9,27 @@ import Searchbar from "@/components/global/Searchbar";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const override: CSSProperties = {
-	display: "block",
-	margin: "0 auto",
+    display: "block",
+    margin: "0 auto",
 };
 
 function Introduction() {
-	// const [loading, setLoading] = useState(false);
-	// const [color, setColor] = useState("#ffffff");
+    // const [loading, setLoading] = useState(false);
+    // const [color, setColor] = useState("#ffffff");
 
-	return (
-		<>
-			<Box marginTop={7} component="section" aria-label="Introduction">
-				<Container>
-					<Stack alignItems="center" marginBottom={4} textAlign="center">
-						<Box
-							marginBottom={1}
-							component="img"
-							width={348}
-							src="/images/logo.svg"
-						/>
-						<Typography color="text.disabled">
-							Super User-friendly Transaction Explorer for the Safe Eco-system
-						</Typography>
-					</Stack>
-					<Searchbar status/>
-				</Container>
-			</Box>
-		</>
-	);
+    return (
+        <>
+            <Box marginTop={7} component="section" aria-label="Introduction">
+                <Container>
+                    <Stack alignItems="center" marginBottom={4} textAlign="center">
+                        <Box marginBottom={1} component="img" width={348} src="/images/logo.svg" />
+                        <Typography color="text.disabled">User friendly transaction explorer for the Safe ecosystem</Typography>
+                    </Stack>
+                    <Searchbar status />
+                </Container>
+            </Box>
+        </>
+    );
 }
 
 export default Introduction;
