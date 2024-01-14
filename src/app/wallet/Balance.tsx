@@ -11,6 +11,8 @@ function Balance(props: any) {
     const [nft, setNft] = useState([] as any);
     const { balances } = props;
 
+    if (balances) console.log(balances[0]?.logo_urls?.token_logo_url);
+
     useEffect(() => {
         setBalanceData([]);
         setNft([]);

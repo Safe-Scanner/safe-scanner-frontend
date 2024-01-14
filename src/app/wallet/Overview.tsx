@@ -55,8 +55,9 @@ function Overview({ balance, balances }: any) {
                         {
                             name: el.contract_display_name,
                             symbol: el.contract_ticker_symbol,
-                            logo: el.logo_url,
+                            logo: el?.logo_urls?.token_logo_url ? el?.logo_urls?.token_logo_url : el?.logo_url,
                             balance: el.balance,
+
                             decimal: el.contract_decimals,
                             quote: el.quote,
                         },
@@ -524,12 +525,7 @@ function Overview({ balance, balances }: any) {
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
-                                                <img
-                                                    src={el?.logo_urls?.token_logo_url ? el?.logo_urls?.token_logo_url : el?.logo_url}
-                                                    alt=""
-                                                    width={20}
-                                                    height={20}
-                                                />
+                                                <img src={`${el?.logo}`} alt="" width={20} height={20} />
                                                 <Typography fontFamily="'DM Mono'">
                                                     {(el.balance / Math.pow(10, el?.decimal)).toFixed(3)} / ${el.quote}
                                                 </Typography>
