@@ -13,7 +13,7 @@ const getTransactionData = async (
 		.then((response: any) => {
 			const { data } = response;
 			const keys = Object.keys(data);
-			if (keys[0] == "statusCode") {
+			if (keys[0] != "statusCode") {
 				func(data);
 			} else {
 				FailureToast(data?.body?.message);
@@ -38,7 +38,7 @@ const getModuleTranasction = async (
 			const keys = Object.keys(data);
 			console.log(keys);
 			if (keys[0] == "statusCode") {
-				FailureToast(data?.body?.message); 
+				FailureToast(data?.body?.message);
 			} else {
 				func(data);
 			}

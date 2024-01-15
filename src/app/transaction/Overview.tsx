@@ -45,15 +45,9 @@ function Overview({ transactionData }: any) {
 			setNetwork(net);
 			let status = "";
 			determineAndSetStatus(transactionData[net], setStatus);
-			setData(transactionData[net][0]);
+			setData(transactionData[net]);
 		}
 	}, [transactionData]);
-
-	const handleRouting = () => {
-		console.log("clicked");
-	};
-
-	// if (transactionData == undefined) return <CircularProgress />;
 
 	return (
 		<>

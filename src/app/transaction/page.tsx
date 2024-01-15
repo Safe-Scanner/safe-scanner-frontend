@@ -41,9 +41,7 @@ function TransactionPage() {
 	useEffect(() => {
 		if (transactionData != undefined) {
 			const keys = Object.keys(transactionData);
-			console.log(keys);
-			setConfirmation(transactionData[keys[0]][0]?.confirmations);
-			// console.log(transactionData[keys[0]]);
+			setConfirmation(transactionData[keys[0]]?.confirmations);
 		}
 	}, [transactionData]);
 
