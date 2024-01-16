@@ -51,14 +51,16 @@ function Searchbar(props: any) {
 		return null;
 	};
 
-	const open = Boolean(anchorEl) && (value.length == 66 || value.length == 67 || value.length == 42);
+	const open =
+		Boolean(anchorEl) &&
+		(value.length == 66 || value.length == 67 || value.length == 42);
 
 	useEffect(() => {
 		if (value.length === 42 || value.length === 66 || value.length === 67) {
 			setSearchData([]);
 			const getData = setTimeout(() => {
 				if (value.length > 0) {
-					searchBar(value, setRawSearchData, setLoading);
+					searchBar(value, setRawSearchData, setLoading, setAnchorEl);
 				}
 			}, 0);
 
