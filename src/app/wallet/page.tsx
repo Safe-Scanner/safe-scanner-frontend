@@ -38,13 +38,15 @@ function WalletPage() {
 	const redux = useSelector((state: any) => state);
 
 	const networkCalls = () => {
-		setBalance((prev) => undefined);
-		setBalances((prev) => undefined);
-		setTransaction((prev) => undefined);
+		if (safe != undefined || safe != null) {
+			setBalance((prev) => undefined);
+			setBalances((prev) => undefined);
+			setTransaction((prev) => undefined);
 
-		balanceApi(safe, network, setBalance, setLoading);
-		balancesApi(safe, network, setBalances);
-		transactionApi(safe, network, setTransaction);
+			balanceApi(safe, network, setBalance, setLoading);
+			balancesApi(safe, network, setBalances);
+			transactionApi(safe, network, setTransaction);
+		}
 	};
 
 	useEffect(() => {
