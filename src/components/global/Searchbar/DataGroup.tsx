@@ -48,9 +48,6 @@ function DataGroup(props: DataGroupProps) {
 		}
 	};
 
-	console.log("props in final list", name);
-	console.log("network image", NETWORK_ICON_MAP[name]);
-
 	return (
 		<div>
 			<ListItem component="div" disablePadding sx={{ pl: 0.25, pr: 1.25 }}>

@@ -15,7 +15,7 @@ const balanceApi = async (
 		.then((response: any) => {
 			const keys = Object.keys(response.data);
 			if (keys[0] != "statusCode") {
-				func(response.data);
+				func((prev: any) => response.data);
 			} else {
 				FailureToast(`${response?.data?.body?.message} for balances request`);
 			}
@@ -35,7 +35,7 @@ const transactionApi = async (safe: string, network: string, func: any) => {
 		.then((response: any) => {
 			const keys = Object.keys(response.data);
 			if (keys[0] != "statusCode") {
-				func(response.data);
+				func((prev: any) => response.data);
 			} else {
 				FailureToast(
 					`${response?.data?.body?.message} for transactions request`
@@ -53,7 +53,7 @@ const balancesApi = async (safe: string, network: string, func: any) => {
 		.then((response: any) => {
 			const keys = Object.keys(response.data);
 			if (keys[0] != "statusCode") {
-				func(response.data);
+				func((prev: any) => response.data);
 			} else {
 				FailureToast(
 					`${response?.data?.body?.message} for transactions balances`

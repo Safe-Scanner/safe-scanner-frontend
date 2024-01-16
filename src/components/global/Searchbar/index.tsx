@@ -15,11 +15,7 @@ import DataGroup from "./DataGroup";
 import Popper from "@mui/material/Popper";
 import Fade from "@mui/material/Fade";
 import { searchBar } from "@/apis/homepage";
-import {
-	NETWORK_ICON_MAP,
-	NETWORK_LIST,
-	NETWORK_SCANNER_MAP,
-} from "@/constants/constants";
+import { NETWORK_LIST } from "@/constants/constants";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const override: CSSProperties = {
@@ -53,10 +49,10 @@ function Searchbar(props: any) {
 
 	const open =
 		Boolean(anchorEl) &&
-		(value.length == 66 || value.length == 67 || value.length == 42);
+		((value.length >= 66 && value.length <= 70) || value.length == 42);
 
 	useEffect(() => {
-		if (value.length === 42 || value.length === 66 || value.length === 67) {
+		if (value.length === 42 || (value.length >= 66 && value.length <= 70)) {
 			setSearchData([]);
 			const getData = setTimeout(() => {
 				if (value.length > 0) {
@@ -69,6 +65,10 @@ function Searchbar(props: any) {
 			};
 		}
 	}, [value]);
+
+	useEffect(() => {
+		setLoading((prev: any) => !prev);
+	}, [open]);
 
 	useEffect(() => {
 		if (

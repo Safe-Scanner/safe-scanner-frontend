@@ -37,6 +37,7 @@ function TransactionPage() {
 			setTransactionData
 		);
 	}, [safeTransactionhash]);
+	
 
 	useEffect(() => {
 		if (transactionData != undefined) {

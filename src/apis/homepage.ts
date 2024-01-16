@@ -15,6 +15,7 @@ const searchBar = async (
 		.then((response: any) => {
 			const { data } = response;
 			let keys = Object.keys(data);
+			load((prev: any) => !prev);
 			if (keys[0] == "statusCode") {
 				FailureToast(data.body.message);
 				load((prev: any) => !prev);
@@ -26,6 +27,8 @@ const searchBar = async (
 		})
 		.catch((error: any) => {
 			FailureToast(error.message);
+			load((prev: any) => !prev);
+			anchor((prev: any) => !prev);
 		});
 };
 
