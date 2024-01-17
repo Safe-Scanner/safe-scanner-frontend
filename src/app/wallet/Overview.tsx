@@ -71,6 +71,25 @@ function Overview({ balance, balances }: any) {
 		}
 	}, [balances]);
 
+	useEffect(() => {
+		if (walletBalances.length > 0) {
+			let temp = walletBalances;
+			temp.sort((a: any, b: any) => {
+				let fa = a.name.toLowerCase(),
+					fb = b.name.toLowerCase();
+				if (fa < fb) {
+					return -1;
+				}
+				if (fa > fb) {
+					return 1;
+				}
+				return 0;
+			});
+
+			console.log(temp);
+		}
+	}, [walletBalances]);
+
 	const walletSortingOptions = [
 		"Show highest value",
 		"Show lowest value",
@@ -780,7 +799,7 @@ function Overview({ balance, balances }: any) {
 						<Button
 							size="small"
 							endIcon={<KeyboardArrowRightIcon />}
-							onClick={() => router.push('/wallet#balance')}
+							onClick={() => router.push("/wallet#balance")}
 						>
 							View All {walletBalances.length} Tokens
 						</Button>
