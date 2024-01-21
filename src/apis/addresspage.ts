@@ -1,5 +1,8 @@
 import FailureToast from "@/components/global/Toasts/FailureToast";
 import axios from "axios";
+import "dotenv";
+
+const prefix = process.env.NEXT_PUBLIC_API_PREFIX;
 
 const balanceApi = async (
 	safe: string,
@@ -9,9 +12,7 @@ const balanceApi = async (
 ) => {
 	load((prev: any) => !prev);
 	await axios
-		.get(
-			`https://oyzii5yqy5.execute-api.us-east-2.amazonaws.com/dev/v1/wallet?query=${safe}&network=${network}`
-		)
+		.get(`${prefix}/v1/wallet?query=${safe}&network=${network}`)
 		.then((response: any) => {
 			const keys = Object.keys(response.data);
 			if (keys[0] != "statusCode") {
@@ -29,9 +30,7 @@ const balanceApi = async (
 
 const transactionApi = async (safe: string, network: string, func: any) => {
 	await axios
-		.get(
-			`https://oyzii5yqy5.execute-api.us-east-2.amazonaws.com/dev/v1/all_transactions?query=${safe}&network=${network}`
-		)
+		.get(`${prefix}/v1/all_transactions?query=${safe}&network=${network}`)
 		.then((response: any) => {
 			const keys = Object.keys(response.data);
 			if (keys[0] != "statusCode") {
@@ -47,9 +46,7 @@ const transactionApi = async (safe: string, network: string, func: any) => {
 
 const balancesApi = async (safe: string, network: string, func: any) => {
 	await axios
-		.get(
-			`https://oyzii5yqy5.execute-api.us-east-2.amazonaws.com/dev/v1/balances?query=${safe}&network=${network}`
-		)
+		.get(`${prefix}/v1/balances?query=${safe}&network=${network}`)
 		.then((response: any) => {
 			const keys = Object.keys(response.data);
 			if (keys[0] != "statusCode") {

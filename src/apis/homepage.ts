@@ -1,6 +1,8 @@
 import FailureToast from "@/components/global/Toasts/FailureToast";
 import axios from "axios";
 
+const prefix = process.env.NEXT_PUBLIC_API_PREFIX;
+
 const searchBar = async (
 	searchString: any,
 	func: any,
@@ -10,7 +12,7 @@ const searchBar = async (
 	load((prev: any) => !prev);
 	await axios
 		.get(
-			`https://oyzii5yqy5.execute-api.us-east-2.amazonaws.com/dev/v1/search?query=${searchString}`
+			`${prefix}/v1/search?query=${searchString}`
 		)
 		.then((response: any) => {
 			const { data } = response;

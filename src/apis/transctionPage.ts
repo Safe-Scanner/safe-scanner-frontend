@@ -1,6 +1,7 @@
 import FailureToast from "@/components/global/Toasts/FailureToast";
 import axios from "axios";
 
+const prefix = process.env.NEXT_PUBLIC_API_PREFIX;
 const getTransactionData = async (
 	transactionHash: string,
 	network: string,
@@ -8,7 +9,7 @@ const getTransactionData = async (
 ) => {
 	await axios
 		.get(
-			`https://oyzii5yqy5.execute-api.us-east-2.amazonaws.com/dev/v1/multisig-transactions?query=${transactionHash}&network=${network}`
+			`${prefix}/v1/multisig-transactions?query=${transactionHash}&network=${network}`
 		)
 		.then((response: any) => {
 			const { data } = response;
@@ -30,9 +31,7 @@ const getModuleTranasction = async (
 	func: any
 ) => {
 	await axios
-		.get(
-			`https://oyzii5yqy5.execute-api.us-east-2.amazonaws.com/dev/v1/module-transaction?query=${query}&network=${network}`
-		)
+		.get(`${prefix}/v1/module-transaction?query=${query}&network=${network}`)
 		.then((res: any) => {
 			const { data } = res;
 			const keys = Object.keys(data);
