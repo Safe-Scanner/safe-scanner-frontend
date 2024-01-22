@@ -12,7 +12,11 @@ import Confirmations from "./Confirmations";
 import HashTab from "@/components/global/HashTab";
 
 import { useSearchParams } from "next/navigation";
-import { getTransactionData } from "@/apis/transctionPage";
+import {
+	getModuleTranasction,
+	getTransactionData,
+} from "@/apis/transctionPage";
+import ModuleOverview from "./ModuleOverview";
 
 type OwnerInfo = {
 	owner: string;
@@ -26,18 +30,37 @@ function TransactionPage() {
 	const searchParams = useSearchParams();
 	const network: any = searchParams.get("network");
 	const [transactionData, setTransactionData] = useState<any>(null);
-	const safeTransactionhash: string = searchParams.get("transactionHash") || "";
+	const [moduleTransactionData, setModuleTransactionData] = useState<any>(null);
+	// const safeTransactionhash: string = searchParams.get("transactionHash") || "";
+	const [safeTransactionhash, setSafeTransactionHash] = useState(
+		searchParams.get("transactionHash") || ""
+	);
+	const [moduleTxId, setModuleTxId] = useState(
+		searchParams.get("moduleTxId") || ""
+	);
 	const [key, setkey] = useState([] as any);
 	const [confirmation, setConfirmation] = useState<OwnerInfo[]>([]);
 
 	useEffect(() => {
-		const txData = getTransactionData(
-			safeTransactionhash,
-			network,
-			setTransactionData
-		);
-	}, [safeTransactionhash]);
-	
+		console.log("transactionhash length is ", safeTransactionhash);
+		console.log("module tx id is , ", moduleTxId);
+
+		if (safeTransactionhash.length > 0) {
+			setModuleTxId("");
+			const txData = getTransactionData(
+				safeTransactionhash,
+				network,
+				setTransactionData
+			);
+		} else if (moduleTxId.length > 0) {
+			setSafeTransactionHash("");
+			const txData = getModuleTranasction(
+				moduleTxId,
+				network,
+				setModuleTransactionData
+			);
+		}
+	}, [safeTransactionhash, moduleTxId]);
 
 	useEffect(() => {
 		if (transactionData != undefined) {
@@ -45,6 +68,14 @@ function TransactionPage() {
 			setConfirmation(transactionData[keys[0]]?.confirmations);
 		}
 	}, [transactionData]);
+
+	useEffect(() => {
+		if (moduleTransactionData != null) {
+			const keys = Object.keys(moduleTransactionData);
+		}
+	}, [moduleTransactionData]);
+
+	console.log("module transaction data is ", moduleTransactionData);
 
 	return (
 		<div>
@@ -54,20 +85,48 @@ function TransactionPage() {
 				</Box>
 			</Box>
 			<Box component="section" marginBottom={8}>
-				<Container>
-					<Stack spacing={3}>
-						<Stack direction="row" alignItems="center" spacing={2}>
-							<Image src="/images/pound.svg" width={24} height={24} alt="" />
-							<Typography variant="h3" component="h1" fontWeight="medium">
-								Safe Transaction
-							</Typography>
-						</Stack>
-						<HashTab tabs={["Overview", "Confirmation"]}>
-							<Overview transactionData={transactionData} />
-							<Confirmations confirmation={confirmation} />
-						</HashTab>
-					</Stack>
-				</Container>
+				<>
+					{safeTransactionhash.length > 0 ? (
+						<Container>
+							<Stack spacing={3}>
+								<Stack direction="row" alignItems="center" spacing={2}>
+									<Image
+										src="/images/pound.svg"
+										width={24}
+										height={24}
+										alt=""
+									/>
+									<Typography variant="h3" component="h1" fontWeight="medium">
+										Safe Transaction
+									</Typography>
+								</Stack>
+								<HashTab tabs={["Overview", "Confirmation"]}>
+									<Overview transactionData={transactionData} />
+									<Confirmations confirmation={confirmation} />
+								</HashTab>
+							</Stack>
+						</Container>
+					) : (
+						<Container>
+							<Stack spacing={3}>
+								<Stack direction="row" alignItems="center" spacing={2}>
+									<Image
+										src="/images/pound.svg"
+										width={24}
+										height={24}
+										alt=""
+									/>
+									<Typography variant="h3" component="h1" fontWeight="medium">
+										Module Transaction
+									</Typography>
+								</Stack>
+								<HashTab tabs={["Overview", "Confirmation"]}>
+									<ModuleOverview transactionData={moduleTransactionData} />
+								</HashTab>
+							</Stack>
+						</Container>
+					)}
+				</>
 			</Box>
 		</div>
 	);
