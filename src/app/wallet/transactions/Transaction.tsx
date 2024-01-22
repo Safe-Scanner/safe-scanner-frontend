@@ -41,7 +41,7 @@ function Transaction(props: TransactionProps) {
             } else if (txType == "MULTISIG_TRANSACTION") {
                 window.open(`/transaction?transactionHash=${safeTxHash}&network=${network}`, "_blank");
             } else {
-                window.open(`/module-transaction?moduleTxId=${safeTxHash}&network=${network}`, "_blank");
+                window.open(`/transaction?moduleTxId=${safeTxHash}&network=${network}`, "_blank");
             }
         } else {
             console.error("Hash not found");

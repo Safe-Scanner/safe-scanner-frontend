@@ -41,7 +41,7 @@ function DataGroup(props: DataGroupProps) {
 			);
 		} else if (split[1].length == 67) {
 			router.push(
-				`/module-transaction?query=${split[1]}&network=${value.networkKey}`
+				`/transaction?moduleTxId=${split[1]}&network=${value.networkKey}`
 			);
 		} else {
 			router.push(`/wallet?safe=${split[1]}&network=${value.networkKey}`);
