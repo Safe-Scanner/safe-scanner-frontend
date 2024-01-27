@@ -7,16 +7,17 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
-import Overview from "./Overview";
-import Confirmations from "./Confirmations";
+import Overview from "../Overview";
+import Confirmations from "../Confirmations";
 import HashTab from "@/components/global/HashTab";
 
-import { useSearchParams } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import {
 	getModuleTranasction,
 	getTransactionData,
 } from "@/apis/transctionPage";
-import ModuleOverview from "./ModuleOverview";
+import ModuleOverview from "../ModuleOverview";
+import { useRouter } from "next/router";
 
 type OwnerInfo = {
 	owner: string;
@@ -27,8 +28,12 @@ type OwnerInfo = {
 };
 
 function TransactionPage() {
+	// const router = useRouter();
+	const params: any = useParams();
+	const path = usePathname();
 	const searchParams = useSearchParams();
-	const network: any = searchParams.get("network");
+	const searchParamsNetwork: any = searchParams.get("network");
+
 	const [transactionData, setTransactionData] = useState<any>(null);
 	const [moduleTransactionData, setModuleTransactionData] = useState<any>(null);
 	// const safeTransactionhash: string = searchParams.get("transactionHash") || "";
@@ -40,11 +45,25 @@ function TransactionPage() {
 	);
 	const [key, setkey] = useState([] as any);
 	const [confirmation, setConfirmation] = useState<OwnerInfo[]>([]);
+	const [network, setNetwork] = useState("");
 
 	useEffect(() => {
-		console.log("transactionhash length is ", safeTransactionhash);
-		console.log("module tx id is , ", moduleTxId);
+		if (searchParamsNetwork != "" || searchParamsNetwork != undefined) {
+			setNetwork(params.id.split("3D")[1]);
+		}
 
+		console.log(network);
+
+		if (params.id.split("%")[0] == 66) {
+			setSafeTransactionHash("");
+			setModuleTxId(params.id.split("%")[0]);
+		} else {
+			setModuleTxId("");
+			setSafeTransactionHash(params.id.split("%")[0]);
+		}
+	}, [params, network]);
+
+	useEffect(() => {
 		if (safeTransactionhash.length > 0) {
 			setModuleTxId("");
 			const txData = getTransactionData(
@@ -86,7 +105,7 @@ function TransactionPage() {
 			</Box>
 			<Box component="section" marginBottom={8}>
 				<>
-					{safeTransactionhash.length > 0 ? (
+					{safeTransactionhash.length < 0 ? (
 						<Container>
 							<Stack spacing={3}>
 								<Stack direction="row" alignItems="center" spacing={2}>
@@ -120,7 +139,7 @@ function TransactionPage() {
 										Module Transaction
 									</Typography>
 								</Stack>
-								<HashTab tabs={["Overview", "Confirmation"]}>
+								<HashTab tabs={["Overview"]}>
 									<ModuleOverview transactionData={moduleTransactionData} />
 								</HashTab>
 							</Stack>
