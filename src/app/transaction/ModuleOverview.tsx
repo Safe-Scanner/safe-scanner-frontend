@@ -38,15 +38,11 @@ function ModuleOverview({ transactionData }: any) {
 
 	useEffect(() => {
 		if (transactionData != undefined) {
-			let net = Object.keys(transactionData)[0];
-			setNetwork(net);
 			let status = "";
-			determineAndSetStatus(transactionData[net], setStatus);
-			setData(transactionData[net]);
+			determineAndSetStatus(transactionData?.transactionInfo, setStatus);
+			setData(transactionData?.transactionInfo);
 		}
 	}, [transactionData]);
-
-	// if (transactionData == undefined) return <CircularProgress />;
 
 	return (
 		<>
@@ -71,7 +67,7 @@ function ModuleOverview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="images/pound.svg"
+											src="/images/pound.svg"
 											alt=""
 											width={20}
 											height={20}
@@ -102,7 +98,7 @@ function ModuleOverview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="images/pound.svg"
+											src="/images/pound.svg"
 											alt=""
 											width={20}
 											height={20}
@@ -134,7 +130,7 @@ function ModuleOverview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="images/pound.svg"
+											src="/images/pound.svg"
 											alt=""
 											width={20}
 											height={20}
@@ -169,7 +165,7 @@ function ModuleOverview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="images/circle-half-full.svg"
+											src="/images/circle-half-full.svg"
 											alt=""
 											width={20}
 											height={20}
@@ -192,7 +188,7 @@ function ModuleOverview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="images/account-arrow-right.svg"
+											src="/images/account-arrow-right.svg"
 											alt=""
 											width={20}
 											height={20}
@@ -232,7 +228,7 @@ function ModuleOverview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="images/account-arrow-down.svg"
+											src="/images/account-arrow-down.svg"
 											alt=""
 											width={20}
 											height={20}
@@ -269,7 +265,7 @@ function ModuleOverview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="images/currency-eth.svg"
+											src="/images/currency-eth.svg"
 											alt=""
 											width={20}
 											height={20}
@@ -300,7 +296,7 @@ function ModuleOverview({ transactionData }: any) {
 						label={{
 							icon: (
 								<Image
-									src="images/LabelIconquestion.svg"
+									src="/images/LabelIconquestion.svg"
 									alt="nounce"
 									width={25}
 									height={25}
@@ -320,7 +316,7 @@ function ModuleOverview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="images/calendar.svg"
+											src="/images/calendar.svg"
 											alt=""
 											width={20}
 											height={20}
@@ -344,7 +340,7 @@ function ModuleOverview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="images/calendar (1).svg"
+											src="/images/calendar (1).svg"
 											alt=""
 											width={20}
 											height={20}
@@ -369,7 +365,7 @@ function ModuleOverview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="images/calendar (1).svg"
+											src="/images/calendar (1).svg"
 											alt=""
 											width={20}
 											height={20}
@@ -394,7 +390,7 @@ function ModuleOverview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="images/calendar (1).svg"
+											src="/images/calendar (1).svg"
 											alt=""
 											width={20}
 											height={20}
@@ -419,7 +415,7 @@ function ModuleOverview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="images/code-array.svg"
+											src="/images/code-array.svg"
 											alt=""
 											width={20}
 											height={20}

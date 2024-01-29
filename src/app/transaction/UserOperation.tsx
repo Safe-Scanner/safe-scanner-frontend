@@ -33,22 +33,23 @@ const determineAndSetStatus = (transactionData: any, func: any): void => {
 	func(status);
 };
 
-function Overview({ transactionData }: any) {
+function UserOperation({ transactionData }: any) {
 	const [open, setOpen] = useState(false);
 	const [network, setNetwork] = React.useState("");
 	const [status, setStatus] = React.useState<StatusT>("Signature Pending");
 	const [data, setData] = useState([] as any);
 
 	useEffect(() => {
-		
 		if (transactionData != undefined) {
-			let net = Object.keys(transactionData)[0];
+			let net = transactionData?.network;
 			setNetwork(net);
-			let status = "";
+			// let status = "";
 			determineAndSetStatus(transactionData?.transactionInfo, setStatus);
 			setData(transactionData?.transactionInfo);
 		}
 	}, [transactionData]);
+
+	console.log("Value is ", status);
 
 	return (
 		<>
@@ -61,7 +62,7 @@ function Overview({ transactionData }: any) {
 						marginBottom={1}
 					>
 						<Typography fontWeight="medium" flexGrow={1}>
-							Overview
+							UserOperation
 						</Typography>
 						<IconButton>
 							<MoreHorizIcon color="primary" />
@@ -84,7 +85,7 @@ function Overview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											safe Tx Hash
+											Transaction Hash
 										</Typography>
 									),
 								}}
@@ -93,7 +94,7 @@ function Overview({ transactionData }: any) {
 								}
 							>
 								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{data?.safeTxHash}
+									{data?.transactionHash}
 								</Typography>
 							</SmartRow>
 							<SmartRow
@@ -111,7 +112,7 @@ function Overview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											Safe
+											User Op Hash
 										</Typography>
 									),
 								}}
@@ -128,8 +129,80 @@ function Overview({ transactionData }: any) {
 								}
 							>
 								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{data?.safe}
+									{data?.userOpHash}
 								</Typography>
+							</SmartRow>
+
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/account-arrow-right.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Sender
+										</Typography>
+									),
+								}}
+								action={
+									<>
+										<CopyButton text={data?.sender} setOpen={setOpen} />
+										<RedirectButton
+											redirectLink={NETWORK_SCANNER_MAP + "/tx/" + data?.sender}
+										/>
+									</>
+								}
+							>
+								<Stack direction="row" alignItems="center" spacing={2}>
+									<ArrowDownwardIcon sx={{ fontSize: 20 }} />
+									<Typography color="primary" fontFamily="'DM Mono'">
+										{data?.sender}
+									</Typography>
+								</Stack>
+							</SmartRow>
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/account-arrow-right.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Target
+										</Typography>
+									),
+								}}
+								action={
+									<>
+										<CopyButton text={data?.to} setOpen={setOpen} />
+										<RedirectButton
+											// redirectLink={NETWORK_SCANNER_MAP + "/address/" + data?.to}
+											redirectLink={`/wallet?safe=${data?.to}&network=${network}`}
+										/>
+									</>
+								}
+							>
+								<Stack direction="row" alignItems="center" spacing={2}>
+									<SubdirectoryArrowRightRoundedIcon sx={{ fontSize: 20 }} />
+									<Typography color="primary" fontFamily="'DM Mono'">
+										{data?.target}
+									</Typography>
+								</Stack>
 							</SmartRow>
 							<SmartRow
 								label={{
@@ -153,82 +226,6 @@ function Overview({ transactionData }: any) {
 								}}
 							>
 								<Status status={status} />
-							</SmartRow>
-							<SmartRow
-								label={{
-									icon: (
-										<Image
-											src="/images/account-arrow-right.svg"
-											alt=""
-											width={20}
-											height={20}
-										/>
-									),
-									text: (
-										<Typography
-											color="text.secondary"
-											textTransform="capitalize"
-										>
-											Created Transaction
-										</Typography>
-									),
-								}}
-								action={
-									<>
-										<CopyButton
-											text={data?.transactionHash}
-											setOpen={setOpen}
-										/>
-										<RedirectButton
-											redirectLink={
-												NETWORK_SCANNER_MAP + "/tx/" + data?.transactionHash
-											}
-										/>
-									</>
-								}
-							>
-								<Stack direction="row" alignItems="center" spacing={2}>
-									<ArrowDownwardIcon sx={{ fontSize: 20 }} />
-									<Typography color="primary" fontFamily="'DM Mono'">
-										{shortenString(data?.transactionHash)}
-									</Typography>
-								</Stack>
-							</SmartRow>
-							<SmartRow
-								label={{
-									icon: (
-										<Image
-											src="/images/account-arrow-down.svg"
-											alt=""
-											width={20}
-											height={20}
-										/>
-									),
-									text: (
-										<Typography
-											color="text.secondary"
-											textTransform="capitalize"
-										>
-											To
-										</Typography>
-									),
-								}}
-								action={
-									<>
-										<CopyButton text={data?.to} setOpen={setOpen} />
-										<RedirectButton
-											// redirectLink={NETWORK_SCANNER_MAP + "/address/" + data?.to}
-											redirectLink={`/wallet?safe=${data?.to}&network=${network}`}
-										/>
-									</>
-								}
-							>
-								<Stack direction="row" alignItems="center" spacing={2}>
-									<SubdirectoryArrowRightRoundedIcon sx={{ fontSize: 20 }} />
-									<Typography color="primary" fontFamily="'DM Mono'">
-										{shortenString(data?.to)}
-									</Typography>
-								</Stack>
 							</SmartRow>
 							<SmartRow
 								label={{
@@ -265,8 +262,8 @@ function Overview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="/images/LabelIconquestion.svg"
-											alt="nounce"
+											src="/images/Fee.svg"
+											alt="fee"
 											width={25}
 											height={25}
 										/>
@@ -276,7 +273,7 @@ function Overview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											Nounce
+											Fee
 										</Typography>
 									),
 									info: "null",
@@ -288,7 +285,7 @@ function Overview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="/images/calendar.svg"
+											src="/images/local_gas_station.svg"
 											alt=""
 											width={20}
 											height={20}
@@ -299,20 +296,20 @@ function Overview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											Submission Date
+											Gas Used
 										</Typography>
 									),
 								}}
 							>
 								<Typography fontWeight="medium">
-									{data?.submissionDate ? data?.submissionDate : "-"}
+									{data?.actualGasUsed}
 								</Typography>
 							</SmartRow>
 							<SmartRow
 								label={{
 									icon: (
 										<Image
-											src="/images/calendar (1).svg"
+											src="/images/building.svg"
 											alt=""
 											width={20}
 											height={20}
@@ -323,46 +320,19 @@ function Overview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											Execution date
-										</Typography>
-									),
-									info: "null",
-								}}
-							>
-								<Typography fontWeight="medium">
-									{data?.executionDate ? data?.executionDate : "-"}
-								</Typography>
-							</SmartRow>
-							<SmartRow
-								label={{
-									icon: (
-										<Image
-											src="/images/calendar (1).svg"
-											alt=""
-											width={20}
-											height={20}
-										/>
-									),
-									text: (
-										<Typography
-											color="text.secondary"
-											textTransform="capitalize"
-										>
-											Block Number
+											Paymaster
 										</Typography>
 									),
 									info: "null",
 								}}
 							>
-								<Typography fontWeight="medium">
-									{data?.blockNumber ? data?.blockNumber : "-"}
-								</Typography>
+								<Typography fontWeight="medium">{data?.paymaster}</Typography>
 							</SmartRow>
 							<SmartRow
 								label={{
 									icon: (
 										<Image
-											src="/images/code-array.svg"
+											src="/images/Beneficiary.svg"
 											alt=""
 											width={20}
 											height={20}
@@ -373,20 +343,40 @@ function Overview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											Data
+											Beneficiary
+										</Typography>
+									),
+									info: "null",
+								}}
+							>
+								<Typography fontWeight="medium">{data?.beneficiary}</Typography>
+							</SmartRow>
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/cube.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Block
 										</Typography>
 									),
 									info: "null",
 								}}
 								action={
-									<CopyButton
-										text={data?.data ? data?.data : "-"}
-										setOpen={setOpen}
-									/>
+									<CopyButton text={data?.blockNumber} setOpen={setOpen} />
 								}
 							>
 								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{data?.data ? shortenString(data?.data) : "-"}
+									{data?.blockNumber}
 								</Typography>
 							</SmartRow>
 						</>
@@ -401,4 +391,4 @@ function Overview({ transactionData }: any) {
 	);
 }
 
-export default Overview;
+export default UserOperation;

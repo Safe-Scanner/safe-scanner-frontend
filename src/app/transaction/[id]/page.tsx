@@ -12,12 +12,11 @@ import Confirmations from "../Confirmations";
 import HashTab from "@/components/global/HashTab";
 
 import { useParams, usePathname, useSearchParams } from "next/navigation";
-import {
-	getModuleTranasction,
-	getTransactionData,
-} from "@/apis/transctionPage";
+import { getTransactionData } from "@/apis/transctionPage";
 import ModuleOverview from "../ModuleOverview";
 import { useRouter } from "next/router";
+import { Paper, Skeleton } from "@mui/material";
+import UserOperation from "../UserOperation";
 
 type OwnerInfo = {
 	owner: string;
@@ -73,7 +72,7 @@ function TransactionPage() {
 			);
 		} else if (moduleTxId.length > 0) {
 			setSafeTransactionHash("");
-			const txData = getModuleTranasction(
+			const txData = getTransactionData(
 				moduleTxId,
 				network,
 				setModuleTransactionData
@@ -82,9 +81,9 @@ function TransactionPage() {
 	}, [safeTransactionhash, moduleTxId]);
 
 	useEffect(() => {
+		console.log("Transaction data is ", transactionData?.transactionInfo);
 		if (transactionData != undefined) {
-			const keys = Object.keys(transactionData);
-			setConfirmation(transactionData[keys[0]]?.confirmations);
+			setConfirmation(transactionData?.transactionInfo?.confirmations);
 		}
 	}, [transactionData]);
 
@@ -93,8 +92,6 @@ function TransactionPage() {
 			const keys = Object.keys(moduleTransactionData);
 		}
 	}, [moduleTransactionData]);
-
-	console.log("module transaction data is ", moduleTransactionData);
 
 	return (
 		<div>
@@ -105,7 +102,7 @@ function TransactionPage() {
 			</Box>
 			<Box component="section" marginBottom={8}>
 				<>
-					{safeTransactionhash.length < 0 ? (
+					{transactionData != undefined && transactionData.type === "multi" ? (
 						<Container>
 							<Stack spacing={3}>
 								<Stack direction="row" alignItems="center" spacing={2}>
@@ -126,24 +123,67 @@ function TransactionPage() {
 							</Stack>
 						</Container>
 					) : (
-						<Container>
-							<Stack spacing={3}>
-								<Stack direction="row" alignItems="center" spacing={2}>
-									<Image
-										src="/images/pound.svg"
-										width={24}
-										height={24}
-										alt=""
-									/>
-									<Typography variant="h3" component="h1" fontWeight="medium">
-										Module Transaction
-									</Typography>
-								</Stack>
-								<HashTab tabs={["Overview"]}>
-									<ModuleOverview transactionData={moduleTransactionData} />
-								</HashTab>
-							</Stack>
-						</Container>
+						<>
+							{transactionData != undefined &&
+							transactionData.type === "module" ? (
+								<Container>
+									<Stack spacing={3}>
+										<Stack direction="row" alignItems="center" spacing={2}>
+											<Image
+												src="/images/pound.svg"
+												width={24}
+												height={24}
+												alt=""
+											/>
+											<Typography
+												variant="h3"
+												component="h1"
+												fontWeight="medium"
+											>
+												Module Transaction
+											</Typography>
+										</Stack>
+										<HashTab tabs={["Overview"]}>
+											<ModuleOverview transactionData={transactionData} />
+										</HashTab>
+									</Stack>
+								</Container>
+							) : (
+								<>
+									{transactionData != undefined &&
+									transactionData.type === "user_ops" ? (
+										<Container>
+											<Stack spacing={3}>
+												<Stack direction="row" alignItems="center" spacing={2}>
+													<Image
+														src="/images/pound.svg"
+														width={24}
+														height={24}
+														alt=""
+													/>
+													<Typography
+														variant="h3"
+														component="h1"
+														fontWeight="medium"
+													>
+														User Operation
+													</Typography>
+												</Stack>
+												<UserOperation transactionData={transactionData} />
+												{/* <HashTab tabs={["Overview"]}>
+										</HashTab> */}
+											</Stack>
+										</Container>
+									) : (
+										<Container>
+											<Paper sx={{ p: 3 }}>
+												<Skeleton variant="rounded" height={700} />
+											</Paper>
+										</Container>
+									)}
+								</>
+							)}
+						</>
 					)}
 				</>
 			</Box>
