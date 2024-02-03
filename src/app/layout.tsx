@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "@/styles/main.css";
 import Layout from "@/components/Layout";
 import { Providers } from "@/store/provider";
-import { WalletProviders } from "./providers";
 
 export const metadata: Metadata = {
 	title: "Safe Scanner",
@@ -18,19 +17,9 @@ export default function RootLayout({
 		<html lang="en">
 			<body>
 				<Layout>
-					<NewProvider>
-						<Providers>{children}</Providers>
-					</NewProvider>
+					<Providers>{children}</Providers>
 				</Layout>
 			</body>
 		</html>
 	);
 }
-
-const NewProvider = ({ children }: { children: React.ReactNode }) => {
-	return (
-		<>
-			<WalletProviders>{children}</WalletProviders>
-		</>
-	);
-};

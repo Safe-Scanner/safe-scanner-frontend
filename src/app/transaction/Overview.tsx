@@ -16,7 +16,7 @@ import { CircularProgress, Skeleton } from "@mui/material";
 import { NETWORK_SCANNER_MAP } from "@/constants/constants";
 import CopyButton from "@/components/global/CopyButton";
 import RedirectButton from "@/components/global/RedirectButton";
-import { shortenString } from "@/components/utils/utils";
+import { getFee, shortenString } from "@/components/utils/utils";
 
 const determineAndSetStatus = (transactionData: any, func: any): void => {
 	let status = "Signature Pending";
@@ -38,15 +38,20 @@ function Overview({ transactionData }: any) {
 	const [network, setNetwork] = React.useState("");
 	const [status, setStatus] = React.useState<StatusT>("Signature Pending");
 	const [data, setData] = useState([] as any);
+	const [fee, setFee] = useState("");
 
 	useEffect(() => {
-		
 		if (transactionData != undefined) {
 			let net = Object.keys(transactionData)[0];
 			setNetwork(net);
 			let status = "";
 			determineAndSetStatus(transactionData?.transactionInfo, setStatus);
 			setData(transactionData?.transactionInfo);
+			const calculatedFee = getFee(
+				transactionData?.transactionInfo?.actualGasCost,
+				transactionData?.network
+			);
+			setFee(calculatedFee?.value);
 		}
 	}, [transactionData]);
 
@@ -93,7 +98,8 @@ function Overview({ transactionData }: any) {
 								}
 							>
 								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{data?.safeTxHash}
+									{shortenString(data?.safeTxHash)}
+									{/* {data?.safeTxHash} */}
 								</Typography>
 							</SmartRow>
 							<SmartRow
@@ -357,6 +363,29 @@ function Overview({ transactionData }: any) {
 								<Typography fontWeight="medium">
 									{data?.blockNumber ? data?.blockNumber : "-"}
 								</Typography>
+							</SmartRow>
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/Fee.svg"
+											alt="fee"
+											width={25}
+											height={25}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Fee
+										</Typography>
+									),
+									info: "null",
+								}}
+							>
+								<Typography fontWeight="medium">{data?.fee}</Typography>
 							</SmartRow>
 							<SmartRow
 								label={{

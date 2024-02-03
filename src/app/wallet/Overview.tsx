@@ -75,8 +75,8 @@ function Overview({ balance, balances }: any) {
 		if (walletBalances.length > 0) {
 			let temp = walletBalances;
 			temp.sort((a: any, b: any) => {
-				let fa = a.name.toLowerCase(),
-					fb = b.name.toLowerCase();
+				let fa = a?.name?.toLowerCase(),
+					fb = b?.name?.toLowerCase();
 				if (fa < fb) {
 					return -1;
 				}

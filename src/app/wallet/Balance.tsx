@@ -29,11 +29,11 @@ function Balance(props: any) {
 
 	useEffect(() => {
 		if (balanceData.length > 0) {
-			// console.log(balanceData)
+			console.log(balanceData);
 			let temp = balanceData;
 			temp.sort((a: any, b: any) => {
-				let fa = a.contract_name.toLowerCase(),
-					fb = b.contract_name.toLowerCase();
+				let fa = a?.contract_name?.toLowerCase(),
+					fb = b?.contract_name?.toLowerCase();
 				if (fa < fb) {
 					return -1;
 				}

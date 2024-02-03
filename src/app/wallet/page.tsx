@@ -81,7 +81,7 @@ function WalletPage() {
 							aria-label="Loading Spinner"
 							data-testid="loader"
 						/> */}
-						<HashTab tabs={["Overview", "Balance", "Transactions", "Owners"]}>
+						<HashTab tabs={["Overview", "Balance", "Transactions", "Owners", "User Ops"]}>
 							<Overview balance={balance} balances={balances} />
 							<Balance balances={balances} loading={loading} />
 							<Transactions />
