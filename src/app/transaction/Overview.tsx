@@ -17,6 +17,7 @@ import { NETWORK_SCANNER_MAP } from "@/constants/constants";
 import CopyButton from "@/components/global/CopyButton";
 import RedirectButton from "@/components/global/RedirectButton";
 import { getFee, shortenString } from "@/components/utils/utils";
+import moment from "moment";
 
 const determineAndSetStatus = (transactionData: any, func: any): void => {
 	let status = "Signature Pending";
@@ -311,7 +312,10 @@ function Overview({ transactionData }: any) {
 								}}
 							>
 								<Typography fontWeight="medium">
-									{data?.submissionDate ? data?.submissionDate : "-"}
+									{/* {data?.submissionDate ? data?.submissionDate : "-"} */}
+									{data?.submissionDate
+										? moment(data?.submissionDate).fromNow()
+										: "-"}
 								</Typography>
 							</SmartRow>
 							<SmartRow
@@ -336,7 +340,10 @@ function Overview({ transactionData }: any) {
 								}}
 							>
 								<Typography fontWeight="medium">
-									{data?.executionDate ? data?.executionDate : "-"}
+									{/* {data?.executionDate ? data?.executionDate : "-"} */}
+									{data?.executionDate
+										? moment(data?.executionDate).fromNow()
+										: "-"}
 								</Typography>
 							</SmartRow>
 							<SmartRow
