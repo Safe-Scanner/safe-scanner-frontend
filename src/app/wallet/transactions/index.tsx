@@ -55,8 +55,6 @@ function Transactions() {
             setWidth(screen.width);
         }
     }, []);
-
-    console.log("Width of the screen is ", width);
     return (
         <Grid container sx={{ marginTop: 2 }} spacing={0.5}>
             {transactions.length > 0 &&
