@@ -25,7 +25,7 @@ import { storebalances } from "../../store/feature/balancesSlice";
 import { storetransaction } from "../../store/feature/transactionSlice";
 import ClipLoader from "react-spinners/ClipLoader";
 import { storeUserOp } from "../../store/feature/userOpSlice";
-import UserOp from "./UserOp";
+import UserOp from "./userOp";
 // This page will create more tabs whare I can show balance, transaxtion, owners
 
 const override: CSSProperties = {
@@ -66,8 +66,6 @@ function WalletPage() {
 	dispatch(storetransaction(transcation));
 	dispatch(storebalances(balances));
 	dispatch(storeUserOp(userOp));
-
-	console.log("userOp is")
 
 	return (
 		<div>
