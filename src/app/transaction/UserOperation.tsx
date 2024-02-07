@@ -42,7 +42,7 @@ function UserOperation({ transactionData }: any) {
 	const [network, setNetwork] = React.useState("");
 	const [status, setStatus] = React.useState<StatusT>("Signature Pending");
 	const [data, setData] = useState([] as any);
-	const [fee, setFee] = useState("");
+	const [fee, setFee] = useState<any>();
 
 	useEffect(() => {
 		if (transactionData != undefined) {
@@ -56,7 +56,7 @@ function UserOperation({ transactionData }: any) {
 				transactionData.network
 			);
 			console.log("Fee is ", calculatedFee);
-			setFee(calculatedFee?.value);
+			setFee(calculatedFee);
 		}
 	}, [transactionData]);
 
@@ -303,7 +303,9 @@ function UserOperation({ transactionData }: any) {
 									info: "null",
 								}}
 							>
-								<Typography fontWeight="medium">{fee}</Typography>
+								<Typography fontWeight="medium">
+									{fee?.value} {fee?.gas?.children}
+								</Typography>
 							</SmartRow>
 							<SmartRow
 								label={{

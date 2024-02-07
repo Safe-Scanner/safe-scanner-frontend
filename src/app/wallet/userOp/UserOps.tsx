@@ -84,7 +84,9 @@ function UserOps(props: UserOpProps) {
 					<Divider variant="inset" sx={{ ml: 7.5, mb: 1.5 }} />
 					<Stack direction="row" alignItems="flex-start" sx={{ ml: 7.5 }}>
 						<Stack flexGrow={1}>
-							<Typography fontWeight="medium">Fee {fee.value}</Typography>
+							<Typography fontWeight="medium">
+								{fee?.value} {fee?.gas?.children}
+							</Typography>
 						</Stack>
 					</Stack>
 				</Paper>

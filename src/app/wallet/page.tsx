@@ -104,7 +104,7 @@ function WalletPage() {
 							<Balance balances={balances} loading={loading} />
 							<Transactions />
 							<Owners balance={balance} />
-							<UserOp userOp={userOp} />
+							<UserOp />
 						</HashTab>
 					</Stack>
 				</Container>

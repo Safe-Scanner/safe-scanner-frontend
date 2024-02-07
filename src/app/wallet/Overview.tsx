@@ -32,6 +32,7 @@ function Overview({ balance, balances }: any) {
 	const [owners, setOwners] = useState([] as any[]);
 	const [walletBalances, setWalletBalances] = useState([] as any);
 	const [open, setOpen] = useState(false);
+	const [displayBalance, setDisplayBalance] = useState([] as any);
 
 	if (balance != undefined) {
 		const keys = Object.keys(balance);
@@ -48,9 +49,10 @@ function Overview({ balance, balances }: any) {
 	}, [data]);
 
 	useEffect(() => {
-		if (balances != null && balances.length > 0) {
+		if (balances && balances !== undefined) {
+			console.log("Balamces in Overview pages are", balances);
 			setWalletBalances([]);
-			balances.forEach((el: any) => {
+			balances["token"].forEach((el: any) => {
 				if (el.type != "nft") {
 					setWalletBalances((prev: any) => [
 						...prev,
@@ -75,8 +77,8 @@ function Overview({ balance, balances }: any) {
 		if (walletBalances.length > 0) {
 			let temp = walletBalances;
 			temp.sort((a: any, b: any) => {
-				let fa = a?.name?.toLowerCase(),
-					fb = b?.name?.toLowerCase();
+				let fa = a?.balance,
+					fb = b?.balance;
 				if (fa < fb) {
 					return -1;
 				}
@@ -87,8 +89,14 @@ function Overview({ balance, balances }: any) {
 			});
 
 			console.log(temp);
+			setDisplayBalance([]);
+			for (let i = 0; i < 3; i++) {
+				setDisplayBalance((prev: any) => [...prev, temp[i]]);
+			}
 		}
 	}, [walletBalances]);
+
+	console.log("Wallet balances in Overview page is ", walletBalances);
 
 	const walletSortingOptions = [
 		"Show highest value",
@@ -619,8 +627,8 @@ function Overview({ balance, balances }: any) {
 						</Typography>
 					</SmartRow>
 
-					{walletBalances.length > 0 &&
-						walletBalances.map((el: any, index: string) => {
+					{displayBalance.length > 0 &&
+						displayBalance.map((el: any, index: string) => {
 							return (
 								<SmartRow
 									key={index}
@@ -801,7 +809,7 @@ function Overview({ balance, balances }: any) {
 							endIcon={<KeyboardArrowRightIcon />}
 							onClick={() => router.push("/wallet#balance")}
 						>
-							View All {walletBalances.length} Tokens
+							View All {walletBalances["token"]?.length} Tokens
 						</Button>
 					</SmartRow>
 				</Paper>
