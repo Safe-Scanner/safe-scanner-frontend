@@ -13,12 +13,19 @@ import Balance from "./Balance";
 import Transactions from "./transactions";
 import Owners from "./Owners";
 import { useSearchParams } from "next/navigation";
-import { balanceApi, balancesApi, transactionApi } from "@/apis/addresspage";
+import {
+	balanceApi,
+	balancesApi,
+	transactionApi,
+	userOPWallet,
+} from "@/apis/addresspage";
 import { useDispatch, useSelector } from "react-redux";
 import { storebalance } from "../../store/feature/balanceSlice";
 import { storebalances } from "../../store/feature/balancesSlice";
 import { storetransaction } from "../../store/feature/transactionSlice";
 import ClipLoader from "react-spinners/ClipLoader";
+import { storeUserOp } from "../../store/feature/userOpSlice";
+import UserOp from "./userOp";
 // This page will create more tabs whare I can show balance, transaxtion, owners
 
 const override: CSSProperties = {
@@ -31,6 +38,7 @@ function WalletPage() {
 	const [transcation, setTransaction] = useState(undefined);
 	const [balances, setBalances] = useState(undefined);
 	const [loading, setLoading] = useState(false);
+	const [userOp, setUserOp] = useState(undefined);
 	const searchParams = useSearchParams();
 	const safe: any = searchParams.get("safe");
 	const network: any = searchParams.get("network");
@@ -46,6 +54,7 @@ function WalletPage() {
 			balanceApi(safe, network, setBalance, setLoading);
 			balancesApi(safe, network, setBalances);
 			transactionApi(safe, network, setTransaction);
+			userOPWallet(safe, network, setUserOp);
 		}
 	};
 
@@ -56,6 +65,7 @@ function WalletPage() {
 	dispatch(storebalance(balance));
 	dispatch(storetransaction(transcation));
 	dispatch(storebalances(balances));
+	dispatch(storeUserOp(userOp));
 
 	return (
 		<div>
@@ -81,11 +91,20 @@ function WalletPage() {
 							aria-label="Loading Spinner"
 							data-testid="loader"
 						/> */}
-						<HashTab tabs={["Overview", "Balance", "Transactions", "Owners"]}>
+						<HashTab
+							tabs={[
+								"Overview",
+								"Balance",
+								"Transactions",
+								"Owners",
+								"User Ops",
+							]}
+						>
 							<Overview balance={balance} balances={balances} />
 							<Balance balances={balances} loading={loading} />
 							<Transactions />
 							<Owners balance={balance} />
+							<UserOp />
 						</HashTab>
 					</Stack>
 				</Container>

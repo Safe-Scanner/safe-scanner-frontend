@@ -16,7 +16,11 @@ import { CircularProgress, Skeleton } from "@mui/material";
 import { NETWORK_SCANNER_MAP } from "@/constants/constants";
 import CopyButton from "@/components/global/CopyButton";
 import RedirectButton from "@/components/global/RedirectButton";
-import { shortenString } from "@/components/utils/utils";
+import {
+	getFee,
+	shortenString,
+	sixDigitShortrenString,
+} from "@/components/utils/utils";
 
 const determineAndSetStatus = (transactionData: any, func: any): void => {
 	let status = "Signature Pending";
@@ -25,7 +29,7 @@ const determineAndSetStatus = (transactionData: any, func: any): void => {
 	} else {
 		status = "Signature Pending";
 	}
-	if (transactionData.isSuccessful) {
+	if (transactionData.success) {
 		status = "Successful";
 	} else {
 		status = "Failed";
@@ -38,6 +42,7 @@ function UserOperation({ transactionData }: any) {
 	const [network, setNetwork] = React.useState("");
 	const [status, setStatus] = React.useState<StatusT>("Signature Pending");
 	const [data, setData] = useState([] as any);
+	const [fee, setFee] = useState<any>();
 
 	useEffect(() => {
 		if (transactionData != undefined) {
@@ -46,6 +51,12 @@ function UserOperation({ transactionData }: any) {
 			// let status = "";
 			determineAndSetStatus(transactionData?.transactionInfo, setStatus);
 			setData(transactionData?.transactionInfo);
+			let calculatedFee = getFee(
+				transactionData?.transactionInfo?.actualGasCost,
+				transactionData.network
+			);
+			console.log("Fee is ", calculatedFee);
+			setFee(calculatedFee);
 		}
 	}, [transactionData]);
 
@@ -90,11 +101,23 @@ function UserOperation({ transactionData }: any) {
 									),
 								}}
 								action={
-									<CopyButton text={data?.safeTxHash} setOpen={setOpen} />
+									<>
+										<CopyButton
+											text={data?.transactionHash}
+											setOpen={setOpen}
+										/>
+										<RedirectButton
+											redirectLink={
+												// "https://app.safe.global/apps?safe=matic:" + data?.safe
+												`/transaction/${data?.transactionHash}&network=${network}`
+											}
+										/>
+									</>
 								}
 							>
 								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{data?.transactionHash}
+									{sixDigitShortrenString(data?.transactionHash)}
+									{/* {data?.transactionHash} */}
 								</Typography>
 							</SmartRow>
 							<SmartRow
@@ -129,7 +152,8 @@ function UserOperation({ transactionData }: any) {
 								}
 							>
 								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{data?.userOpHash}
+									{sixDigitShortrenString(data?.userOpHash)}
+									{/* {data?.userOpHash} */}
 								</Typography>
 							</SmartRow>
 
@@ -156,7 +180,7 @@ function UserOperation({ transactionData }: any) {
 									<>
 										<CopyButton text={data?.sender} setOpen={setOpen} />
 										<RedirectButton
-											redirectLink={NETWORK_SCANNER_MAP + "/tx/" + data?.sender}
+											redirectLink={`wallet?safe=${data?.sender}&network=${network}`}
 										/>
 									</>
 								}
@@ -192,7 +216,7 @@ function UserOperation({ transactionData }: any) {
 										<CopyButton text={data?.to} setOpen={setOpen} />
 										<RedirectButton
 											// redirectLink={NETWORK_SCANNER_MAP + "/address/" + data?.to}
-											redirectLink={`/wallet?safe=${data?.to}&network=${network}`}
+											redirectLink={`wallet?safe=${data?.sender}&network=${network}`}
 										/>
 									</>
 								}
@@ -279,7 +303,9 @@ function UserOperation({ transactionData }: any) {
 									info: "null",
 								}}
 							>
-								<Typography fontWeight="medium">{data?.nonce}</Typography>
+								<Typography fontWeight="medium">
+									{fee?.value} {fee?.gas?.children}
+								</Typography>
 							</SmartRow>
 							<SmartRow
 								label={{
