@@ -419,7 +419,7 @@ function ModuleOverview({ transactionData }: any) {
 									{data?.blockNumber ? data?.blockNumber : "-"}
 								</Typography>
 							</SmartRow>
-							<SmartRow
+							{/* <SmartRow
 								label={{
 									icon: (
 										<Image
@@ -441,7 +441,7 @@ function ModuleOverview({ transactionData }: any) {
 								}}
 							>
 								<Typography fontWeight="medium">{fee}</Typography>
-							</SmartRow>
+							</SmartRow> */}
 							<SmartRow
 								label={{
 									icon: (

@@ -43,8 +43,7 @@ function Overview({ transactionData }: any) {
 
 	useEffect(() => {
 		if (transactionData != undefined) {
-			let net = Object.keys(transactionData)[0];
-			setNetwork(net);
+			setNetwork(transactionData?.network);
 			let status = "";
 			determineAndSetStatus(transactionData?.transactionInfo, setStatus);
 			setData(transactionData?.transactionInfo);
@@ -392,7 +391,9 @@ function Overview({ transactionData }: any) {
 									info: "null",
 								}}
 							>
-								<Typography fontWeight="medium">{data?.fee}</Typography>
+								<Typography fontWeight="medium">
+									{data?.fee} {network.toUpperCase()}
+								</Typography>
 							</SmartRow>
 							<SmartRow
 								label={{

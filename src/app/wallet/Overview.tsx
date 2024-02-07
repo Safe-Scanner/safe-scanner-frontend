@@ -50,7 +50,6 @@ function Overview({ balance, balances }: any) {
 
 	useEffect(() => {
 		if (balances && balances !== undefined) {
-			console.log("Balamces in Overview pages are", balances);
 			setWalletBalances([]);
 			balances["token"].forEach((el: any) => {
 				if (el.type != "nft") {
@@ -88,15 +87,12 @@ function Overview({ balance, balances }: any) {
 				return 0;
 			});
 
-			console.log(temp);
 			setDisplayBalance([]);
 			for (let i = 0; i < 3; i++) {
 				setDisplayBalance((prev: any) => [...prev, temp[i]]);
 			}
 		}
 	}, [walletBalances]);
-
-	console.log("Wallet balances in Overview page is ", walletBalances);
 
 	const walletSortingOptions = [
 		"Show highest value",
