@@ -17,44 +17,55 @@ function Balance(props: any) {
 		setBalanceData([]);
 		setNft([]);
 		if (balances != undefined && balances) {
-			balances?.forEach((el: any) => {
-				if (el.type === "nft") {
-					setNft((prev: any) => [...prev, el]);
-				} else {
-					setBalanceData((prev: any) => [...prev, el]);
-				}
-			});
+			// balances?.forEach((el: any) => {
+			// 	if (el.type === "nft") {
+			// 		setNft((prev: any) => [...prev, el]);
+			// 	} else {
+			// 		setBalanceData((prev: any) => [...prev, el]);
+			// 	}
+			// });
+			setBalanceData(balances["token"]);
+			setNft(balances["nft"]);
 		}
 	}, [balances]);
 
-	useEffect(() => {
-		if (balanceData.length > 0) {
-			// console.log(balanceData)
-			let temp = balanceData;
-			temp.sort((a: any, b: any) => {
-				let fa = a.contract_name.toLowerCase(),
-					fb = b.contract_name.toLowerCase();
-				if (fa < fb) {
-					return -1;
-				}
-				if (fa > fb) {
-					return 1;
-				}
-				return 0;
-			});
+	console.log("bLances and nft are", { balance: balanceData, nft: nft });
 
-			setBalanceData(temp);
+	useEffect(() => {
+		if (balanceData && balanceData.length > 0) {
+			console.log(balanceData);
+			let temp = balanceData;
+			console.log(typeof temp);
+
+			// if (temp.length > 0) {
+			// 	temp?.sort((a: any, b: any) => {
+			// 		let fa = a?.contract_name?.toLowerCase(),
+			// 			fb = b?.contract_name?.toLowerCase();
+			// 		if (fa < fb) {
+			// 			return -1;
+			// 		}
+			// 		if (fa > fb) {
+			// 			return 1;
+			// 		}
+			// 		return 0;
+			// 	});
+			// }
+
+			// setBalanceData(temp);
 		}
 	}, [balanceData]);
 
 	return (
 		<>
-			{balanceData.length > 0 ? (
+			{balanceData && balanceData.length > 0 ? (
 				<Stack spacing={3}>
 					<div>
 						<HashTab
 							size="small"
-							tabs={[`Crypto (${balanceData.length})`, `NFTs (${nft.length})`]}
+							tabs={[
+								`Crypto (${balanceData?.length})`,
+								`NFTs (${nft?.length})`,
+							]}
 						>
 							<Grid
 								container
@@ -114,7 +125,8 @@ function Balance(props: any) {
 							</Grid>
 							<Paper sx={{ p: 3, mt: 2 }} aria-label="NFT">
 								<Grid container columnSpacing={4} rowSpacing={2.5}>
-									{nft.length > 0 &&
+									{nft &&
+										nft.length > 0 &&
 										nft.map((el: any, index: any) => (
 											<Grid key={index} item xs={12} md={12} lg={12}>
 												<Paper sx={{ padding: 2 }}>

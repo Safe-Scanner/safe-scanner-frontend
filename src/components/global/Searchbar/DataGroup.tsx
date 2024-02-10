@@ -37,11 +37,11 @@ function DataGroup(props: DataGroupProps) {
 		// console.log("split is ", split);
 		if (split[1].length == 66) {
 			router.push(
-				`/transaction?transactionHash=${split[1]}&network=${value.networkKey}`
+				`/transaction/${split[1]}&network=${value.networkKey}`
 			);
 		} else if (split[1].length == 67) {
 			router.push(
-				`/module-transaction?query=${split[1]}&network=${value.networkKey}`
+				`/transaction/${split[1]}&network=${value.networkKey}`
 			);
 		} else {
 			router.push(`/wallet?safe=${split[1]}&network=${value.networkKey}`);
