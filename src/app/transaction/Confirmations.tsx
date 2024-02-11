@@ -31,6 +31,8 @@ function Confirmations({ confirmation }: any) {
 	const [confirmations, setConfirmations] = useState<any>();
 	const [network, setNetwork] = useState<any>();
 
+    console.log(confirmation)
+
 	useEffect(() => {
 		if (confirmation != undefined) {
 			
@@ -224,8 +226,8 @@ function Confirmations({ confirmation }: any) {
 											height={32}
 										/>
 										<Typography fontFamily="'DM Mono'">
-											{timeAgo.format(new Date(confirmation.submissionDate))} (
-											{confirmation.submissionDate})
+											{confirmation?.submissionDate && timeAgo?.format(new Date(confirmation?.submissionDate))} (
+											{confirmation?.submissionDate})
 										</Typography>
 									</Stack>
 								</Stack>

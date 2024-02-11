@@ -110,19 +110,7 @@ function Transactions() {
 							date={
 							  el.date ? (
 								new Date(el.date).toLocaleDateString("em-GB")
-							  ) : (
-								<span
-								  style={{
-									background: "#00AB55",
-									padding: "0.5rem",
-									borderRadius: "5px",
-									cursor: "pointer",
-								  }}
-								  onClick={() => signTransactionData(el)}
-								>
-								  Sign
-								</span>
-							  )
+							  ) : null
 							}
                             txHash={el?.transactionHash}
                             network={network}

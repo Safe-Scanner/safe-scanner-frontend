@@ -5,6 +5,7 @@ import Link from "next/link";
 import Button from "@mui/material/Button";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import IconButton from "@mui/material/IconButton";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 function Navbar() {
   return (
