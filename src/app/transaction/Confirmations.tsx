@@ -224,7 +224,7 @@ function Confirmations({ confirmation }: any) {
 											height={32}
 										/>
 										<Typography fontFamily="'DM Mono'">
-											{timeAgo.format(new Date(confirmation.submissionDate))} (
+											{confirmation.submissionDate && timeAgo.format(new Date(confirmation.submissionDate))} (
 											{confirmation.submissionDate})
 										</Typography>
 									</Stack>

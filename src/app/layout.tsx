@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "@/styles/main.css";
 import Layout from "@/components/Layout";
 import { Providers } from "@/store/provider";
-import { WalletProviders } from "./providers";
+// import { WalletProviders } from "./providers";
 import '@rainbow-me/rainbowkit/styles.css';
 
 export const metadata: Metadata = {
@@ -18,11 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <WalletProviders>
+        {/* <WalletProviders> */}
           <Layout>
             <Providers>{children}</Providers>
           </Layout>
-        </WalletProviders>
+        {/* </WalletProviders> */}
       </body>
     </html>
   );

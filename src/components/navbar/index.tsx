@@ -5,7 +5,7 @@ import Link from "next/link";
 import Button from "@mui/material/Button";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import IconButton from "@mui/material/IconButton";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+// import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 function Navbar() {
   return (
@@ -17,10 +17,10 @@ function Navbar() {
           </Link>
         </Box>
         <Stack direction="row" alignItems="center" spacing={1}>
-          {/* <Button size="small" variant="contained" color="black"> */}
-            {/* Connect Wallet */}
-            <ConnectButton/>
-          {/* </Button> */}
+          <Button size="small" variant="contained" color="black">
+            Connect Wallet
+            {/* <ConnectButton/> */}
+          </Button>
           <IconButton size="small" sx={{bgcolor: "grey.600"}}>
             <MoreHorizIcon sx={{fontSize: 20}} />
           </IconButton>
