@@ -1,4 +1,13 @@
-export const NETWORK_MAP: { [key: string]: { label: string, key: string, icon: string, iconPathInverted: string, explorerUrl: string, isNew: boolean } } = {
+export const NETWORK_MAP: {
+	[key: string]: {
+		label: string;
+		key: string;
+		icon: string;
+		iconPathInverted: string;
+		explorerUrl: string;
+		isNew: boolean;
+	};
+} = {
 	matic: {
 		label: "Polygon",
 		key: "matic",
@@ -66,6 +75,22 @@ export const NETWORK_MAP: { [key: string]: { label: string, key: string, icon: s
 	bnb: {
 		label: "Binance Smart Chain",
 		key: "bnb",
+		explorerUrl: "https://bscscan.com",
+		icon: "/images/bsc-logo.svg",
+		iconPathInverted: "/images/bsc-logo.svg",
+		isNew: true,
+	},
+	zksync: {
+		label: "zkSync",
+		key: "zksync",
+		explorerUrl: "https://bscscan.com",
+		icon: "/images/bsc-logo.svg",
+		iconPathInverted: "/images/bsc-logo.svg",
+		isNew: true,
+	},
+	zkevm: {
+		label: "zkEVM",
+		key: "zkevm",
 		explorerUrl: "https://bscscan.com",
 		icon: "/images/bsc-logo.svg",
 		iconPathInverted: "/images/bsc-logo.svg",
@@ -241,6 +266,9 @@ export const NETWORK_ICON_MAP: NETWORK_ICON_MAP = {
 	bnb: "/images/bsc-logo.svg",
 	fuse: "/images/fuse-logo.svg",
 	"celo-alfajores": "/images/Celo_logo_black.svg",
+	zksync: "/images/bsc-logo.svg",
+	arb1: "/images/arbitrum-logo.svg",
+	zkevm: "/images/bsc-logo.svg",
 };
 
 export const NETWORK_SCANNER_MAP: { [key: string]: string } = {
