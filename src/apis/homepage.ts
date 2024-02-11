@@ -11,9 +11,7 @@ const searchBar = async (
 ) => {
 	load((prev: any) => !prev);
 	await axios
-		.get(
-			`${prefix}/v1/search?query=${searchString}`
-		)
+		.get(`${prefix}/v1/search?query=${searchString}`)
 		.then((response: any) => {
 			const { data } = response;
 			let keys = Object.keys(data);
@@ -21,7 +19,8 @@ const searchBar = async (
 			if (keys[0] == "statusCode") {
 				FailureToast(data.body.message);
 				load((prev: any) => !prev);
-				anchor((prev: any) => !prev);
+				// anchor((prev: any) => !prev);
+				func({});
 			} else {
 				func(data);
 				load((prev: any) => !prev);

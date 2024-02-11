@@ -679,8 +679,8 @@ function Overview({ balance, balances }: any) {
 													height={20}
 												/>
 												<Typography fontFamily="'DM Mono'">
-													{(el.balance / Math.pow(10, el?.decimal)).toFixed(3)}{" "}
-													/ ${el.quote}
+													{(el?.balance / Math.pow(10, el?.decimal)).toFixed(3)}{" "}
+													/ ${el?.quote}
 												</Typography>
 											</Stack>
 										</Grid>

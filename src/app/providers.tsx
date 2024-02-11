@@ -68,11 +68,11 @@ const connectors = connectorsForWallets([
 //   chain: mainnet,
 //   transport: custom(window.ethereum),
 // });
- 
+
 // export const account = privateKeyToAccount('0xlj324klj24lknlkn4?As')
- 
-// const client = createWalletClient({ 
-//   account, 
+
+// const client = createWalletClient({
+//   account,
 //   chain: mainnet,
 //   transport: http()
 // })

@@ -13,20 +13,27 @@ import Collapse from "@mui/material/Collapse";
 import { useRouter } from "next/navigation";
 import { NETWORK_SCANNER_MAP, NETWORK_ICON_MAP } from "@/constants/constants";
 
+// interface DataGroupProps {
+// 	name: string;
+// 	address: string;
+// 	icon: string;
+// 	values: {
+// 		avatar: string;
+// 		networkKey: string;
+// 		value: string;
+// 	}[];
+// }
+
 interface DataGroupProps {
 	name: string;
-	address: string;
 	icon: string;
-	values: {
-		avatar: string;
-		networkKey: string;
-		value: string;
-	}[];
+	data: any;
+	network:string;
 }
 
 function DataGroup(props: DataGroupProps) {
 	const router = useRouter();
-	const { icon, name, values } = props;
+	const { icon, name, data, network } = props;
 
 	const [open, setOpen] = React.useState(true);
 	const toggle = () => setOpen((v) => !v);
@@ -36,13 +43,9 @@ function DataGroup(props: DataGroupProps) {
 		const split = value.value.split(":");
 		// console.log("split is ", split);
 		if (split[1].length == 66) {
-			router.push(
-				`/transaction/${split[1]}&network=${value.networkKey}`
-			);
+			router.push(`/transaction/${split[1]}&network=${value.networkKey}`);
 		} else if (split[1].length == 67) {
-			router.push(
-				`/transaction/${split[1]}&network=${value.networkKey}`
-			);
+			router.push(`/transaction/${split[1]}&network=${value.networkKey}`);
 		} else {
 			router.push(`/wallet?safe=${split[1]}&network=${value.networkKey}`);
 		}
@@ -65,7 +68,7 @@ function DataGroup(props: DataGroupProps) {
 				</IconButton>
 			</ListItem>
 			<Collapse in={open}>
-				{values.map((value, key) => (
+				{data.map((value: any, key: any) => (
 					<ListItem
 						key={key}
 						component="div"
@@ -90,8 +93,8 @@ function DataGroup(props: DataGroupProps) {
 							</ListItemAvatar>
 							<ListItemText
 								sx={{ marginLeft: 1.5 }}
-								primary={value.networkKey}
-								secondary={value.value}
+								primary={network}
+								secondary={value}
 							/>
 							<Image src={icon} alt="" width={24} height={24} />
 						</ListItemButton>
