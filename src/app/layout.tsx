@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import React from "react";
 import "@/styles/main.css";
 import Layout from "@/components/Layout";
 import { Providers } from "@/store/provider";
