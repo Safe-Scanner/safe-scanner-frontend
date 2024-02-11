@@ -17,7 +17,7 @@ interface TransactionProps {
     txType: string;
     value: string;
     statusSubValue: string;
-    date: string;
+    date: string | React.JSX.Element;
     txHash: string;
     network: string;
     safeTxHash: string;
