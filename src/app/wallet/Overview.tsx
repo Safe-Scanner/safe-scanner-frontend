@@ -23,9 +23,9 @@ import CopyButton from "@/components/global/CopyButton";
 import { Alert, Skeleton, Snackbar } from "@mui/material";
 import { NETWORK_ICON_MAP } from "@/constants/constants";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
-function Overview({ balance, balances }: any) {
+function Overview({ balance, balances, safe, network }: any) {
     const router = useRouter();
     let data: any = {};
     // const [owner, setOwner] = useState([] as any[]);
@@ -89,7 +89,7 @@ function Overview({ balance, balances }: any) {
         }
     }, [walletBalances]);
 
-    const walletSortingOptions = ["Show highest value", "Show lowest value"];
+    const walletSortingOptions = ["Show highest value"];
 
     const [walletSortedby, setWalletSortedby] = React.useState(0);
     const [walletAnchorEl, setWalletAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -107,6 +107,8 @@ function Overview({ balance, balances }: any) {
         setWalletAnchorEl(null);
         setWalletSortedby(index);
     };
+
+    const searchParams = useSearchParams();
 
     return (
         <>
@@ -262,7 +264,11 @@ function Overview({ balance, balances }: any) {
                             info: "null",
                         }}
                         action={
-                            <Button size="small" endIcon={<KeyboardArrowRightIcon />}>
+                            <Button
+                                size="small"
+                                endIcon={<KeyboardArrowRightIcon />}
+                                onClick={() => router.push("/wallet?safe=" + safe + "&network=" + network + "#Transactions")}
+                            >
                                 View Transactions
                             </Button>
                         }
@@ -419,7 +425,7 @@ function Overview({ balance, balances }: any) {
                         }}
                     >
                         <Typography fontFamily="'DM Mono'" fontWeight="medium" noWrap>
-                            1
+                            {data.modules?.length}
                         </Typography>
                     </SmartRow>
                     <SmartRow
@@ -669,7 +675,11 @@ function Overview({ balance, balances }: any) {
 						</Grid>
 					</SmartRow> */}
                     <SmartRow isLastRow>
-                        <Button size="small" endIcon={<KeyboardArrowRightIcon />} onClick={() => router.push("/wallet#balance")}>
+                        <Button
+                            size="small"
+                            endIcon={<KeyboardArrowRightIcon />}
+                            onClick={() => router.push("/wallet?safe=" + safe + "&network=" + network + "#balance")}
+                        >
                             View All {walletBalances["token"]?.length} Tokens
                         </Button>
                     </SmartRow>
