@@ -9,13 +9,13 @@ const searchBar = async (
 	load: any,
 	anchor: any
 ) => {
-	load((prev: any) => !prev);
+	load(true); // set loading to true
 	await axios
 		.get(`${prefix}/v1/search?query=${searchString}`)
 		.then((response: any) => {
 			const { data } = response;
 			let keys = Object.keys(data);
-			load((prev: any) => !prev);
+			load(false);
 			if (keys[0] == "statusCode") {
 				FailureToast(data.body.message);
 				load((prev: any) => !prev);
@@ -28,7 +28,7 @@ const searchBar = async (
 		})
 		.catch((error: any) => {
 			FailureToast(error.message);
-			load((prev: any) => !prev);
+			load(false);
 			anchor((prev: any) => !prev);
 		});
 };
