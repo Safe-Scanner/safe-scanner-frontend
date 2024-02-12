@@ -57,11 +57,11 @@ export const NETWORK_MAP: {
 		isNew: true,
 	},
 	sep: {
-		label: "Arbitrum Sepolia",
+		label: "Sepolia",
 		key: "sep",
-		icon: "/images/arbitrum-logo.svg",
+		icon: "/images/ethereum-logo-rainbow.svg",
+		iconPathInverted: "/images/ethereum-logo-rainbow.svg",
 		explorerUrl: "https://sepolia.arbiscan.io",
-		iconPathInverted: "/images/arbitrum-logo.svg",
 		isNew: true,
 	},
 	gno: {
