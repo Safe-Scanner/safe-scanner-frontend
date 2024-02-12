@@ -11,7 +11,7 @@ import Overview from "./Overview";
 import HashTab from "@/components/global/HashTab";
 
 import { useSearchParams } from "next/navigation";
-import { getModuleTranasction } from "@/apis/transctionPage";
+// import { getModuleTranasction } from "@/apis/transctionPage";
 
 function ModuleTransactionPage() {
 	const searchParams = useSearchParams();
@@ -21,11 +21,11 @@ function ModuleTransactionPage() {
 	const [key, setkey] = useState([] as any);
 
 	useEffect(() => {
-		const txData = getModuleTranasction(
-			safeTransactionhash,
-			network,
-			setTransactionData
-		);
+		// const txData = getModuleTranasction(
+		// 	safeTransactionhash,
+		// 	network,
+		// 	setTransactionData
+		// );
 	}, [safeTransactionhash]);
 
 	useEffect(() => {
