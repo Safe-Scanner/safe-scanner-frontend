@@ -172,7 +172,7 @@ function UserOperation({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											Sender
+											Safe
 										</Typography>
 									),
 								}}
@@ -180,7 +180,7 @@ function UserOperation({ transactionData }: any) {
 									<>
 										<CopyButton text={data?.sender} setOpen={setOpen} />
 										<RedirectButton
-											redirectLink={`wallet?safe=${data?.sender}&network=${network}`}
+											redirectLink={`/wallet?safe=${data?.sender}&network=${network}`}
 										/>
 									</>
 								}
