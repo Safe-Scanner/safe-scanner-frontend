@@ -16,8 +16,11 @@ import { CircularProgress, Skeleton } from "@mui/material";
 import { NETWORK_SCANNER_MAP } from "@/constants/constants";
 import CopyButton from "@/components/global/CopyButton";
 import RedirectButton from "@/components/global/RedirectButton";
-import { getFee, shortenString } from "@/components/utils/utils";
-import moment from "moment";
+import {
+	getFee,
+	shortenString,
+	sixDigitShortrenString,
+} from "@/components/utils/utils";
 
 const determineAndSetStatus = (transactionData: any, func: any): void => {
 	let status = "Signature Pending";
@@ -26,7 +29,7 @@ const determineAndSetStatus = (transactionData: any, func: any): void => {
 	} else {
 		status = "Signature Pending";
 	}
-	if (transactionData.isSuccessful) {
+	if (transactionData.success) {
 		status = "Successful";
 	} else {
 		status = "Failed";
@@ -34,26 +37,30 @@ const determineAndSetStatus = (transactionData: any, func: any): void => {
 	func(status);
 };
 
-function Overview({ transactionData }: any) {
+function UserOperation({ transactionData }: any) {
 	const [open, setOpen] = useState(false);
 	const [network, setNetwork] = React.useState("");
 	const [status, setStatus] = React.useState<StatusT>("Signature Pending");
 	const [data, setData] = useState([] as any);
-	const [fee, setFee] = useState("");
+	const [fee, setFee] = useState<any>();
 
 	useEffect(() => {
 		if (transactionData != undefined) {
-			setNetwork(transactionData?.network);
-			let status = "";
+			let net = transactionData?.network;
+			setNetwork(net);
+			// let status = "";
 			determineAndSetStatus(transactionData?.transactionInfo, setStatus);
 			setData(transactionData?.transactionInfo);
-			const calculatedFee = getFee(
+			let calculatedFee = getFee(
 				transactionData?.transactionInfo?.actualGasCost,
-				transactionData?.network
+				transactionData.network
 			);
-			setFee(calculatedFee?.value);
+			console.log("Fee is ", calculatedFee);
+			setFee(calculatedFee);
 		}
 	}, [transactionData]);
+
+	console.log("Value is ", status);
 
 	return (
 		<>
@@ -66,7 +73,7 @@ function Overview({ transactionData }: any) {
 						marginBottom={1}
 					>
 						<Typography fontWeight="medium" flexGrow={1}>
-							Overview
+							UserOperation
 						</Typography>
 						<IconButton>
 							<MoreHorizIcon color="primary" />
@@ -89,17 +96,28 @@ function Overview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											safe Tx Hash
+											Transaction Hash
 										</Typography>
 									),
 								}}
 								action={
-									<CopyButton text={data?.safeTxHash} setOpen={setOpen} />
+									<>
+										<CopyButton
+											text={data?.transactionHash}
+											setOpen={setOpen}
+										/>
+										<RedirectButton
+											redirectLink={
+												// "https://app.safe.global/apps?safe=matic:" + data?.safe
+												`/transaction/${data?.transactionHash}&network=${network}`
+											}
+										/>
+									</>
 								}
 							>
 								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{shortenString(data?.safeTxHash)}
-									{/* {data?.safeTxHash} */}
+									{sixDigitShortrenString(data?.transactionHash)}
+									{/* {data?.transactionHash} */}
 								</Typography>
 							</SmartRow>
 							<SmartRow
@@ -117,7 +135,7 @@ function Overview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											Safe
+											User Op Hash
 										</Typography>
 									),
 								}}
@@ -134,8 +152,81 @@ function Overview({ transactionData }: any) {
 								}
 							>
 								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{data?.safe}
+									{sixDigitShortrenString(data?.userOpHash)}
+									{/* {data?.userOpHash} */}
 								</Typography>
+							</SmartRow>
+
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/account-arrow-right.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Sender
+										</Typography>
+									),
+								}}
+								action={
+									<>
+										<CopyButton text={data?.sender} setOpen={setOpen} />
+										<RedirectButton
+											redirectLink={`wallet?safe=${data?.sender}&network=${network}`}
+										/>
+									</>
+								}
+							>
+								<Stack direction="row" alignItems="center" spacing={2}>
+									<ArrowDownwardIcon sx={{ fontSize: 20 }} />
+									<Typography color="primary" fontFamily="'DM Mono'">
+										{data?.sender}
+									</Typography>
+								</Stack>
+							</SmartRow>
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/account-arrow-right.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Target
+										</Typography>
+									),
+								}}
+								action={
+									<>
+										<CopyButton text={data?.to} setOpen={setOpen} />
+										<RedirectButton
+											// redirectLink={NETWORK_SCANNER_MAP + "/address/" + data?.to}
+											redirectLink={`wallet?safe=${data?.sender}&network=${network}`}
+										/>
+									</>
+								}
+							>
+								<Stack direction="row" alignItems="center" spacing={2}>
+									<SubdirectoryArrowRightRoundedIcon sx={{ fontSize: 20 }} />
+									<Typography color="primary" fontFamily="'DM Mono'">
+										{data?.target}
+									</Typography>
+								</Stack>
 							</SmartRow>
 							<SmartRow
 								label={{
@@ -159,82 +250,6 @@ function Overview({ transactionData }: any) {
 								}}
 							>
 								<Status status={status} />
-							</SmartRow>
-							<SmartRow
-								label={{
-									icon: (
-										<Image
-											src="/images/account-arrow-right.svg"
-											alt=""
-											width={20}
-											height={20}
-										/>
-									),
-									text: (
-										<Typography
-											color="text.secondary"
-											textTransform="capitalize"
-										>
-											Created Transaction
-										</Typography>
-									),
-								}}
-								action={
-									<>
-										<CopyButton
-											text={data?.transactionHash}
-											setOpen={setOpen}
-										/>
-										<RedirectButton
-											redirectLink={
-												NETWORK_SCANNER_MAP + "/tx/" + data?.transactionHash
-											}
-										/>
-									</>
-								}
-							>
-								<Stack direction="row" alignItems="center" spacing={2}>
-									<ArrowDownwardIcon sx={{ fontSize: 20 }} />
-									<Typography color="primary" fontFamily="'DM Mono'">
-										{shortenString(data?.transactionHash)}
-									</Typography>
-								</Stack>
-							</SmartRow>
-							<SmartRow
-								label={{
-									icon: (
-										<Image
-											src="/images/account-arrow-down.svg"
-											alt=""
-											width={20}
-											height={20}
-										/>
-									),
-									text: (
-										<Typography
-											color="text.secondary"
-											textTransform="capitalize"
-										>
-											To
-										</Typography>
-									),
-								}}
-								action={
-									<>
-										<CopyButton text={data?.to} setOpen={setOpen} />
-										<RedirectButton
-											// redirectLink={NETWORK_SCANNER_MAP + "/address/" + data?.to}
-											redirectLink={`/wallet?safe=${data?.to}&network=${network}`}
-										/>
-									</>
-								}
-							>
-								<Stack direction="row" alignItems="center" spacing={2}>
-									<SubdirectoryArrowRightRoundedIcon sx={{ fontSize: 20 }} />
-									<Typography color="primary" fontFamily="'DM Mono'">
-										{shortenString(data?.to)}
-									</Typography>
-								</Stack>
 							</SmartRow>
 							<SmartRow
 								label={{
@@ -271,109 +286,6 @@ function Overview({ transactionData }: any) {
 								label={{
 									icon: (
 										<Image
-											src="/images/LabelIconquestion.svg"
-											alt="nounce"
-											width={25}
-											height={25}
-										/>
-									),
-									text: (
-										<Typography
-											color="text.secondary"
-											textTransform="capitalize"
-										>
-											Nounce
-										</Typography>
-									),
-									info: "null",
-								}}
-							>
-								<Typography fontWeight="medium">{data?.nonce}</Typography>
-							</SmartRow>
-							<SmartRow
-								label={{
-									icon: (
-										<Image
-											src="/images/calendar.svg"
-											alt=""
-											width={20}
-											height={20}
-										/>
-									),
-									text: (
-										<Typography
-											color="text.secondary"
-											textTransform="capitalize"
-										>
-											Submission Date
-										</Typography>
-									),
-								}}
-							>
-								<Typography fontWeight="medium">
-									{/* {data?.submissionDate ? data?.submissionDate : "-"} */}
-									{data?.submissionDate
-										? moment(data?.submissionDate).fromNow()
-										: "-"}
-								</Typography>
-							</SmartRow>
-							<SmartRow
-								label={{
-									icon: (
-										<Image
-											src="/images/calendar (1).svg"
-											alt=""
-											width={20}
-											height={20}
-										/>
-									),
-									text: (
-										<Typography
-											color="text.secondary"
-											textTransform="capitalize"
-										>
-											Execution date
-										</Typography>
-									),
-									info: "null",
-								}}
-							>
-								<Typography fontWeight="medium">
-									{/* {data?.executionDate ? data?.executionDate : "-"} */}
-									{data?.executionDate
-										? moment(data?.executionDate).fromNow()
-										: "-"}
-								</Typography>
-							</SmartRow>
-							<SmartRow
-								label={{
-									icon: (
-										<Image
-											src="/images/calendar (1).svg"
-											alt=""
-											width={20}
-											height={20}
-										/>
-									),
-									text: (
-										<Typography
-											color="text.secondary"
-											textTransform="capitalize"
-										>
-											Block Number
-										</Typography>
-									),
-									info: "null",
-								}}
-							>
-								<Typography fontWeight="medium">
-									{data?.blockNumber ? data?.blockNumber : "-"}
-								</Typography>
-							</SmartRow>
-							<SmartRow
-								label={{
-									icon: (
-										<Image
 											src="/images/Fee.svg"
 											alt="fee"
 											width={25}
@@ -392,14 +304,14 @@ function Overview({ transactionData }: any) {
 								}}
 							>
 								<Typography fontWeight="medium">
-									{data?.fee} {network.toUpperCase()}
+									{fee?.value} {fee?.gas?.children}
 								</Typography>
 							</SmartRow>
 							<SmartRow
 								label={{
 									icon: (
 										<Image
-											src="/images/code-array.svg"
+											src="/images/local_gas_station.svg"
 											alt=""
 											width={20}
 											height={20}
@@ -410,20 +322,87 @@ function Overview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											Data
+											Gas Used
+										</Typography>
+									),
+								}}
+							>
+								<Typography fontWeight="medium">
+									{data?.actualGasUsed}
+								</Typography>
+							</SmartRow>
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/building.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Paymaster
+										</Typography>
+									),
+									info: "null",
+								}}
+							>
+								<Typography fontWeight="medium">{data?.paymaster}</Typography>
+							</SmartRow>
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/Beneficiary.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Beneficiary
+										</Typography>
+									),
+									info: "null",
+								}}
+							>
+								<Typography fontWeight="medium">{data?.beneficiary}</Typography>
+							</SmartRow>
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/cube.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Block
 										</Typography>
 									),
 									info: "null",
 								}}
 								action={
-									<CopyButton
-										text={data?.data ? data?.data : "-"}
-										setOpen={setOpen}
-									/>
+									<CopyButton text={data?.blockNumber} setOpen={setOpen} />
 								}
 							>
 								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{data?.data ? shortenString(data?.data) : "-"}
+									{data?.blockNumber}
 								</Typography>
 							</SmartRow>
 						</>
@@ -438,4 +417,4 @@ function Overview({ transactionData }: any) {
 	);
 }
 
-export default Overview;
+export default UserOperation;

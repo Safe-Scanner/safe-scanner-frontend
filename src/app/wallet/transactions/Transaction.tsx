@@ -17,7 +17,7 @@ interface TransactionProps {
     txType: string;
     value: string;
     statusSubValue: string;
-    date: string;
+    date: string | React.JSX.Element;
     txHash: string;
     network: string;
     safeTxHash: string;
@@ -39,9 +39,9 @@ function Transaction(props: TransactionProps) {
             if (txType == "ETHEREUM_TRANSACTION") {
                 window.open(`${NETWORK_MAP[network].explorerUrl}/tx/${txHash}`, "_blank");
             } else if (txType == "MULTISIG_TRANSACTION") {
-                window.open(`/transaction?transactionHash=${safeTxHash}&network=${network}`, "_blank");
+                window.open(`/transaction/${safeTxHash}&network=${network}`, "_blank");
             } else {
-                window.open(`/module-transaction?moduleTxId=${safeTxHash}&network=${network}`, "_blank");
+                window.open(`/transaction/${safeTxHash}&network=${network}`, "_blank");
             }
         } else {
             console.error("Hash not found");

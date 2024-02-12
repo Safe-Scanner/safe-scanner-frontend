@@ -5,13 +5,10 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import SubdirectoryArrowRightRoundedIcon from "@mui/icons-material/SubdirectoryArrowRightRounded";
 import Status, { StatusT } from "../../components/global/DataTable/Status";
 import SmartRow from "../../components/global/DataTable/SmartRow";
-import Box from "@mui/material/Box";
 import { CircularProgress, Skeleton } from "@mui/material";
 import { NETWORK_SCANNER_MAP } from "@/constants/constants";
 import CopyButton from "@/components/global/CopyButton";
@@ -34,7 +31,7 @@ const determineAndSetStatus = (transactionData: any, func: any): void => {
 	func(status);
 };
 
-function Overview({ transactionData }: any) {
+function ModuleOverview({ transactionData }: any) {
 	const [open, setOpen] = useState(false);
 	const [network, setNetwork] = React.useState("");
 	const [status, setStatus] = React.useState<StatusT>("Signature Pending");
@@ -43,8 +40,8 @@ function Overview({ transactionData }: any) {
 
 	useEffect(() => {
 		if (transactionData != undefined) {
-			setNetwork(transactionData?.network);
 			let status = "";
+			setNetwork(transactionData?.network);
 			determineAndSetStatus(transactionData?.transactionInfo, setStatus);
 			setData(transactionData?.transactionInfo);
 			const calculatedFee = getFee(
@@ -89,17 +86,20 @@ function Overview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											safe Tx Hash
+											Module Tx Id
 										</Typography>
 									),
 								}}
 								action={
-									<CopyButton text={data?.safeTxHash} setOpen={setOpen} />
+									<CopyButton
+										text={data?.moduleTransactionId}
+										setOpen={setOpen}
+									/>
 								}
 							>
 								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{shortenString(data?.safeTxHash)}
-									{/* {data?.safeTxHash} */}
+									{/* {data?.moduleTransactionId} */}
+									{shortenString(data?.moduleTransactionId)}
 								</Typography>
 							</SmartRow>
 							<SmartRow
@@ -117,7 +117,7 @@ function Overview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											Safe
+											safe
 										</Typography>
 									),
 								}}
@@ -125,16 +125,48 @@ function Overview({ transactionData }: any) {
 									<>
 										<CopyButton text={data?.safe} setOpen={setOpen} />
 										<RedirectButton
-											redirectLink={
-												// "https://app.safe.global/apps?safe=matic:" + data?.safe
-												`/wallet?safe=${data?.to}&network=${network}`
-											}
+											redirectLink={`/wallet?safe=${data?.safe}&network=${network}`}
 										/>
 									</>
 								}
 							>
 								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
 									{data?.safe}
+								</Typography>
+							</SmartRow>
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/pound.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Module
+										</Typography>
+									),
+								}}
+								action={
+									<>
+										<CopyButton text={data?.module} setOpen={setOpen} />
+										<RedirectButton
+											redirectLink={
+												"https://app.safe.global/apps?safe=matic:" +
+												data?.module
+											}
+										/>
+									</>
+								}
+							>
+								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
+									{data?.module}
 								</Typography>
 							</SmartRow>
 							<SmartRow
@@ -186,9 +218,7 @@ function Overview({ transactionData }: any) {
 											setOpen={setOpen}
 										/>
 										<RedirectButton
-											redirectLink={
-												NETWORK_SCANNER_MAP + "/tx/" + data?.transactionHash
-											}
+											redirectLink={`/transaction/${data?.transactionHash}&network=${network}`}
 										/>
 									</>
 								}
@@ -223,8 +253,9 @@ function Overview({ transactionData }: any) {
 									<>
 										<CopyButton text={data?.to} setOpen={setOpen} />
 										<RedirectButton
-											// redirectLink={NETWORK_SCANNER_MAP + "/address/" + data?.to}
-											redirectLink={`/wallet?safe=${data?.to}&network=${network}`}
+											redirectLink={
+												NETWORK_SCANNER_MAP + "/address/" + data?.to
+											}
 										/>
 									</>
 								}
@@ -267,29 +298,26 @@ function Overview({ transactionData }: any) {
 									<Typography fontWeight="medium">{data?.value}</Typography>
 								</Stack>
 							</SmartRow>
-							<SmartRow
-								label={{
-									icon: (
-										<Image
-											src="/images/LabelIconquestion.svg"
-											alt="nounce"
-											width={25}
-											height={25}
-										/>
-									),
-									text: (
-										<Typography
-											color="text.secondary"
-											textTransform="capitalize"
-										>
-											Nounce
-										</Typography>
-									),
-									info: "null",
-								}}
-							>
-								<Typography fontWeight="medium">{data?.nonce}</Typography>
-							</SmartRow>
+							{/* <SmartRow
+						label={{
+							icon: (
+								<Image
+									src="/images/LabelIconquestion.svg"
+									alt="nounce"
+									width={25}
+									height={25}
+								/>
+							),
+							text: (
+								<Typography color="text.secondary" textTransform="capitalize">
+									Data
+								</Typography>
+							),
+							info: "null",
+						}}
+					>
+						<Typography fontWeight="medium">{data?.data}</Typography>
+					</SmartRow> */}
 							<SmartRow
 								label={{
 									icon: (
@@ -311,10 +339,7 @@ function Overview({ transactionData }: any) {
 								}}
 							>
 								<Typography fontWeight="medium">
-									{/* {data?.submissionDate ? data?.submissionDate : "-"} */}
-									{data?.submissionDate
-										? moment(data?.submissionDate).fromNow()
-										: "-"}
+									{data?.submissionDate ? data?.submissionDate : "-"}
 								</Typography>
 							</SmartRow>
 							<SmartRow
@@ -340,9 +365,33 @@ function Overview({ transactionData }: any) {
 							>
 								<Typography fontWeight="medium">
 									{/* {data?.executionDate ? data?.executionDate : "-"} */}
-									{data?.executionDate
-										? moment(data?.executionDate).fromNow()
-										: "-"}
+									{data?.created ? moment(data?.created).fromNow() : "-"}
+								</Typography>
+							</SmartRow>
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/calendar (1).svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Created Date
+										</Typography>
+									),
+									info: "null",
+								}}
+							>
+								<Typography fontWeight="medium">
+									{/* {data?.created ? data?.created : "-"} */}
+									{data?.created ? moment(data?.created).fromNow() : "-"}
 								</Typography>
 							</SmartRow>
 							<SmartRow
@@ -370,7 +419,7 @@ function Overview({ transactionData }: any) {
 									{data?.blockNumber ? data?.blockNumber : "-"}
 								</Typography>
 							</SmartRow>
-							<SmartRow
+							{/* <SmartRow
 								label={{
 									icon: (
 										<Image
@@ -391,10 +440,8 @@ function Overview({ transactionData }: any) {
 									info: "null",
 								}}
 							>
-								<Typography fontWeight="medium">
-									{data?.fee} {network.toUpperCase()}
-								</Typography>
-							</SmartRow>
+								<Typography fontWeight="medium">{fee}</Typography>
+							</SmartRow> */}
 							<SmartRow
 								label={{
 									icon: (
@@ -423,7 +470,8 @@ function Overview({ transactionData }: any) {
 								}
 							>
 								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{data?.data ? shortenString(data?.data) : "-"}
+									{/* {data?.data ? data?.data : "-"} */}
+									{shortenString(data?.data) ? shortenString(data?.data) : "-"}
 								</Typography>
 							</SmartRow>
 						</>
@@ -438,4 +486,4 @@ function Overview({ transactionData }: any) {
 	);
 }
 
-export default Overview;
+export default ModuleOverview;

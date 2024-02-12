@@ -61,5 +61,21 @@ const balancesApi = async (safe: string, network: string, func: any) => {
 			console.warn(error);
 		});
 };
+export const userOPWallet = async (
+	safe: string,
+	network: string,
+	func: any
+) => {
+	await axios
+		.get(`${prefix}/v1/user_ops?safe=${safe}&network=${network}`)
+		.then((response: any) => {
+			const { data } = response;
+			console.log("User op Data is ", data);
+			func(data);
+		})
+		.catch((error: any) => {
+			console.log(error);
+		});
+};
 
 export { balanceApi, transactionApi, balancesApi };

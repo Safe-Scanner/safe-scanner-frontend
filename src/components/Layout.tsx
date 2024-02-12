@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import {ThemeProvider} from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import verdeNight from "@/theme/scanner";
 import Box from "@mui/material/Box";
 import Navbar from "./navbar";
 import Footer from "./footer";
-import {styled} from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 
-const Wrapper = styled(Box)(({theme}) => ({
+const Wrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   minHeight: "100vh",
   overflow: "hidden",
@@ -15,7 +15,7 @@ const Wrapper = styled(Box)(({theme}) => ({
   zIndex: 0,
 }));
 
-const Abstraction = styled("img")(({theme}) => ({
+const Abstraction = styled("img")(({ theme }) => ({
   position: "absolute",
   width: "100%",
   left: 0,
@@ -24,7 +24,7 @@ const Abstraction = styled("img")(({theme}) => ({
   zIndex: -10,
 }));
 
-function Layout({children}: {children: React.ReactNode}) {
+function Layout({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider theme={verdeNight}>
       <Wrapper>
