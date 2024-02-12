@@ -110,7 +110,7 @@ function Transactions() {
 							date={
 							  el.date ? (
 								new Date(el.date).toLocaleDateString("em-GB")
-							  ) : null
+							  ) : "-"
 							}
                             txHash={el?.transactionHash}
                             network={network}

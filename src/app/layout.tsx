@@ -5,6 +5,11 @@ import { Providers } from "@/store/provider";
 // import { WalletProviders } from "./providers";
 import '@rainbow-me/rainbowkit/styles.css';
 
+type Metadata =  {
+  title: string,
+  description:string
+}
+
 export const metadata: Metadata = {
   title: "Safe Scanner",
   description: "User friendly transaction explorer for the Safe ecosystem",
