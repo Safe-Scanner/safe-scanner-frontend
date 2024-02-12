@@ -297,7 +297,7 @@ function Overview({ balance, balances, safe, network }: any) {
 						>
 							<Stack direction="row" alignItems="center" spacing={2}>
 								<Image
-									src={NETWORK_ICON_MAP[Object.keys(balance)[0]]}
+									src={NETWORK_MAP[network]?.icon}
 									alt=""
 									width={20}
 									height={20}
