@@ -60,7 +60,7 @@ function Overview({ balance, balances, safe, network }: any) {
                             symbol: el.contract_ticker_symbol,
                             logo: el?.logo_urls?.token_logo_url ? el?.logo_urls?.token_logo_url : el?.logo_url,
                             balance: el.balance,
-
+                            totalQuote: el.totalQuote.toFixed(2),
                             decimal: el.contract_decimals,
                             quote: el.quote,
                         },
@@ -508,7 +508,7 @@ function Overview({ balance, balances, safe, network }: any) {
                         }
                     >
                         <Typography fontFamily="'DM Mono'" fontWeight="medium" noWrap>
-                            3 500 000 ({walletBalances.length} tokens)
+                            {walletBalances.length > 0 ? walletBalances[0].totalQuote : 0} ({walletBalances.length} tokens)
                         </Typography>
                     </SmartRow>
 
