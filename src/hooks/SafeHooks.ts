@@ -12,19 +12,20 @@ import {
 } from "@safe-global/safe-core-sdk-types";
 import { useEthersProvider, useEthersSigner } from "./ethers";
 import { AbstractSigner, Provider, ethers } from "ethers";
+import axios from "axios";
 
 type Props = {};
 
-const SAFE_WALLET = "0xC4445f5bE5BBD7D0dBf297F46EA9FF54c102d8Aa";
-const SAFE_OWNER = "0x8D582d98980248F1F0849710bd0626aDE4c44E3D";
+// const SAFE_WALLET = "0x0dda09dCB210969FB772BA27908CdC386102ae80";
+// const SAFE_OWNER = "0xDdCB44d30403EE073dfF476a7c707F42609e49c8";
 
 export type SafeHooks = {
-  signTransaction: () => Promise<void>;
+  signTransaction: (txnHash: any) => Promise<void>;
   createTransaction: () => Promise<void>;
   sendTransaction: () => Promise<void>;
 };
 
-const useSafeHooks = (props: Props): SafeHooks => {
+const useSafeHooks = ({safeWallet, safeOwner}: any): SafeHooks => {
   const provider = useEthersProvider();
   const signer = useEthersSigner();
 
@@ -54,7 +55,7 @@ const useSafeHooks = (props: Props): SafeHooks => {
 
     const protocolKit: Safe = await Safe.create({
       ethAdapter,
-      safeAddress: SAFE_WALLET,
+      safeAddress: safeWallet,
     });
     setProtocolKit(protocolKit);
   };
@@ -69,8 +70,23 @@ const useSafeHooks = (props: Props): SafeHooks => {
     setSafeApiKit(safeApiKit);
   };
 
-  const signTransaction = async () => {
-    signMessage({ message: "hello world" });
+  const signTransaction = async (safeTxHash: any) => {
+    // signMessage({ message: "hello world" });
+    try {
+      // Assuming `pendingTransaction` is a transaction object that the Safe SDK can sign
+      console.log('====> this is the protocol kit', protocolKit);
+      const signature = await protocolKit!.signTransaction(safeTxHash);
+  
+      // Here, you would typically send the signature back to your backend or directly to the Safe transaction service
+      // to append the signature to the transaction. This might look something like:
+      const response = await axios.post(`https://safe-transaction-sepolia.safe.global/api//v1/multisig-transactions/${safeTxHash}/confirmations`, {signature});
+
+      console.log(response);
+  
+      console.log("Transaction signed successfully:", signature);
+    } catch (error) {
+      console.error("Failed to sign transaction:", error);
+    }
   };
 
   const createTransaction = async () => {
@@ -80,7 +96,7 @@ const useSafeHooks = (props: Props): SafeHooks => {
     }
     const transactions: MetaTransactionData[] = [
       {
-        to: SAFE_OWNER,
+        to: safeOwner,
         data: "0x",
         value: (100).toString(16),
         // operation: 0 // optional
@@ -102,10 +118,10 @@ const useSafeHooks = (props: Props): SafeHooks => {
     const signature = await protocolKit.signHash(safeTxHash);
 
     safeApiKit.proposeTransaction({
-      safeAddress: SAFE_WALLET,
+      safeAddress: safeWallet,
       safeTransactionData: safeTransaction.data,
       safeTxHash: safeTxHash,
-      senderAddress: SAFE_OWNER,
+      senderAddress: safeOwner,
       senderSignature: signature.data,
     });
   };
