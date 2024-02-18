@@ -175,12 +175,17 @@ function Overview({ balance, balances, safe, network }: any) {
                     )}
                     <SmartRow
                         label={{
-                            icon: <Image src="/images/tools.svg" alt="" width={20} height={20} />,
+                            icon: (
+                                <Tooltip title="" placement="top">
+                                    <Image src="/images/tools.svg" alt="" width={20} height={20} />
+                                </Tooltip>
+                            ),
                             text: (
                                 <Typography color="text.secondary" textTransform="capitalize">
                                     Fallback handler
                                 </Typography>
                             ),
+                            info: "The fallback handler adds fallback logic for funtionality that may not be present in the Safe Account contract.",
                         }}
                         action={
                             <>
@@ -200,18 +205,20 @@ function Overview({ balance, balances, safe, network }: any) {
                     </SmartRow>
                     <SmartRow
                         label={{
-                            icon: <Image src="/images/file-code.svg" alt="" width={20} height={20} />,
+                            icon: (
+                                <Tooltip title="" placement="top">
+                                    <Image src="/images/file-code.svg" alt="" width={20} height={20} />
+                                </Tooltip>
+                            ),
                             text: (
                                 <Typography color="text.secondary" textTransform="capitalize">
                                     master copy
                                 </Typography>
                             ),
+                            info: "Contract from which this safe was derived from",
                         }}
                         action={
                             <>
-                                {/* <IconButton>
-							<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
-						</IconButton> */}
                                 <CopyButton text={data?.masterCopy} setOpen={setOpen} />
                                 <IconButton href="/">
                                     <OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
@@ -226,12 +233,17 @@ function Overview({ balance, balances, safe, network }: any) {
                     {data?.guard && (
                         <SmartRow
                             label={{
-                                icon: <Image src="images/shield-check.svg" alt="" width={20} height={20} />,
+                                icon: (
+                                    <Tooltip title="" placement="top">
+                                        <Image src="images/shield-check.svg" alt="" width={20} height={20} />
+                                    </Tooltip>
+                                ),
                                 text: (
                                     <Typography color="text.secondary" textTransform="capitalize">
                                         Guard
                                     </Typography>
                                 ),
+                                info: "Transaction guards can be used to perform additional checks before executing a Safe transaction.",
                             }}
                             action={
                                 <>
@@ -246,7 +258,7 @@ function Overview({ balance, balances, safe, network }: any) {
                             }
                         >
                             <Stack direction="row" alignItems="center" spacing={2}>
-                                <Image src={NETWORK_ICON_MAP[Object.keys(balance)[0]]} alt="" width={20} height={20} />
+                                {/* <Image src={NETWORK_ICON_MAP[Object.keys(balance)[0]]} alt="" width={20} height={20} /> */}
                                 <Typography fontFamily="'DM Mono'" color="primary">
                                     {data?.guard}
                                 </Typography>
@@ -261,7 +273,7 @@ function Overview({ balance, balances, safe, network }: any) {
                                     Nounce
                                 </Typography>
                             ),
-                            info: "null",
+                            info: "Number of transaction submitted by the safe address",
                         }}
                         action={
                             <Button
@@ -284,7 +296,6 @@ function Overview({ balance, balances, safe, network }: any) {
                                     Total Owners
                                 </Typography>
                             ),
-                            info: "null",
                         }}
                     >
                         <Typography fontWeight="medium" noWrap>
@@ -330,88 +341,6 @@ function Overview({ balance, balances, safe, network }: any) {
                                 </SmartRow>
                             );
                         })}
-                    {/* <SmartRow
-				action={
-					<>
-						<IconButton>
-							<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
-						</IconButton>
-						<IconButton href="/">
-							<OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
-						</IconButton>
-					</>
-				}
-			>
-				<Grid container>
-					<Grid item xs={6}>
-						<Stack direction="row" alignItems="center" spacing={2}>
-							<Image
-								src="/images/account-key 1.svg"
-								alt=""
-								width={20}
-								height={20}
-							/>
-							<Typography textTransform="capitalize" color="text.secondary">
-								Owner 2
-							</Typography>
-						</Stack>
-					</Grid>
-					<Grid item xs={6}>
-						<Stack
-							justifyContent="flex-end"
-							direction="row"
-							alignItems="center"
-							spacing={2}
-						>
-							<Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-							<Typography color="primary" fontFamily="'DM Mono'">
-								eth:
-							</Typography>
-						</Stack>
-					</Grid>
-				</Grid>
-			</SmartRow>
-			<SmartRow
-				action={
-					<>
-						<IconButton>
-							<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
-						</IconButton>
-						<IconButton href="/">
-							<OpenInNewIcon color="primary" sx={{ fontSize: 20 }} />
-						</IconButton>
-					</>
-				}
-			>
-				<Grid container>
-					<Grid item xs={6}>
-						<Stack direction="row" alignItems="center" spacing={2}>
-							<Image
-								src="/images/account-key 1.svg"
-								alt=""
-								width={20}
-								height={20}
-							/>
-							<Typography textTransform="capitalize" color="text.secondary">
-								Owner 3
-							</Typography>
-						</Stack>
-					</Grid>
-					<Grid item xs={6}>
-						<Stack
-							justifyContent="flex-end"
-							direction="row"
-							alignItems="center"
-							spacing={2}
-						>
-							<Image src="/images/Group 56.svg" alt="" width={20} height={20} />
-							<Typography color="primary" fontFamily="'DM Mono'">
-								eth:
-							</Typography>
-						</Stack>
-					</Grid>
-				</Grid>
-			</SmartRow> */}
 
                     <SmartRow
                         label={{
@@ -421,7 +350,6 @@ function Overview({ balance, balances, safe, network }: any) {
                                     Installed Modules
                                 </Typography>
                             ),
-                            info: "null",
                         }}
                     >
                         <Typography fontFamily="'DM Mono'" fontWeight="medium" noWrap>
@@ -436,7 +364,7 @@ function Overview({ balance, balances, safe, network }: any) {
                                     Version
                                 </Typography>
                             ),
-                            info: "null",
+                            info: "Safe Wallet version. This can be upgraded for additional features.",
                         }}
                     >
                         <Typography fontFamily="'DM Mono'" fontWeight="medium" noWrap>
@@ -451,7 +379,7 @@ function Overview({ balance, balances, safe, network }: any) {
                                     Wallet Value
                                 </Typography>
                             ),
-                            info: "null",
+                            info: "Total value of the wallet",
                         }}
                         action={
                             <Box sx={{ position: "absolute" }}>
