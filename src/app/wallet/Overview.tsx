@@ -471,7 +471,7 @@ function Overview({ balance, balances, safe, network }: any) {
                                                     }}
                                                 >
                                                     <Typography component="span" variant="body2">
-                                                        1
+                                                        {index + 1}
                                                     </Typography>
                                                 </Box>
                                                 <Typography textTransform="capitalize" color="text.secondary">
@@ -480,7 +480,7 @@ function Overview({ balance, balances, safe, network }: any) {
                                             </Stack>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <Stack justifyContent="flex-end" direction="row" alignItems="center" spacing={2}>
+                                            <Stack justifyContent="flex-end" direction="row" alignItems="left" spacing={2}>
                                                 <img src={`${el?.logo}`} alt="" width={20} height={20} />
                                                 <Typography fontFamily="'DM Mono'">
                                                     {(el?.balance / Math.pow(10, el?.decimal)).toFixed(3)} / ${el?.quote}

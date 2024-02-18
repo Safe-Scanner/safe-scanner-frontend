@@ -180,7 +180,7 @@ function Searchbar(props: any) {
                                 color="primary"
                             />
                         </Stack>
-                        <Stack direction="row" alignItems="center" spacing={0.5}>
+                        {/* <Stack direction="row" alignItems="center" spacing={0.5}>
                             <Typography color="text.disabled">Total Safe Transactions</Typography>
                             <Chip
                                 sx={{ border: 0 }}
@@ -189,7 +189,7 @@ function Searchbar(props: any) {
                                 label="33 013 011"
                                 color="primary"
                             />
-                        </Stack>
+                        </Stack> */}
                     </Stack>
                 )}
             </Stack>
