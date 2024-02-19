@@ -146,91 +146,73 @@ function Searchbar(props: any) {
 		// }
 	}, [rawSearchData]);
 
-	return (
-		<Box
-			maxWidth={950}
-			marginX="auto"
-			sx={{ position: "relative", zIndex: 1 }}
-			onMouseLeave={handleClose}
-		>
-			{/* <Box sx={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0}} /> */}
-			<Stack spacing={1}>
-				<TextField
-					value={value}
-					onChange={(e) => {
-						setValue(e.target.value);
-						// setSearchString(e.target.value);
-						// setSearch(e.target.value);
-					}}
-					onClick={handleClick}
-					sx={{
-						"& fieldset": {
-							borderWidth: 2,
-							borderColor: "primary.light",
-						},
-					}}
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position="start">
-								<SearchIcon />
-							</InputAdornment>
-						),
-						endAdornment: open ? (
-							<InputAdornment position="end">
-								<IconButton onClick={handleClose}>
-									<CloseIcon />
-								</IconButton>
-							</InputAdornment>
-						) : null,
-						sx: {
-							pl: 2,
-							"& input::placeholder": {
-								color: "text.disabled",
-								opacity: 1,
-							},
-						},
-					}}
-					fullWidth
-					placeholder="Search for addresses & hashes..."
-				/>
-				{status && (
-					<Stack
-						direction={{ xs: "column", md: "row" }}
-						justifyContent="space-between"
-						alignItems="center"
-					>
-						<Stack direction="row" alignItems="center" spacing={0.5}>
-							<Typography color="text.disabled">
-								Scanner Network Status
-							</Typography>
-							<Chip
-								sx={{ border: 0 }}
-								icon={
-									<img
-										src="/images/checkbox-marked-circle-outline.svg"
-										alt=""
-									/>
-								}
-								variant="outlined"
-								label="Available"
-								color="primary"
-							/>
-						</Stack>
-						<Stack direction="row" alignItems="center" spacing={0.5}>
-							<Typography color="text.disabled">
-								Total Safe Transactions
-							</Typography>
-							<Chip
-								sx={{ border: 0 }}
-								icon={<img src="/images/safe-transactions.svg" alt="" />}
-								variant="outlined"
-								label="33 013 011"
-								color="primary"
-							/>
-						</Stack>
-					</Stack>
-				)}
-			</Stack>
+    return (
+        <Box maxWidth={950} marginX="auto" sx={{ position: "relative", zIndex: 1 }} onMouseLeave={handleClose}>
+            {/* <Box sx={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0}} /> */}
+            <Stack spacing={1}>
+                <TextField
+                    value={value}
+                    onChange={(e) => {
+                        setValue(e.target.value);
+                        // setSearchString(e.target.value);
+                        // setSearch(e.target.value);
+                    }}
+                    onClick={handleClick}
+                    sx={{
+                        "& fieldset": {
+                            borderWidth: 2,
+                            borderColor: "primary.light",
+                        },
+                    }}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon />
+                            </InputAdornment>
+                        ),
+                        endAdornment: open ? (
+                            <InputAdornment position="end">
+                                <IconButton onClick={handleClose}>
+                                    <CloseIcon />
+                                </IconButton>
+                            </InputAdornment>
+                        ) : null,
+                        sx: {
+                            pl: 2,
+                            "& input::placeholder": {
+                                color: "text.disabled",
+                                opacity: 1,
+                            },
+                        },
+                    }}
+                    fullWidth
+                    placeholder="Search for addresses & hashes..."
+                />
+                {status && (
+                    <Stack direction={{ xs: "column", md: "row" }} justifyContent="space-between" alignItems="center">
+                        <Stack direction="row" alignItems="center" spacing={0.5}>
+                            <Typography color="text.disabled">Scanner Network Status</Typography>
+                            <Chip
+                                sx={{ border: 0 }}
+                                icon={<img src="/images/checkbox-marked-circle-outline.svg" alt="" />}
+                                variant="outlined"
+                                label="Available"
+                                color="primary"
+                            />
+                        </Stack>
+                        {/* <Stack direction="row" alignItems="center" spacing={0.5}>
+                            <Typography color="text.disabled">Total Safe Transactions</Typography>
+                            <Chip
+                                sx={{ border: 0 }}
+                                icon={<img src="/images/safe-transactions.svg" alt="" />}
+                                variant="outlined"
+                                label="33 013 011"
+                                color="primary"
+                            />
+                        </Stack> */}
+                    </Stack>
+                )}
+            </Stack>
 
 			<Popper
 				open={open}
