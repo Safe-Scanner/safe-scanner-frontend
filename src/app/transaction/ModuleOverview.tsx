@@ -9,7 +9,17 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import SubdirectoryArrowRightRoundedIcon from "@mui/icons-material/SubdirectoryArrowRightRounded";
 import Status, { StatusT } from "../../components/global/DataTable/Status";
 import SmartRow from "../../components/global/DataTable/SmartRow";
-import { CircularProgress, Skeleton } from "@mui/material";
+import {
+	Box,
+	CircularProgress,
+	Skeleton,
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TableRow,
+} from "@mui/material";
 import { NETWORK_SCANNER_MAP } from "@/constants/constants";
 import CopyButton from "@/components/global/CopyButton";
 import RedirectButton from "@/components/global/RedirectButton";
@@ -469,10 +479,86 @@ function ModuleOverview({ transactionData }: any) {
 									/>
 								}
 							>
-								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{/* {data?.data ? data?.data : "-"} */}
-									{shortenString(data?.data) ? shortenString(data?.data) : "-"}
-								</Typography>
+								{/* <Typography
+									fontWeight="medium"
+									variant="body1"
+									fontFamily="'DM Mono'"
+								>
+							</Typography> */}
+								<Box
+									sx={{
+										width: "100%",
+										overflow: "auto",
+									}}
+								>
+									<Typography
+										fontWeight="medium"
+										fontFamily=" 'DM Mono'"
+										display="inline"
+										sx={{
+											whiteSpace: "pre-wrap",
+											width: "100%",
+											overflowWrap: "break-word",
+										}}
+									>
+										{data?.data ? data?.data : "-"}
+									</Typography>
+								</Box>
+							</SmartRow>
+
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/code-array.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Params
+										</Typography>
+									),
+									info: "null",
+								}}
+								// action={
+								// 	<CopyButton
+								// 		text={data?.data ? data?.data : "-"}
+								// 		setOpen={setOpen}
+								// 	/>
+								// }
+							>
+								{/* <Typography
+									fontWeight="medium"
+									variant="body1"
+									fontFamily="'DM Mono'"
+								>
+							</Typography> */}
+								<TableContainer component={Paper}>
+									<Table sx={{ borderBottom: "none" }}>
+										<TableHead>
+											<TableCell>To</TableCell>
+											<TableCell>Label</TableCell>
+											<TableCell>Sample</TableCell>
+										</TableHead>
+										<TableBody>
+											{data?.dataDecoded?.parameters.map(
+												(el: any, index: any) => (
+													<TableRow key={index} sx={{ borderBottom: "none" }}>
+														<TableCell>{el.name}</TableCell>
+														<TableCell>{el.type}</TableCell>
+														<TableCell>{el.value}</TableCell>
+													</TableRow>
+												)
+											)}
+										</TableBody>
+									</Table>
+								</TableContainer>
 							</SmartRow>
 						</>
 					)}
