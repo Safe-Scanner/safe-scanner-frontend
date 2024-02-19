@@ -12,12 +12,21 @@ import SubdirectoryArrowRightRoundedIcon from "@mui/icons-material/SubdirectoryA
 import Status, { StatusT } from "../../components/global/DataTable/Status";
 import SmartRow from "../../components/global/DataTable/SmartRow";
 import Box from "@mui/material/Box";
-import { CircularProgress, Skeleton } from "@mui/material";
+import {
+	CircularProgress,
+	Skeleton,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TableRow,
+} from "@mui/material";
 import { NETWORK_SCANNER_MAP } from "@/constants/constants";
 import CopyButton from "@/components/global/CopyButton";
 import RedirectButton from "@/components/global/RedirectButton";
 import { getFee, shortenString } from "@/components/utils/utils";
 import moment from "moment";
+import Action from "@/components/global/DataTable/Action";
 
 const determineAndSetStatus = (transactionData: any, func: any): void => {
 	let status = "Signature Pending";
@@ -32,6 +41,14 @@ const determineAndSetStatus = (transactionData: any, func: any): void => {
 		status = "Failed";
 	}
 	func(status);
+};
+
+const tableStyles = {
+	border: "none",
+};
+
+const cellStyles = {
+	borderBottom: "none",
 };
 
 function Overview({ transactionData }: any) {
@@ -152,13 +169,14 @@ function Overview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											Status
+											Status & Action
 										</Typography>
 									),
 									info: "demo",
 								}}
 							>
 								<Status status={status} />
+								<Action action={data?.dataDecoded?.method} />
 							</SmartRow>
 							<SmartRow
 								label={{
@@ -422,9 +440,101 @@ function Overview({ transactionData }: any) {
 									/>
 								}
 							>
-								<Typography fontWeight="medium" noWrap fontFamily="'DM Mono'">
-									{data?.data ? shortenString(data?.data) : "-"}
-								</Typography>
+								{/* <Typography
+									fontWeight="medium"
+									variant="body1"
+									fontFamily="'DM Mono'"
+								>
+							</Typography> */}
+								<Box
+									sx={{
+										width: "100%",
+										overflow: "auto",
+									}}
+								>
+									<Typography
+										fontWeight="medium"
+										fontFamily=" 'DM Mono'"
+										display="inline"
+										sx={{
+											whiteSpace: "pre-wrap",
+											width: "100%",
+											overflowWrap: "break-word",
+										}}
+									>
+										{data?.data ? data?.data : "-"}
+									</Typography>
+								</Box>
+							</SmartRow>
+							<SmartRow
+								label={{
+									icon: (
+										<Image
+											src="/images/code-array.svg"
+											alt=""
+											width={20}
+											height={20}
+										/>
+									),
+									text: (
+										<Typography
+											color="text.secondary"
+											textTransform="capitalize"
+										>
+											Params
+										</Typography>
+									),
+									info: "null",
+								}}
+								// action={
+								// 	<CopyButton
+								// 		text={data?.data ? data?.data : "-"}
+								// 		setOpen={setOpen}
+								// 	/>
+								// }
+							>
+								{/* <Typography
+									fontWeight="medium"
+									variant="body1"
+									fontFamily="'DM Mono'"
+								>
+							</Typography> */}
+								<TableContainer component={Paper}>
+									<TableRow style={tableStyles}>
+										<TableHead>
+											{/* <TableCell style={cellStyles}>To</TableCell>
+											<TableCell style={cellStyles}>Label</TableCell>
+											<TableCell style={cellStyles}>Sample</TableCell> */}
+											{/* <TableRow>
+												{data?.dataDecoded?.parameters?.map(
+													(el: any, index: any) => {
+														<TableCell key={index}>{el.name}</TableCell>;
+													}
+												)}
+											</TableRow> */}
+										</TableHead>
+										<TableBody>
+											<TableRow sx={{ borderBottom: "none" }}>
+												{data?.dataDecoded?.parameters?.map(
+													(el: any, index: any) => (
+														<TableCell key={index} style={cellStyles}>
+															<Typography>{el?.name}</Typography>
+														</TableCell>
+													)
+												)}
+											</TableRow>
+											<TableRow sx={{ borderBottom: "none" }}>
+												{data?.dataDecoded?.parameters?.map(
+													(el: any, index: any) => (
+														<TableCell key={index} style={cellStyles}>
+															<Typography>{el?.value}</Typography>
+														</TableCell>
+													)
+												)}
+											</TableRow>
+										</TableBody>
+									</TableRow>
+								</TableContainer>
 							</SmartRow>
 						</>
 					)}

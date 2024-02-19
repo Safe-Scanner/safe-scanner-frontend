@@ -25,6 +25,7 @@ import CopyButton from "@/components/global/CopyButton";
 import RedirectButton from "@/components/global/RedirectButton";
 import { getFee, shortenString } from "@/components/utils/utils";
 import moment from "moment";
+import Action from "@/components/global/DataTable/Action";
 
 const determineAndSetStatus = (transactionData: any, func: any): void => {
 	let status = "Signature Pending";
@@ -39,6 +40,14 @@ const determineAndSetStatus = (transactionData: any, func: any): void => {
 		status = "Failed";
 	}
 	func(status);
+};
+
+const tableStyles = {
+	border: "none",
+};
+
+const cellStyles = {
+	borderBottom: "none",
 };
 
 function ModuleOverview({ transactionData }: any) {
@@ -194,13 +203,14 @@ function ModuleOverview({ transactionData }: any) {
 											color="text.secondary"
 											textTransform="capitalize"
 										>
-											Status
+											Status & Action
 										</Typography>
 									),
 									info: "demo",
 								}}
 							>
 								<Status status={status} />
+								<Action action={data?.dataDecoded?.method.toLowerCase()} />
 							</SmartRow>
 							<SmartRow
 								label={{
@@ -540,22 +550,38 @@ function ModuleOverview({ transactionData }: any) {
 								>
 							</Typography> */}
 								<TableContainer component={Paper}>
-									<Table sx={{ borderBottom: "none" }}>
+									<Table style={tableStyles}>
 										<TableHead>
-											<TableCell>To</TableCell>
-											<TableCell>Label</TableCell>
-											<TableCell>Sample</TableCell>
+											{/* <TableCell style={cellStyles}>To</TableCell>
+											<TableCell style={cellStyles}>Label</TableCell>
+											<TableCell style={cellStyles}>Sample</TableCell> */}
+											{/* <TableRow>
+												{data?.dataDecoded?.parameters?.map(
+													(el: any, index: any) => {
+														<TableCell key={index}>{el.name}</TableCell>;
+													}
+												)}
+											</TableRow> */}
 										</TableHead>
 										<TableBody>
-											{data?.dataDecoded?.parameters.map(
-												(el: any, index: any) => (
-													<TableRow key={index} sx={{ borderBottom: "none" }}>
-														<TableCell>{el.name}</TableCell>
-														<TableCell>{el.type}</TableCell>
-														<TableCell>{el.value}</TableCell>
-													</TableRow>
-												)
-											)}
+											<TableRow sx={{ borderBottom: "none" }}>
+												{data?.dataDecoded?.parameters?.map(
+													(el: any, index: any) => (
+														<TableCell key={index} style={cellStyles}>
+															<Typography>{el?.name}</Typography>
+														</TableCell>
+													)
+												)}
+											</TableRow>
+											<TableRow sx={{ borderBottom: "none" }}>
+												{data?.dataDecoded?.parameters?.map(
+													(el: any, index: any) => (
+														<TableCell key={index} style={cellStyles}>
+															<Typography>{el?.value}</Typography>
+														</TableCell>
+													)
+												)}
+											</TableRow>
 										</TableBody>
 									</Table>
 								</TableContainer>

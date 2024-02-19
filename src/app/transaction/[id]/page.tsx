@@ -170,8 +170,6 @@ function TransactionPage() {
 													</Typography>
 												</Stack>
 												<UserOperation transactionData={transactionData} />
-												{/* <HashTab tabs={["Overview"]}>
-										</HashTab> */}
 											</Stack>
 										</Container>
 									) : (
