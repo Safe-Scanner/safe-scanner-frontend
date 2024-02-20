@@ -501,18 +501,6 @@ function Overview({ transactionData }: any) {
 							</Typography> */}
 								<TableContainer component={Paper}>
 									<TableRow style={tableStyles}>
-										<TableHead>
-											{/* <TableCell style={cellStyles}>To</TableCell>
-											<TableCell style={cellStyles}>Label</TableCell>
-											<TableCell style={cellStyles}>Sample</TableCell> */}
-											{/* <TableRow>
-												{data?.dataDecoded?.parameters?.map(
-													(el: any, index: any) => {
-														<TableCell key={index}>{el.name}</TableCell>;
-													}
-												)}
-											</TableRow> */}
-										</TableHead>
 										<TableBody>
 											<TableRow sx={{ borderBottom: "none" }}>
 												{data?.dataDecoded?.parameters?.map(
@@ -527,7 +515,7 @@ function Overview({ transactionData }: any) {
 												{data?.dataDecoded?.parameters?.map(
 													(el: any, index: any) => (
 														<TableCell key={index} style={cellStyles}>
-															<Typography>{el?.value}</Typography>
+															<Typography fontFamily="'DM Mono'">{el?.value}</Typography>
 														</TableCell>
 													)
 												)}

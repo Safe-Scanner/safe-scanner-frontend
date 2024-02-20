@@ -476,6 +476,7 @@ function ModuleOverview({ transactionData }: any) {
 										<Typography
 											color="text.secondary"
 											textTransform="capitalize"
+											fontFamily="'DM Mono'"
 										>
 											Data
 										</Typography>
@@ -577,7 +578,9 @@ function ModuleOverview({ transactionData }: any) {
 												{data?.dataDecoded?.parameters?.map(
 													(el: any, index: any) => (
 														<TableCell key={index} style={cellStyles}>
-															<Typography>{el?.value}</Typography>
+															<Typography fontFamily="'DM Mono'">
+																{el?.value}
+															</Typography>
 														</TableCell>
 													)
 												)}
