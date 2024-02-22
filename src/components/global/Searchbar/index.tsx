@@ -45,6 +45,7 @@ function Searchbar(props: any) {
 	const [tips, setTips] = useState(true);
 	const [open, setOpen] = useState(false);
 	const [transition, setTransition] = useState(true);
+	const [popperWidth, setPopperWidth] = useState<number>(0);
 
 	const [value, setValue] = React.useState("");
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -57,24 +58,31 @@ function Searchbar(props: any) {
 		setTips((prev) => !prev);
 	};
 
+	let timer: any;
 	const handleClose = () => {
-		setOpen(false);
-		setRawSearchData({});
-		setAnchorEl(null);
-		setValue("");
+		timer = setTimeout(() => {
+			setOpen(false);
+			setRawSearchData({});
+			setAnchorEl(null);
+			setValue("");
+		}, 3000);
+	};
+
+	const handleCloseCancel = () => {
+		clearTimeout(timer);
 	};
 
 	const getMenuWidth = () => {
 		console.log(anchorEl?.clientWidth);
 		if (anchorEl) {
+			setPopperWidth(anchorEl.clientWidth);
 			return anchorEl.clientWidth;
 		}
 		return null;
 	};
 
-	
-
 	useEffect(() => {
+		getMenuWidth();
 		if (
 			Boolean(anchorEl) &&
 			(value.length === 0 ||
@@ -148,61 +156,78 @@ function Searchbar(props: any) {
 		// }
 	}, [rawSearchData]);
 
-    return (
-        <Box maxWidth={950} marginX="auto" sx={{ position: "relative", zIndex: 1 }} onMouseLeave={handleClose}>
-            {/* <Box sx={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0}} /> */}
-            <Stack spacing={1}>
-                <TextField
-                    value={value}
-                    onChange={(e) => {
-                        setValue(e.target.value);
-                        // setSearchString(e.target.value);
-                        // setSearch(e.target.value);
-                    }}
-                    onClick={handleClick}
-                    sx={{
-                        "& fieldset": {
-                            borderWidth: 2,
-                            borderColor: "primary.light",
-                        },
-                    }}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon />
-                            </InputAdornment>
-                        ),
-                        endAdornment: open ? (
-                            <InputAdornment position="end">
-                                <IconButton onClick={handleClose}>
-                                    <CloseIcon />
-                                </IconButton>
-                            </InputAdornment>
-                        ) : null,
-                        sx: {
-                            pl: 2,
-                            "& input::placeholder": {
-                                color: "text.disabled",
-                                opacity: 1,
-                            },
-                        },
-                    }}
-                    fullWidth
-                    placeholder="Search for addresses & hashes..."
-                />
-                {status && (
-                    <Stack direction={{ xs: "column", md: "row" }} justifyContent="space-between" alignItems="center">
-                        <Stack direction="row" alignItems="center" spacing={0.5}>
-                            <Typography color="text.disabled">Scanner Network Status</Typography>
-                            <Chip
-                                sx={{ border: 0 }}
-                                icon={<img src="/images/checkbox-marked-circle-outline.svg" alt="" />}
-                                variant="outlined"
-                                label="Available"
-                                color="primary"
-                            />
-                        </Stack>
-                        {/* <Stack direction="row" alignItems="center" spacing={0.5}>
+	return (
+		<Box
+			maxWidth={950}
+			marginX="auto"
+			sx={{ position: "relative", zIndex: 1 }}
+			onMouseLeave={handleClose}
+			onMouseEnter={handleCloseCancel}
+		>
+			{/* <Box sx={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0}} /> */}
+			<Stack spacing={1}>
+				<TextField
+					value={value}
+					onChange={(e) => {
+						setValue(e.target.value);
+						// setSearchString(e.target.value);
+						// setSearch(e.target.value);
+					}}
+					onClick={handleClick}
+					sx={{
+						"& fieldset": {
+							borderWidth: 2,
+							borderColor: "primary.light",
+						},
+					}}
+					InputProps={{
+						startAdornment: (
+							<InputAdornment position="start">
+								<SearchIcon />
+							</InputAdornment>
+						),
+						endAdornment: open ? (
+							<InputAdornment position="end">
+								<IconButton onClick={handleClose}>
+									<CloseIcon />
+								</IconButton>
+							</InputAdornment>
+						) : null,
+						sx: {
+							pl: 2,
+							"& input::placeholder": {
+								color: "text.disabled",
+								opacity: 1,
+							},
+						},
+					}}
+					fullWidth
+					placeholder="Search for addresses & hashes..."
+				/>
+				{status && (
+					<Stack
+						direction={{ xs: "column", md: "row" }}
+						justifyContent="space-between"
+						alignItems="center"
+					>
+						<Stack direction="row" alignItems="center" spacing={0.5}>
+							<Typography color="text.disabled">
+								Scanner Network Status
+							</Typography>
+							<Chip
+								sx={{ border: 0 }}
+								icon={
+									<img
+										src="/images/checkbox-marked-circle-outline.svg"
+										alt=""
+									/>
+								}
+								variant="outlined"
+								label="Available"
+								color="primary"
+							/>
+						</Stack>
+						{/* <Stack direction="row" alignItems="center" spacing={0.5}>
                             <Typography color="text.disabled">Total Safe Transactions</Typography>
                             <Chip
                                 sx={{ border: 0 }}
@@ -212,15 +237,15 @@ function Searchbar(props: any) {
                                 color="primary"
                             />
                         </Stack> */}
-                    </Stack>
-                )}
-            </Stack>
+					</Stack>
+				)}
+			</Stack>
 
 			<Popper
 				open={open}
 				anchorEl={anchorEl}
 				transition={transition}
-				sx={{ width: getMenuWidth, bgcolor: "background.default" }}
+				sx={{ width: popperWidth, bgcolor: "background.default" }}
 			>
 				{({ TransitionProps }) => (
 					<Fade {...TransitionProps} timeout={350}>
