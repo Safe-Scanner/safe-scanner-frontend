@@ -75,28 +75,33 @@ function Overview({ balance, balances, safe, network }: any) {
 	}, [balances]);
 
 	useEffect(() => {
+		console.log("wallet balances are", walletBalances);
 		if (walletBalances.length > 0) {
 			let temp = walletBalances;
 			temp.sort((a: any, b: any) => {
 				let fa = a?.quote,
 					fb = b?.quote;
-				if (fa < fb) {
+				if (fa > fb) {
 					return -1;
 				}
-				if (fa > fb) {
+				if (fa < fb) {
 					return 1;
 				}
 				return 0;
 			});
-
+			console.log(temp);
 			setDisplayBalance([...temp]);
 		}
 	}, [walletBalances]);
 
 	useEffect(() => {
 		setBalancesToShow([]);
-		for (let i = 0; i < 3; i++) {
-			setBalancesToShow((prev: any) => [...prev, displayBalance[i]]);
+		if (displayBalance?.length >= 3) {
+			for (let i = 0; i < 3; i++) {
+				setBalancesToShow((prev: any) => [...prev, displayBalance[i]]);
+			}
+		} else {
+			setBalancesToShow(displayBalance);
 		}
 	}, [displayBalance]);
 
@@ -608,7 +613,7 @@ function Overview({ balance, balances, safe, network }: any) {
 												direction="row"
 												// alignItems="left"
 												spacing={2}
-												sx={{ paddingLeft: 10 }}
+												sx={{ paddingLeft: 5}}
 											>
 												<img
 													src={`${el?.logo}`}
@@ -618,7 +623,7 @@ function Overview({ balance, balances, safe, network }: any) {
 												/>
 												<Typography fontFamily="'DM Mono'">
 													{(el?.balance / Math.pow(10, el?.decimal)).toFixed(3)}{" "}
-													/ ${el?.quote}
+													/ ${el?.quote.toFixed(3)}
 												</Typography>
 											</Stack>
 										</Grid>
