@@ -21,6 +21,11 @@ interface ActionProps {
 	action: ActionT;
 }
 
+const capitalize = (str: string) => {
+	const lower = str.toLowerCase();
+	return str.charAt(0).toUpperCase() + lower.slice(1);
+};
+
 const Action = (props: ActionProps) => {
 	const { action } = props;
 
@@ -30,7 +35,8 @@ const Action = (props: ActionProps) => {
 		color: string;
 	} = {
 		Icon: CheckCircleIcon,
-		text: action?.toUpperCase(),
+		// text: action?.toLowerCase(),
+		text: capitalize(action),
 		color: "#fff",
 	};
 
@@ -38,49 +44,49 @@ const Action = (props: ActionProps) => {
 		case "transfer":
 			sattings = {
 				Icon: ArrowOutwardIcon,
-				text: action?.toUpperCase(),
+				text: capitalize(action),
 				color: "#fff",
 			};
 			break;
 		case "swap":
 			sattings = {
 				Icon: SwapHorizIcon,
-				text: action?.toUpperCase(),
+				text: capitalize(action),
 				color: "#fff",
 			};
 			break;
 		case "mint":
 			sattings = {
 				Icon: AddIcon,
-				text: action?.toUpperCase(),
+				text: capitalize(action),
 				color: "#fff",
 			};
 			break;
 		case "bridge":
 			sattings = {
 				Icon: VectorBridge,
-				text: action?.toUpperCase(),
+				text: capitalize(action),
 				color: "#fff",
 			};
 			break;
 		case "addLiquidity":
 			sattings = {
 				Icon: SubdirectoryArrowLeftIcon,
-				text: action?.toUpperCase(),
+				text: capitalize(action),
 				color: "#fff",
 			};
 			break;
 		case "removeLiquidity":
 			sattings = {
 				Icon: SubdirectoryArrowRightIcon,
-				text: action?.toUpperCase(),
+				text: capitalize(action),
 				color: "#fff",
 			};
 			break;
 		case "rebalance":
 			sattings = {
 				Icon: CallReceivedIcon,
-				text: action?.toUpperCase(),
+				text: capitalize(action),
 				color: "#fff",
 			};
 			break;

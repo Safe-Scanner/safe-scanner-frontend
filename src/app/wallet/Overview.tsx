@@ -613,7 +613,7 @@ function Overview({ balance, balances, safe, network }: any) {
 												direction="row"
 												// alignItems="left"
 												spacing={2}
-												sx={{ paddingLeft: 5}}
+												sx={{ paddingLeft: 5 }}
 											>
 												<img
 													src={`${el?.logo}`}
@@ -623,7 +623,7 @@ function Overview({ balance, balances, safe, network }: any) {
 												/>
 												<Typography fontFamily="'DM Mono'">
 													{(el?.balance / Math.pow(10, el?.decimal)).toFixed(3)}{" "}
-													/ ${el?.quote.toFixed(3)}
+													/ ${el?.quote ? el?.quote?.toFixed(3) : "00.000"}
 												</Typography>
 											</Stack>
 										</Grid>
