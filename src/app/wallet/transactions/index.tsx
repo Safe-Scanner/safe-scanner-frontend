@@ -12,13 +12,12 @@ import { signTransaction } from "viem/accounts";
 import ModuleTransaction from "./ModuleTransaction";
 
 type Width = {
-  width: number;
+    width: number;
 };
 
 function Transactions() {
     const searchParams = useSearchParams();
     const transaction: any[] = useSelector((state: any) => state.transaction.transaction);
-	const [moduleTransactions, setModuleTransactions] = useState([] as any);
     const [transactions, setTransaction] = useState([] as any);
     const [networkIcon, setNetworkIcon] = useState("" as any);
     const [network, setNetwork] = useState("" as any);
@@ -30,63 +29,46 @@ function Transactions() {
             let network: any = Object.keys(transaction);
             const temp = transaction[network[0]].results;
             setTransaction([]);
-			setModuleTransactions([]);
-			temp.forEach((el: any) => {
-				let safeHash = "";
-				if (width < 900) {
-					safeHash = shortenString(el?.safeTxHash);
-				} else {
-					safeHash = el?.safeTxHash;
-				}
-				let value = getFee(
-					el?.value ? el.value : 0,
-					network[0] ? network[0] : "mainnet"
-				);
-				if (el?.txType === "MODULE_TRANSACTION") {
-					setModuleTransactions((prev: any) => [
-						...prev,
-						{
-							safeTxHash: el?.safeTxHash,
-							icon: NETWORK_ICON_MAP[network[0]],
-							value: value?.value.toString() + " " + value?.gas.children,
-							date: el?.executionDate,
-							moduleTransactionHash: el?.moduleTransactionId,
-							method: el?.dataDecoded?.method,
-							txType: el?.txType,
-						},
-					]);
-				} else {
-					setTransaction((prev: any) => [
-						...prev,
-						{
-							safeTxHash: el?.safeTxHash,
-							icon: NETWORK_ICON_MAP[network[0]],
-							value: value?.value.toString() + " " + value?.gas.children,
-							date: el?.executionDate,
-							transactionHash: el?.txHash,
-							method: el?.dataDecoded?.method,
-							txType: el?.txType,
-						},
-					]);
-				}
-			});
-		}
+            temp.forEach((el: any) => {
+                console.log("here", el);
+                let safeHash = "";
+                if (width < 900) {
+                    safeHash = shortenString(el?.safeTxHash);
+                } else {
+                    safeHash = el?.safeTxHash;
+                }
+                let value = getFee(el?.value ? el.value : 0, network[0] ? network[0] : "mainnet");
+                console.log(value);
+                setTransaction((prev: any) => [
+                    ...prev,
+                    {
+                        safeTxHash: el?.txType == "MODULE_TRANSACTION" ? el?.transactionHash : el?.safeTxHash,
+                        icon: NETWORK_ICON_MAP[network[0]],
+                        value: value?.value.toString() + " " + value?.gas.children,
+                        date: el?.executionDate,
+                        transactionHash: el?.txHash,
+                        method: el?.dataDecoded?.method,
+                        txType: el?.txType,
+                    },
+                ]);
+            });
+        }
     }, [transaction]);
 
-	const signTransactionData = async (transactionData: any) => {
-	  console.log("===> signing started", transactionData);
-	  const txData: any = {
-		to: transactionData.to, // Recipient address
-		value: parseEther(transactionData.value.split(" ")[0]), // Amount in ether
-	  //   data: transactionData.data, // Data payload, if any
-	  };
-	  // const serializedTransaction = serializeTransaction(txData);
-  
-	  // // Sign the transaction
-	  // const signature = await signTransaction(txData);
-  
-	  // console.log("Signature:", signature);
-	};
+    const signTransactionData = async (transactionData: any) => {
+        console.log("===> signing started", transactionData);
+        const txData: any = {
+            to: transactionData.to, // Recipient address
+            value: parseEther(transactionData.value.split(" ")[0]), // Amount in ether
+            //   data: transactionData.data, // Data payload, if any
+        };
+        // const serializedTransaction = serializeTransaction(txData);
+
+        // // Sign the transaction
+        // const signature = await signTransaction(txData);
+
+        // console.log("Signature:", signature);
+    };
 
     useEffect(() => {
         if (width === 0) {
@@ -107,11 +89,7 @@ function Transactions() {
                             icon={el?.icon}
                             statusSubValue="+$21.03"
                             variant="complete"
-							date={
-							  el.date ? (
-								new Date(el.date).toLocaleDateString("em-GB")
-							  ) : "-"
-							}
+                            date={el.date ? new Date(el.date).toLocaleDateString("em-GB") : "-"}
                             txHash={el?.transactionHash}
                             network={network}
                             method={el.method}

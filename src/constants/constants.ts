@@ -309,6 +309,10 @@ export const POWERED_BY_LOGO_MAP: { [id: string]: { [id: string]: string } } = {
 		small: "/images/candide.svg",
 		wide: "/images/candide.svg",
 	},
+	gelato: {
+		small: "/images/gelato.svg",
+		wide: "/images/gelato.svg",
+	},
 };
 
 export const fallBack = "fallback";
