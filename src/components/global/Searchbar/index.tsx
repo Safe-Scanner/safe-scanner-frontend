@@ -53,7 +53,7 @@ function Searchbar(props: any) {
     const handleClose = () => {
         // timer = setTimeout(() => {
         setOpen(false);
-        setRawSearchData({});
+        // setRawSearchData({});
         // setAnchorEl(null);
         setValue("");
         // }, 3000);

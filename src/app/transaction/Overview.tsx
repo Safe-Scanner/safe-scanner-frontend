@@ -19,26 +19,7 @@ import RedirectButton from "@/components/global/RedirectButton";
 import { getFee, shortenString } from "@/components/utils/utils";
 import moment from "moment";
 import Action from "@/components/global/DataTable/Action";
-
-export const PowerButton = ({ item, addressMapping }: any) => {
-    if (item === "") return null;
-    return (
-        <div className="md:px-[16px] px-0 md:py-[8px] py-0">
-            <p className="text-[10px] text-[#455A64]">
-                {/* {addressMapping?.[item] && POWERED_BY_LOGO_MAP?.[addressMapping?.[item]?.company.toLowerCase()] && ( */}
-                <span className="text-bluegrey-300 text-[10px] leading-5 flex items-center gap-2 font-normal">
-                    Sponsored By
-                    <img
-                        src={POWERED_BY_LOGO_MAP?.[addressMapping?.[item]?.company.toLowerCase()]?.small}
-                        style={{ height: 20, width: 20 }}
-                        alt=""
-                    />
-                </span>
-                {/* )} */}
-            </p>
-        </div>
-    );
-};
+import { PowerButton } from "./PowerButton";
 
 const determineAndSetStatus = (transactionData: any, func: any): void => {
     let status = "Signature Pending";
@@ -289,14 +270,7 @@ function Overview({ transactionData }: any) {
                                 //     style={{
                                 //         "margin-left": "10px",
                                 //     }}
-                                //     item={"0x8f8e8b3c4de76a31971fe6a87297d8f703b3c3a0"}
-                                //     addressMapping={{
-                                //         "0x8f8e8b3c4de76a31971fe6a87297d8f703b3c3a0": {
-                                //             company: "gelato",
-                                //             logo: "https://gnosis.io/",
-                                //             website: "https://gnosis.io/",
-                                //         },
-                                //     }}
+                                //     sponsoredBy={data.sponsoredBy}
                                 // />
                                 // }
                             >
