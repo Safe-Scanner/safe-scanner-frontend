@@ -61,7 +61,7 @@ function Transactions() {
 						to: el?.to,
 						safe: el?.safe,
 						action: el?.dataDecoded?.method,
-						success: el?.success,
+						success: el?.isSuccessful,
 						execution: el?.isExecuted,
 					},
 				]);
