@@ -220,7 +220,7 @@ function Searchbar(props: any) {
                     }}
                     fullWidth
                     placeholder="Search for addresses & hashes..."
-                    ref={searchRef}
+                    inputRef={searchRef}
                 ></TextField>
 
                 {status && (
