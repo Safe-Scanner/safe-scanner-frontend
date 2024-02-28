@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useState, useEffect, CSSProperties } from "react";
+import React, { useState, useEffect, CSSProperties, useRef } from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -34,6 +34,9 @@ function Searchbar(props: any) {
     const [tips, setTips] = useState(true);
     const [open, setOpen] = useState(false);
     const [transition, setTransition] = useState(true);
+    const [popperWidth, setPopperWidth] = useState<number>(0);
+    const [animateState, setAnimateState] = useState(false);
+    const searchRef: any = useRef(null);
 
     const [value, setValue] = React.useState("");
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -46,21 +49,62 @@ function Searchbar(props: any) {
         setTips((prev) => !prev);
     };
 
+    let timer: any;
     const handleClose = () => {
+        // timer = setTimeout(() => {
         setOpen(false);
-        setRawSearchData({});
-        setAnchorEl(null);
+        // setRawSearchData({});
+        // setAnchorEl(null);
         setValue("");
+        // }, 3000);
     };
 
+    const handleOpen = () => {
+        setOpen(true);
+        setTips(true);
+        setAnchorEl(searchRef.current);
+    };
+
+    // const handleCloseCancel = () => {
+    //     clearTimeout(timer);
+    // };
+
+    useEffect(() => {
+        console.log(anchorEl, open, tips, value, loading);
+    }, [open]);
+
+    const handleKeyDown = (e: any) => {
+        if (e.key === "Escape") {
+            handleClose();
+        }
+        // on cmd + K open the search
+        if (e.metaKey && e.key === "k") {
+            e.preventDefault();
+            console.log("here 1");
+            if (searchRef.current) searchRef.current.focus();
+            // animate for 1 second
+            handleOpen();
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    });
+
     const getMenuWidth = () => {
+        console.log(anchorEl?.clientWidth);
         if (anchorEl) {
+            setPopperWidth(anchorEl.clientWidth);
             return anchorEl.clientWidth;
         }
         return null;
     };
 
     useEffect(() => {
+        getMenuWidth();
         if (Boolean(anchorEl) && (value.length === 0 || (value.length >= 66 && value.length <= 70) || value.length == 42)) {
             setOpen(true);
         }
@@ -127,10 +171,13 @@ function Searchbar(props: any) {
     }, [rawSearchData]);
 
     return (
-        <Box maxWidth={950} marginX="auto" sx={{ position: "relative", zIndex: 1 }} onMouseLeave={handleClose}>
+        <Box maxWidth={950} marginX="auto" sx={{ position: "relative", zIndex: 1 }} onBlur={handleClose}>
             {/* <Box sx={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0}} /> */}
             <Stack spacing={1}>
                 <TextField
+                    // className={`${
+                    //     animateState ? `focus-within:translate-y-2 focus-within:-translate-x-2   focus-within:scale-125` : ""
+                    // } duration-150`}
                     value={value}
                     onChange={(e) => {
                         setValue(e.target.value);
@@ -146,9 +193,11 @@ function Searchbar(props: any) {
                     }}
                     InputProps={{
                         startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon />
-                            </InputAdornment>
+                            <div>
+                                <InputAdornment position="start">
+                                    <SearchIcon />
+                                </InputAdornment>
+                            </div>
                         ),
                         endAdornment: open ? (
                             <InputAdornment position="end">
@@ -156,7 +205,11 @@ function Searchbar(props: any) {
                                     <CloseIcon />
                                 </IconButton>
                             </InputAdornment>
-                        ) : null,
+                        ) : (
+                            <span className="flex items-center justify-center h-10 px-10 rounded-full bg-dark-400">
+                                <img className="" src="/images/span (1).svg" alt="" style={{ width: "20px", marginRight: "12px" }} />
+                            </span>
+                        ),
                         sx: {
                             pl: 2,
                             "& input::placeholder": {
@@ -167,7 +220,9 @@ function Searchbar(props: any) {
                     }}
                     fullWidth
                     placeholder="Search for addresses & hashes..."
-                />
+                    ref={searchRef}
+                ></TextField>
+
                 {status && (
                     <Stack direction={{ xs: "column", md: "row" }} justifyContent="space-between" alignItems="center">
                         <Stack direction="row" alignItems="center" spacing={0.5}>
@@ -194,7 +249,7 @@ function Searchbar(props: any) {
                 )}
             </Stack>
 
-            <Popper open={open} anchorEl={anchorEl} transition={transition} sx={{ width: getMenuWidth(), bgcolor: "background.default" }}>
+            <Popper open={open} anchorEl={anchorEl} transition={transition} sx={{ width: popperWidth, bgcolor: "background.default" }}>
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
                         <Box sx={{ p: 2 }}>

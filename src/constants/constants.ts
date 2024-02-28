@@ -247,6 +247,7 @@ export const NETWORK_ICON_MAP: NETWORK_ICON_MAP = {
 	eth: "/images/ethereum-logo-rainbow.svg",
 	goerli: "/images/eth-diamond-purple.svg",
 	sepolia: "/images/eth-diamond-purple.svg",
+	sep: "/images/eth-diamond-purple.svg",
 	matic: "/images/polygon-icon.svg",
 	mumbai: "/images/polygon-mumbai-icon.svg",
 	"optimism-goerli": "/images/icon-container (6).svg",
@@ -307,6 +308,10 @@ export const POWERED_BY_LOGO_MAP: { [id: string]: { [id: string]: string } } = {
 	candide: {
 		small: "/images/candide.svg",
 		wide: "/images/candide.svg",
+	},
+	gelato: {
+		small: "/images/gelato.svg",
+		wide: "/images/gelato.svg",
 	},
 };
 
