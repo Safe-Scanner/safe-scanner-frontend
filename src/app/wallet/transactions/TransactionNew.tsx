@@ -5,6 +5,7 @@ import {
 	Avatar,
 	Box,
 	Chip,
+	Divider,
 	IconButton,
 	Paper,
 	Stack,
@@ -55,14 +56,14 @@ const TransactionNew = ({
 	executionDate,
 	safeTxHash,
 }: TransactionProps) => {
-	console.log({
-		icon: icon,
-		status: confirm,
-		action: action,
-		fromHash: fromHash,
-		toHash: toHash,
-		executionDate: executionDate,
-	});
+	// console.log({
+	// 	icon: icon,
+	// 	status: confirm,
+	// 	action: action,
+	// 	fromHash: fromHash,
+	// 	toHash: toHash,
+	// 	executionDate: executionDate,
+	// });
 	const [data, setData] = useState({} as any);
 	const [open, setOpen] = useState(false);
 	const [network, setNetwork] = useState("matic");
@@ -81,7 +82,6 @@ const TransactionNew = ({
 	// Format the time as "9:02 PM"
 	var formattedTime =
 		hours + ":" + (minutes < 10 ? "0" : "") + minutes + " " + ampm;
-	console.log(formattedTime);
 
 	let month = date.toLocaleString("default", { month: "short" });
 	let day = date.getDate();
@@ -99,7 +99,7 @@ const TransactionNew = ({
 			sx={{
 				display: "flex",
 				flexDirection: "row",
-				padding: 2,
+				paddingX: 2,
 				alignContent: "center",
 				justifyContent: "space-between",
 				width: "100%",
@@ -107,11 +107,29 @@ const TransactionNew = ({
 		>
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				<Stack direction={"row"} gap={2} alignItems={"left"}>
-					<Avatar
+					{/* <Avatar
 						alt="icon"
 						src={NETWORK_ICON_MAP[icon]}
 						sx={{ height: 25, width: 25, bgcolor: "black" }}
-					/>
+					/> */}
+					<Box
+						sx={{
+							height: 30,
+							width: 30,
+							bgcolor: "#000",
+							borderRadius: "50%",
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+						}}
+					>
+						<Image
+							src={NETWORK_ICON_MAP[icon]}
+							alt="icon"
+							height={18}
+							width={18}
+						/>
+					</Box>
 					<Status status={status} />
 					<Action action={action} />
 					<Stack>
@@ -135,27 +153,21 @@ const TransactionNew = ({
 						{action}
 					</Typography>
 
-					<Chip
-						icon={
-							<ArrowForwardIcon
-								sx={{
-									fontSize: 16,
-									fill: "#00A300",
-									color: "primary",
-									fontWeight: "600",
-									alignSelf: "center",
-								}}
-							/>
-						}
+					<Box
 						sx={{
 							height: 30,
 							width: 30,
+							bgcolor: "#000",
 							borderRadius: "50%",
-							bgcolor: "background.default",
-							alignContent: "center",
-							padding: 1,
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
 						}}
-					/>
+					>
+						<ArrowForwardIcon
+							sx={{ fontSize: 16, color: "#18ff75", fontWeight: "700" }}
+						/>
+					</Box>
 					<Typography
 						fontFamily="'DM Mono'"
 						color="primary"
