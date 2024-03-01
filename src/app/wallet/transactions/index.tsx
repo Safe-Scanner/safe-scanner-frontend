@@ -81,8 +81,8 @@ function Transactions() {
 						to: el?.to,
 						safe: el?.txType === "ETHEREUM_TRANSACTION" ? el?.from : el?.safe,
 						action: el?.dataDecoded?.method,
-						success: el?.isSuccessful,
-						execution: el?.isExecuted,
+						success: el?.isSuccessful || true,
+						execution: el?.isExecuted || true,
 					},
 				]);
 			});
