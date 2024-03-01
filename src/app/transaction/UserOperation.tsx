@@ -13,7 +13,7 @@ import Status, { StatusT } from "../../components/global/DataTable/Status";
 import SmartRow from "../../components/global/DataTable/SmartRow";
 import Box from "@mui/material/Box";
 import { CircularProgress, Skeleton, TableBody, TableCell, TableContainer, TableRow } from "@mui/material";
-import { NETWORK_SCANNER_MAP } from "@/constants/constants";
+import { NETWORK_MAP, NETWORK_SCANNER_MAP } from "@/constants/constants";
 import CopyButton from "@/components/global/CopyButton";
 import RedirectButton from "@/components/global/RedirectButton";
 import { getFee, shortenString, sixDigitShortrenString } from "@/components/utils/utils";
@@ -63,9 +63,6 @@ function UserOperation({ transactionData }: any) {
         }
     }, [transactionData]);
 
-    console.log("Value is ", status);
-    console.log("Data.value is ", data?.value && "hex" in data?.value ? data?.value?.hex : data?.value);
-    console.log("Data.value", typeof data?.value);
     return (
         <>
             {transactionData != undefined ? (
@@ -95,7 +92,7 @@ function UserOperation({ transactionData }: any) {
                                         <RedirectButton
                                             redirectLink={
                                                 // "https://app.safe.global/apps?safe=matic:" + data?.safe
-                                                `/transaction/${data?.transactionHash}&network=${network}`
+                                                `${NETWORK_MAP[network]}/tx/${data?.transactionHash}`
                                             }
                                         />
                                     </>
@@ -121,7 +118,7 @@ function UserOperation({ transactionData }: any) {
                                         <RedirectButton
                                             redirectLink={
                                                 // "https://app.safe.global/apps?safe=matic:" + data?.safe
-                                                `/wallet?safe=${data?.to}&network=${network}`
+                                                `https://jiffyscan.xyz/userOpHash/${data?.userOpHash}`
                                             }
                                         />
                                     </>

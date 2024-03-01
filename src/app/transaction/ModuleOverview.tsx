@@ -10,7 +10,7 @@ import SubdirectoryArrowRightRoundedIcon from "@mui/icons-material/SubdirectoryA
 import Status, { StatusT } from "../../components/global/DataTable/Status";
 import SmartRow from "../../components/global/DataTable/SmartRow";
 import { Box, CircularProgress, Skeleton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { NETWORK_SCANNER_MAP } from "@/constants/constants";
+import { NETWORK_MAP, NETWORK_SCANNER_MAP } from "@/constants/constants";
 import CopyButton from "@/components/global/CopyButton";
 import RedirectButton from "@/components/global/RedirectButton";
 import { getFee, shortenString } from "@/components/utils/utils";
@@ -121,7 +121,7 @@ function ModuleOverview({ transactionData }: any) {
                                 action={
                                     <>
                                         <CopyButton text={data?.module} setOpen={setOpen} />
-                                        <RedirectButton redirectLink={"https://app.safe.global/apps?safe=matic:" + data?.module} />
+                                        <RedirectButton redirectLink={`${NETWORK_MAP[network]}/address/${data?.module}`} />
                                     </>
                                 }
                             >
@@ -155,7 +155,7 @@ function ModuleOverview({ transactionData }: any) {
                                 action={
                                     <>
                                         <CopyButton text={data?.transactionHash} setOpen={setOpen} />
-                                        <RedirectButton redirectLink={`/transaction/${data?.transactionHash}&network=${network}`} />
+                                        <RedirectButton redirectLink={`${NETWORK_MAP[network]}/tx/${data?.transactionHash}`} />
                                     </>
                                 }
                             >
@@ -178,7 +178,7 @@ function ModuleOverview({ transactionData }: any) {
                                 action={
                                     <>
                                         <CopyButton text={data?.to} setOpen={setOpen} />
-                                        <RedirectButton redirectLink={NETWORK_SCANNER_MAP + "/address/" + data?.to} />
+                                        <RedirectButton redirectLink={NETWORK_MAP[network] + "/address/" + data?.to} />
                                     </>
                                 }
                             >
@@ -205,26 +205,7 @@ function ModuleOverview({ transactionData }: any) {
                                     <Typography fontWeight="medium">{data?.value}</Typography>
                                 </Stack>
                             </SmartRow>
-                            {/* <SmartRow
-						label={{
-							icon: (
-								<Image
-									src="/images/LabelIconquestion.svg"
-									alt="nounce"
-									width={25}
-									height={25}
-								/>
-							),
-							text: (
-								<Typography color="text.secondary" textTransform="capitalize">
-									Data
-								</Typography>
-							),
-							info: "null",
-						}}
-					>
-						<Typography fontWeight="medium">{data?.data}</Typography>
-					</SmartRow> */}
+
                             <SmartRow
                                 label={{
                                     icon: <Image src="/images/calendar.svg" alt="" width={20} height={20} />,

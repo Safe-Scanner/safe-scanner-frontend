@@ -11,7 +11,7 @@ import Status, { StatusT } from "../../components/global/DataTable/Status";
 import SmartRow from "../../components/global/DataTable/SmartRow";
 import Box from "@mui/material/Box";
 import { CircularProgress, Skeleton, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { NETWORK_SCANNER_MAP, POWERED_BY_LOGO_MAP } from "@/constants/constants";
+import { NETWORK_MAP, NETWORK_SCANNER_MAP, POWERED_BY_LOGO_MAP } from "@/constants/constants";
 import CopyButton from "@/components/global/CopyButton";
 import RedirectButton from "@/components/global/RedirectButton";
 import { getFee, shortenString } from "@/components/utils/utils";
@@ -142,7 +142,7 @@ function Overview({ transactionData }: any) {
                                 action={
                                     <>
                                         <CopyButton text={data?.transactionHash} setOpen={setOpen} />
-                                        <RedirectButton redirectLink={NETWORK_SCANNER_MAP + "/tx/" + data?.transactionHash} />
+                                        <RedirectButton redirectLink={NETWORK_MAP[network] + "/tx/" + data?.transactionHash} />
                                     </>
                                 }
                             >
@@ -165,10 +165,7 @@ function Overview({ transactionData }: any) {
                                 action={
                                     <>
                                         <CopyButton text={data?.to} setOpen={setOpen} />
-                                        <RedirectButton
-                                            // redirectLink={NETWORK_SCANNER_MAP + "/address/" + data?.to}
-                                            redirectLink={`/wallet?safe=${data?.to}&network=${network}`}
-                                        />
+                                        <RedirectButton redirectLink={NETWORK_MAP[network] + "/address/" + data?.to} />
                                     </>
                                 }
                             >
