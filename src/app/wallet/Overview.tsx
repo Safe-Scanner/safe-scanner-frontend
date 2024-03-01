@@ -73,7 +73,6 @@ function Overview({ balance, balances, safe, network }: any) {
     }, [balances]);
 
     useEffect(() => {
-        console.log("wallet balances are", walletBalances);
         if (walletBalances.length > 0) {
             let temp = walletBalances;
             temp.sort((a: any, b: any) => {
@@ -87,7 +86,6 @@ function Overview({ balance, balances, safe, network }: any) {
                 }
                 return 0;
             });
-            console.log(temp);
             setDisplayBalance([...temp]);
         }
     }, [walletBalances]);

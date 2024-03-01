@@ -38,6 +38,7 @@ function Searchbar(props: any) {
     const [animateState, setAnimateState] = useState(false);
     const searchRef: any = useRef(null);
     const dropDownRef: any = useRef(null);
+    const [error, setError] = useState("");
 
     const [value, setValue] = React.useState("");
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -64,24 +65,23 @@ function Searchbar(props: any) {
         setOpen(true);
         setTips(true);
         setAnchorEl(dropDownRef.current);
+        setError("");
     };
 
     // const handleCloseCancel = () => {
     //     clearTimeout(timer);
     // };
 
-    useEffect(() => {
-        console.log(anchorEl, open, tips, value, loading);
-    }, [open]);
-
     const handleKeyDown = (e: any) => {
+        if (e.key === "Enter") {
+            handleSearch();
+        }
         if (e.key === "Escape") {
             handleClose();
         }
         // on cmd + K open the search
         if (e.metaKey && e.key === "k") {
             e.preventDefault();
-            console.log("here 1");
             if (searchRef.current) searchRef.current.focus();
 
             // animate for 1 second
@@ -96,8 +96,11 @@ function Searchbar(props: any) {
         };
     });
 
+    useEffect(() => {
+        setLoading(false);
+    }, [error]);
+
     const getMenuWidth = () => {
-        console.log(anchorEl?.clientWidth);
         if (anchorEl) {
             setPopperWidth(anchorEl.clientWidth);
             return anchorEl.clientWidth;
@@ -112,17 +115,23 @@ function Searchbar(props: any) {
         }
     }, [anchorEl, value]);
 
+    const handleSearch = async () => {
+        await searchBar(value, setRawSearchData, setLoading, setOpen, setError);
+    };
+
     useEffect(() => {
         if (value.length === 42 || (value.length >= 66 && value.length <= 70)) {
             setRawSearchData({});
             const getData = setTimeout(() => {
-                if (value.length > 0) {
-                    searchBar(value, setRawSearchData, setLoading, setAnchorEl);
-                }
+                handleSearch();
             }, 0);
 
             return () => {
                 clearTimeout(getData);
+                () => {
+                    setLoading(false);
+                    setError("Network Error. We are looking into this. Please try again later.");
+                };
             };
         }
         // setAnchorEl((prev: any) => !prev);
@@ -258,6 +267,20 @@ function Searchbar(props: any) {
                         <Box sx={{ p: 2 }}>
                             {(!rawSearchData || Object.keys(rawSearchData).length == 0) && !loading ? (
                                 <>
+                                    {error && (
+                                        <ListItemButton onClick={handleTips}>
+                                            <ListItemAvatar sx={{ minWidth: 40 }}>
+                                                <Image
+                                                    style={{ borderRadius: 6 }}
+                                                    width={40}
+                                                    height={40}
+                                                    src={"/images/error.svg"}
+                                                    alt="icon"
+                                                />
+                                            </ListItemAvatar>
+                                            <ListItemText sx={{ marginLeft: 1.5 }} primary="Error in searching string" secondary={error} />
+                                        </ListItemButton>
+                                    )}
                                     <ListItemButton onClick={handleTips}>
                                         <ListItemText primary="Tips" />
                                         {tips ? <ExpandLess /> : <ExpandMore />}

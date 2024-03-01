@@ -35,14 +35,11 @@ interface DataGroupProps {
 function DataGroup(props: DataGroupProps) {
     const router = useRouter();
     const { icon, name, data, network, handleClose } = props;
-    console.log(data, network);
     const [open, setOpen] = React.useState(true);
     const toggle = () => setOpen((v) => !v);
 
     const handleRouting = (value: string) => {
-        console.log("Value is ", value);
         const split = value.includes(":") ? value.split(":")[1] : value;
-        // console.log("split is ", split);
         if (split.length == 66) {
             router.push(`/transaction/${split}&network=${network}`);
             handleClose();
