@@ -37,6 +37,7 @@ function Searchbar(props: any) {
     const [popperWidth, setPopperWidth] = useState<number>(0);
     const [animateState, setAnimateState] = useState(false);
     const searchRef: any = useRef(null);
+    const dropDownRef: any = useRef(null);
 
     const [value, setValue] = React.useState("");
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -62,7 +63,7 @@ function Searchbar(props: any) {
     const handleOpen = () => {
         setOpen(true);
         setTips(true);
-        setAnchorEl(searchRef.current);
+        setAnchorEl(dropDownRef.current);
     };
 
     // const handleCloseCancel = () => {
@@ -82,6 +83,7 @@ function Searchbar(props: any) {
             e.preventDefault();
             console.log("here 1");
             if (searchRef.current) searchRef.current.focus();
+
             // animate for 1 second
             handleOpen();
         }
@@ -179,12 +181,14 @@ function Searchbar(props: any) {
                     //     animateState ? `focus-within:translate-y-2 focus-within:-translate-x-2   focus-within:scale-125` : ""
                     // } duration-150`}
                     value={value}
+                    inputRef={searchRef}
                     onChange={(e) => {
                         setValue(e.target.value);
                         // setSearchString(e.target.value);
                         // setSearch(e.target.value);
                     }}
                     onClick={handleClick}
+                    ref={dropDownRef}
                     sx={{
                         "& fieldset": {
                             borderWidth: 2,
@@ -220,7 +224,6 @@ function Searchbar(props: any) {
                     }}
                     fullWidth
                     placeholder="Search for addresses & hashes..."
-                    inputRef={searchRef}
                 ></TextField>
 
                 {status && (
