@@ -12,10 +12,10 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 
 const concepts = [
+    "Add support for ENS names.",
     "Add support for transaction signing.",
     "Updated transaction table view.",
     "Feature to upgrade safe account to 1.4",
-    "One-click 4337 module addition to safe account.",
 ];
 
 function Features() {
