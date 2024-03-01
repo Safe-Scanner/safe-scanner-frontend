@@ -36,7 +36,7 @@ const Action = (props: ActionProps) => {
 		color: string;
 	} = {
 		Icon: ArrowOutwardIcon,
-		text: capitalize(action || "Tranfer"),
+		text: capitalize(action || "Transfer"),
 		color: "#fff",
 	};
 

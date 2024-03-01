@@ -1,19 +1,8 @@
 import CopyButton from "@/components/global/CopyButton";
-import SmartRow from "@/components/global/DataTable/SmartRow";
 import RedirectButton from "@/components/global/RedirectButton";
-import {
-	Avatar,
-	Box,
-	Chip,
-	Divider,
-	IconButton,
-	Paper,
-	Stack,
-	Typography,
-} from "@mui/material";
+import { Box, IconButton, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Status from "@/components/global/DataTable/Status";
 import Action from "@/components/global/DataTable/Action";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -100,6 +89,7 @@ const TransactionNew = ({
 				display: "flex",
 				flexDirection: "row",
 				paddingX: 2,
+				py: 1,
 				alignContent: "center",
 				justifyContent: "space-between",
 				width: "100%",
@@ -107,11 +97,6 @@ const TransactionNew = ({
 		>
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				<Stack direction={"row"} gap={2} alignItems={"left"}>
-					{/* <Avatar
-						alt="icon"
-						src={NETWORK_ICON_MAP[icon]}
-						sx={{ height: 25, width: 25, bgcolor: "black" }}
-					/> */}
 					<Box
 						sx={{
 							height: 30,
@@ -179,33 +164,42 @@ const TransactionNew = ({
 					</Typography>
 				</Stack>
 			</Box>
-			<Box sx={{ display: "flex" }}>
-				<Box>
+			<Box
+				sx={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					gap: 2,
+				}}
+			>
+				<Box sx={{ padding: 0 }}>
 					<Typography
-						fontFamily="'DM Mono'"
+						fontFamily="'DM Sans'"
 						color="white"
 						textTransform="capitalize"
-						sx={{ py: 1 }}
+						sx={{ p: 0 }}
 						variant="body2"
 					>
 						{month + " " + day + ", " + year}
 					</Typography>
 					<Typography
-						fontFamily="'DM Mono'"
+						fontFamily="'DM Sans'"
 						color="white"
 						textTransform="capitalize"
-						sx={{ py: 1 }}
+						sx={{ py: 0, textAlign: "end" }}
 						variant="body2"
 					>
 						{formattedTime}
 					</Typography>
 				</Box>
-				<IconButton>
-					<ContentCopyIcon color="primary" sx={{ fontSize: 20 }} />
+				<IconButton sx={{ height: 30, width: 30, borderRadius: "50%" }}>
+					<CopyButton text={safeTxHash} setOpen={setOpen} />
 				</IconButton>
-				<RedirectButton
-					redirectLink={`/transaction/${safeTxHash}&network=${network}`}
-				/>
+				<IconButton sx={{ height: 30, width: 30, borderRadius: "50%" }}>
+					<RedirectButton
+						redirectLink={`/transaction/${safeTxHash}&network=${network}`}
+					/>
+				</IconButton>
 			</Box>
 		</Box>
 	);
