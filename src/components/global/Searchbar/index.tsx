@@ -358,7 +358,7 @@ function Searchbar(props: any) {
                                     // )
                                     keys.map((net: any, index: any) => (
                                         <DataGroup
-                                            icon={NETWORK_ICON_MAP[net]}
+                                            icon={NETWORK_MAP[net]?.icon}
                                             name={NETWORK_MAP[net]?.label}
                                             data={rawSearchData[net]}
                                             network={net}
