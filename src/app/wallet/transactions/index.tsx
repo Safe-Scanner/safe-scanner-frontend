@@ -80,7 +80,7 @@ function Transactions() {
 						txType: el?.txType,
 						to: el?.to,
 						safe: el?.txType === "ETHEREUM_TRANSACTION" ? el?.from : el?.safe,
-						action: el?.dataDecoded?.method,
+						action: el?.dataDecoded?.method || "transfer",
 						success: el?.isSuccessful || true,
 						execution: el?.isExecuted || true,
 					},
@@ -93,25 +93,43 @@ function Transactions() {
 		let to;
 		let from;
 		setPaginatedTransaction([]);
-		if (transactions.length > 0) {
-			if (+skip > transactions?.length) {
-				setEnd((+start + +skip - 1).toString());
-				to = (+start + +skip - 1).toString();
-			} else {
-				setEnd(skip);
-				to = skip;
-			}
-
-			if (+skip > transactions?.length) {
-				for (let i = +start - 1; i < transactions?.length; i++) {
-					if (transactions[i] != undefined) {
-						setPaginatedTransaction((prev: any) => [...prev, transactions[i]]);
-					}
+		if (+skip >= +transactions?.length) {
+			from = 0;
+			to = transactions?.length;
+			setStart("1");
+			setEnd(to.toString());
+			for (let i = from; i < to; i++) {
+				if (transactions[i] != undefined) {
+					setPaginatedTransaction((prev: any) => [...prev, transactions[i]]);
 				}
-			} else {
-				for (let i = +start - 1; i < +to; i++) {
-					if (transactions[i] != undefined) {
-						setPaginatedTransaction((prev: any) => [...prev, transactions[i]]);
+			}
+		} else {
+			if (transactions.length > 0) {
+				if (+skip > transactions?.length) {
+					setEnd((+start + +skip - 1).toString());
+					to = (+start + +skip - 1).toString();
+				} else {
+					setEnd(skip);
+					to = skip;
+				}
+
+				if (+skip > transactions?.length) {
+					for (let i = +start - 1; i < transactions?.length; i++) {
+						if (transactions[i] != undefined) {
+							setPaginatedTransaction((prev: any) => [
+								...prev,
+								transactions[i],
+							]);
+						}
+					}
+				} else {
+					for (let i = +start - 1; i < +to; i++) {
+						if (transactions[i] != undefined) {
+							setPaginatedTransaction((prev: any) => [
+								...prev,
+								transactions[i],
+							]);
+						}
 					}
 				}
 			}
@@ -121,15 +139,8 @@ function Transactions() {
 	const signTransactionData = async (transactionData: any) => {
 		const txData: any = {
 			to: transactionData.to, // Recipient address
-			value: parseEther(transactionData.value.split(" ")[0]), // Amount in ether
-			//   data: transactionData.data, // Data payload, if any
+			value: parseEther(transactionData.value.split(" ")[0]), // Amount
 		};
-		// const serializedTransaction = serializeTransaction(txData);
-
-		// // Sign the transaction
-		// const signature = await signTransaction(txData);
-
-		// console.log("Signature:", signature);
 	};
 
 	useEffect(() => {
@@ -141,25 +152,25 @@ function Transactions() {
 	const handlePrevious = () => {
 		let from;
 		let to;
-		if (+start - +skip > 1) {
-			setStart((prev) => (+prev - +skip).toString());
-			from = (+start - +skip).toString();
+
+		if (+start - +skip > 0) {
+			from = +start - +skip;
+			setStart(from.toString());
 		} else {
+			from = 1;
 			setStart("1");
-			from = "1";
 		}
 
-		if (+end - +skip <= +skip) {
-			setEnd((prev) => (+prev - +skip).toString());
-			to = (+end - +skip).toString();
+		if (+end - +skip > +skip) {
+			to = +end - +skip;
+			setEnd(to.toString());
 		} else {
+			to = +skip;
 			setEnd(skip);
-			to = skip;
 		}
+
 		setPaginatedTransaction([]);
-		console.log({ start: start, end: end });
-		for (let i = +from; i <= +to; i++) {
-			console.log(i);
+		for (let i = +from - 1; i <= +to; i++) {
 			transactions[i];
 			setPaginatedTransaction((prev: any) => [...prev, transactions[i]]);
 		}
@@ -168,21 +179,17 @@ function Transactions() {
 		let from;
 		let to;
 		setStart((prev) => (+prev + +skip).toString());
-
-		// if (+end + +skip > transactions?.length) {
-		// 	setEnd;
-		// }
+		from = +start + +skip;
+		to = +end + +skip;
 		setEnd((prev) => (+prev + +skip).toString());
-		console.log({ start: start, end: end });
 
 		setPaginatedTransaction([]);
-		for (let i = +start + 1; i < +skip; i++) {
+		for (let i = from - 1; i <= to; i++) {
 			if (transactions[i] != undefined) {
 				setPaginatedTransaction((prev: any) => [...prev, transactions[i]]);
 			}
 		}
 	};
-
 	console.log("paginated transcations are", paginatedTransaction);
 	return (
 		<>
