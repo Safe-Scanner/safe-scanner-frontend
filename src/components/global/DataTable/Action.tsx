@@ -100,7 +100,7 @@ const Action = (props: ActionProps) => {
 				borderRadius: 1,
 				bgcolor: "background.default",
 				color: sattings.color,
-				marginLeft: 3,
+				// marginLeft: 3,
 			}}
 		/>
 	);

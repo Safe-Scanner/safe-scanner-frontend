@@ -78,4 +78,28 @@ export const userOPWallet = async (
 		});
 };
 
-export { balanceApi, transactionApi, balancesApi };
+const paginationTransactionApi = async (
+	safe: string,
+	network: string,
+	first: string,
+	skip: string,
+	func: any
+) => {
+	await axios
+		.get(
+			`${prefix}/v1/all_transactions?query=${safe}&network=${network}&first=${first}&skip=${skip}`
+		)
+		.then((response: any) => {
+			const keys = Object.keys(response.data);
+			if (keys[0] != "statusCode") {
+				func((prev: any) => response.data);
+			} else {
+				FailureToast(
+					`${response?.data?.body?.message} for transactions request`
+				);
+			}
+		})
+		.catch((error) => console.warn(error));
+};
+
+export { balanceApi, transactionApi, balancesApi, paginationTransactionApi };

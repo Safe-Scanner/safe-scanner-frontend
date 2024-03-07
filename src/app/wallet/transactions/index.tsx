@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Transaction from "./Transaction";
 import { NETWORK_ICON_MAP, NETWORK_LIST } from "@/constants/constants";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getFee, shortenString } from "@/components/utils/utils";
 import { useSearchParams } from "next/navigation";
 import {
@@ -25,6 +25,8 @@ import ModuleTransaction from "./ModuleTransaction";
 import TransactionNew from "./TransactionNew";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { paginationTransactionApi } from "@/apis/addresspage";
+import { storetransaction } from "../../../store/feature/transactionSlice";
 
 type Width = {
 	width: number;
@@ -32,28 +34,58 @@ type Width = {
 
 function Transactions() {
 	const searchParams = useSearchParams();
-	const transaction: any[] = useSelector(
-		(state: any) => state.transaction.transaction
-	);
-	const [transactions, setTransaction] = useState([] as any);
+	const dispatch = useDispatch();
+	// const transaction: any[] = useSelector(
+	// 	(state: any) => state.transaction.transaction
+	// );
+	const [transaction, setTransaction] = useState<any>();
+	const [transactions, setTransactions] = useState([] as any);
 	const [networkIcon, setNetworkIcon] = useState("" as any);
 	const [network, setNetwork] = useState("" as any);
+	const [safe, setSafe] = useState(searchParams.get("safe") || "");
 	const [width, setWidth] = useState(0);
 	const [skip, setSkip] = useState("10");
 	const [start, setStart] = useState("1");
 	const [end, setEnd] = useState(skip);
 	const [paginatedTransaction, setPaginatedTransaction] = useState<any>([]);
+	const [newResponse, setNewResponse] = useState<any>();
 	const handleChange = (event: SelectChangeEvent) => {
+		console.log("skip updated");
 		setSkip(event.target.value as string);
 	};
+
+	const handleTransactionApiCall = async () => {
+		setTransaction(null);
+		setTransactions([]);
+		const response = await paginationTransactionApi(
+			safe,
+			network,
+			skip,
+			start,
+			setNewResponse
+		);
+		dispatch(storetransaction(response));
+	};
+
+	useEffect(() => {
+		handleTransactionApiCall();
+	}, []);
+
+	useEffect(() => {
+		// console.log(newResponse);
+		if (newResponse && newResponse != undefined) {
+			// console.log("setting");
+			setTransaction(newResponse);
+		}
+	}, [newResponse]);
 
 	useEffect(() => {
 		setNetwork(searchParams.get("network"));
 		let keys = [] as any[];
-		if (transaction != null) {
+		if (transaction && transaction != undefined) {
 			let network: any = Object.keys(transaction);
 			const temp = transaction[network[0]].results;
-			setTransaction([]);
+			setTransactions([]);
 			temp.forEach((el: any) => {
 				let safeHash = "";
 				if (width < 900) {
@@ -65,7 +97,8 @@ function Transactions() {
 					el?.value ? el.value : 0,
 					network[0] ? network[0] : "mainnet"
 				);
-				setTransaction((prev: any) => [
+
+				setTransactions((prev: any) => [
 					...prev,
 					{
 						safeTxHash:
@@ -89,53 +122,6 @@ function Transactions() {
 		}
 	}, [transaction]);
 
-	useEffect(() => {
-		let to;
-		let from;
-		setPaginatedTransaction([]);
-		if (+skip >= +transactions?.length) {
-			from = 0;
-			to = transactions?.length;
-			setStart("1");
-			setEnd(to.toString());
-			for (let i = from; i < to; i++) {
-				if (transactions[i] != undefined) {
-					setPaginatedTransaction((prev: any) => [...prev, transactions[i]]);
-				}
-			}
-		} else {
-			if (transactions.length > 0) {
-				if (+skip > transactions?.length) {
-					setEnd((+start + +skip - 1).toString());
-					to = (+start + +skip - 1).toString();
-				} else {
-					setEnd(skip);
-					to = skip;
-				}
-
-				if (+skip > transactions?.length) {
-					for (let i = +start - 1; i < transactions?.length; i++) {
-						if (transactions[i] != undefined) {
-							setPaginatedTransaction((prev: any) => [
-								...prev,
-								transactions[i],
-							]);
-						}
-					}
-				} else {
-					for (let i = +start - 1; i < +to; i++) {
-						if (transactions[i] != undefined) {
-							setPaginatedTransaction((prev: any) => [
-								...prev,
-								transactions[i],
-							]);
-						}
-					}
-				}
-			}
-		}
-	}, [transactions, skip]);
-
 	const signTransactionData = async (transactionData: any) => {
 		const txData: any = {
 			to: transactionData.to, // Recipient address
@@ -150,55 +136,43 @@ function Transactions() {
 	}, []);
 
 	const handlePrevious = () => {
-		let from;
-		let to;
-
-		if (+start - +skip > 0) {
-			from = +start - +skip;
-			setStart(from.toString());
-		} else {
-			from = 1;
+		if (+start - +skip < 1) {
 			setStart("1");
-		}
-
-		if (+end - +skip > +skip) {
-			to = +end - +skip;
-			setEnd(to.toString());
-		} else {
-			to = +skip;
 			setEnd(skip);
 		}
-
-		setPaginatedTransaction([]);
-		for (let i = +from - 1; i <= +to; i++) {
-			transactions[i];
-			setPaginatedTransaction((prev: any) => [...prev, transactions[i]]);
-		}
+		console.log("start is ", +start - +skip);
+		setStart((prev) => (+prev - +skip).toString());
+		setEnd((prev) => (+prev - +skip).toString());
 	};
 	const handleNext = () => {
-		let from;
-		let to;
 		setStart((prev) => (+prev + +skip).toString());
-		from = +start + +skip;
-		to = +end + +skip;
 		setEnd((prev) => (+prev + +skip).toString());
+	};
 
-		setPaginatedTransaction([]);
-		for (let i = from - 1; i <= to; i++) {
-			if (transactions[i] != undefined) {
-				setPaginatedTransaction((prev: any) => [...prev, transactions[i]]);
+	useEffect(() => {
+		handleTransactionApiCall();
+	}, [start]);
+
+	useEffect(() => {
+		if (newResponse && newResponse != undefined) {
+			if (newResponse[network]?.count < +skip) {
+				setStart("1");
+				setEnd(newResponse[network]?.count);
+			} else {
+				console.log("updateing");
+				setEnd((prev) => (+start + +skip - 1).toString());
 			}
 		}
-	};
-	console.log("paginated transcations are", paginatedTransaction);
+
+		handleTransactionApiCall();
+	}, [skip]);
 	return (
 		<>
 			{transactions?.length > 0 ? (
 				<Paper>
 					<Grid container sx={{ marginTop: 2 }} spacing={0.5}>
-						{/* <TransactionNew /> */}
-						{paginatedTransaction.length > 0 &&
-							paginatedTransaction.map((el: any, index: any) => (
+						{transactions.length > 0 &&
+							transactions.map((el: any, index: any) => (
 								<Grid key={index} item xs={12} md={12} lg={12}>
 									{/* <Transaction
 							value={el?.value}
@@ -256,14 +230,14 @@ function Transactions() {
 							</Box>
 							<Typography>
 								{" "}
-								{start} - {end} of {transactions?.length}
+								{start} - {end} of {newResponse[network]?.count}
 							</Typography>
-							<IconButton onClick={handlePrevious} disabled={start === "1"}>
+							<IconButton onClick={handlePrevious} disabled={start <= "1"}>
 								<KeyboardArrowLeftIcon />
 							</IconButton>
 							<IconButton
 								onClick={handleNext}
-								disabled={+end >= transactions?.length}
+								disabled={+end >= newResponse[network]?.count}
 							>
 								<KeyboardArrowRightIcon />
 							</IconButton>
@@ -272,7 +246,48 @@ function Transactions() {
 				</Paper>
 			) : (
 				<Paper sx={{ p: 3 }}>
-					<Skeleton variant="rounded" height={300} />
+					<Skeleton variant="rounded" height={600} />
+					<Box
+						sx={{
+							minWidth: 70,
+							display: "flex",
+							justifyContent: "flex-end",
+							alignItems: "center",
+							width: "100%",
+							gap: 3,
+							padding: 2,
+						}}
+					>
+						<Box sx={{ width: "7%" }}>
+							<FormControl fullWidth>
+								<InputLabel id="demo-simple-select-label">Skip</InputLabel>
+								<Select
+									labelId="demo-simple-select-label"
+									id="demo-simple-select"
+									value={skip}
+									label="Age"
+									onChange={handleChange}
+								>
+									<MenuItem value={10}>10</MenuItem>
+									<MenuItem value={20}>20</MenuItem>
+									<MenuItem value={30}>30</MenuItem>
+								</Select>
+							</FormControl>
+						</Box>
+						<Typography>
+							{" "}
+							{start} - {end} of{" "}
+							{newResponse && newResponse != undefined
+								? newResponse[network]?.count
+								: ""}
+						</Typography>
+						<IconButton onClick={handlePrevious} disabled={true}>
+							<KeyboardArrowLeftIcon />
+						</IconButton>
+						<IconButton onClick={handleNext} disabled={true}>
+							<KeyboardArrowRightIcon />
+						</IconButton>
+					</Box>
 				</Paper>
 			)}
 		</>

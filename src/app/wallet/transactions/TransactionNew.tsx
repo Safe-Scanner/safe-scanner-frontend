@@ -8,6 +8,7 @@ import Action from "@/components/global/DataTable/Action";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { NETWORK_ICON_MAP } from "@/constants/constants";
 import { sixDigitShortrenString } from "@/components/utils/utils";
+import Link from "next/link";
 
 type TransactionProps = {
 	icon: any;
@@ -45,14 +46,6 @@ const TransactionNew = ({
 	executionDate,
 	safeTxHash,
 }: TransactionProps) => {
-	// console.log({
-	// 	icon: icon,
-	// 	status: confirm,
-	// 	action: action,
-	// 	fromHash: fromHash,
-	// 	toHash: toHash,
-	// 	executionDate: executionDate,
-	// });
 	const [data, setData] = useState({} as any);
 	const [open, setOpen] = useState(false);
 	const [network, setNetwork] = useState("matic");
@@ -125,7 +118,12 @@ const TransactionNew = ({
 							textTransform="capitalize"
 							variant="body2"
 						>
-							{sixDigitShortrenString(fromHash)}
+							<Link
+								href={`/wallet?safe=${fromHash}&network=${network}`}
+								target="_black"
+							>
+								{sixDigitShortrenString(fromHash)}
+							</Link>
 						</Typography>
 					</Stack>
 					<Typography
@@ -160,7 +158,12 @@ const TransactionNew = ({
 						sx={{ py: 1 }}
 						variant="body2"
 					>
-						{sixDigitShortrenString(toHash)}
+						<Link
+							href={`/wallet?safe=${toHash}&network=${network}`}
+							target="_blank"
+						>
+							{sixDigitShortrenString(toHash)}
+						</Link>
 					</Typography>
 				</Stack>
 			</Box>
