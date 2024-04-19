@@ -50,17 +50,16 @@ const cellStyles = {
   borderBottom: "none",
 };
 
-function ModuleOverview({ transactionData }: any) {
+function ModuleOverview({ transactionData, network }: any) {
   const [open, setOpen] = useState(false);
-  const [network, setNetwork] = React.useState("");
+  console.log(network);
   const [status, setStatus] = React.useState<StatusT>("Signature Pending");
   const [data, setData] = useState([] as any);
   const [fee, setFee] = useState("");
-
+  console.log(transactionData);
   useEffect(() => {
     if (transactionData != undefined) {
       let status = "";
-      setNetwork(transactionData?.network);
       determineAndSetStatus(transactionData?.transactionInfo, setStatus);
       setData(transactionData?.transactionInfo);
       const calculatedFee = getFee(
