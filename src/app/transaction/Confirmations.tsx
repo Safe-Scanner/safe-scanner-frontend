@@ -34,12 +34,14 @@ function Confirmations({ confirmation, txnInfo }: any) {
   const [confirmations, setConfirmations] = useState<any>();
   const [network, setNetwork] = useState<any>();
   const { address, isConnected } = useAccount();
-  const { signTransaction, createTransaction, sendTransaction } =
-  useSafeHooks({safeWallet: txnInfo?.safe, safeOwner: address});
-  
+  const { signTransaction, createTransaction, sendTransaction } = useSafeHooks({
+    safeWallet: txnInfo?.safe,
+    safeOwner: address,
+  });
+
   console.log(confirmation);
-  console.log('===> this is the address', address);
-  
+  console.log("===> this is the address", address);
+
   const signHandler = async () => {
     await signTransaction(txnInfo.safeTxHash);
   };
@@ -103,65 +105,65 @@ function Confirmations({ confirmation, txnInfo }: any) {
       </SmartRow>
       <Collapse in={collapse === "pending-signatures"}>
         <SmartRow
-            action={
+          action={
             <Button
-                onClick={signHandler}
-                startIcon={
+              onClick={signHandler}
+              startIcon={
                 <Image
-                    src="/images/qrcode-scan.svg"
-                    alt=""
-                    width={20}
-                    height={20}
+                  src="/images/qrcode-scan.svg"
+                  alt=""
+                  width={20}
+                  height={20}
                 />
-                }
-                size="small"
+              }
+              size="small"
             >
-                Sign Now
+              Sign Now
             </Button>
-            }
+          }
         >
-            <Grid container spacing={1}>
+          <Grid container spacing={1}>
             {confirmations
-                ?.filter((el: any) => !el.confirmationSignStatus)
-                ?.map((el: any, i: number) => (
+              ?.filter((el: any) => !el.confirmationSignStatus)
+              ?.map((el: any, i: number) => (
                 <>
-                    <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={6}>
                     <Stack direction="row" alignItems="center" spacing={2}>
-                        <Image
+                      <Image
                         src="/images/account-key 1.svg"
                         alt=""
                         width={20}
                         height={20}
-                        />
-                        <Typography
+                      />
+                      <Typography
                         textTransform="capitalize"
                         color="text.secondary"
-                        >
+                      >
                         Owner {i + 1}
-                        </Typography>
+                      </Typography>
                     </Stack>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
                     <Stack
-                        justifyContent={{ xs: "flex-start", md: "flex-end" }}
-                        direction="row"
-                        alignItems="center"
-                        spacing={2}
+                      justifyContent={{ xs: "flex-start", md: "flex-end" }}
+                      direction="row"
+                      alignItems="center"
+                      spacing={2}
                     >
-                        <Image
+                      <Image
                         src="/images/Group 56.svg"
                         alt=""
                         width={20}
                         height={20}
-                        />
-                        <Typography color="primary" fontFamily="'DM Mono'">
+                      />
+                      <Typography color="primary" fontFamily="'DM Mono'">
                         {ownerSlice(el?.owner)}
-                        </Typography>
+                      </Typography>
                     </Stack>
-                    </Grid>
+                  </Grid>
                 </>
-                ))}
-            </Grid>
+              ))}
+          </Grid>
         </SmartRow>
       </Collapse>
       {/* <SmartRow
@@ -208,8 +210,7 @@ function Confirmations({ confirmation, txnInfo }: any) {
               (el: any) => el.confirmationSignStatus === "CONFIRMED"
             ).length
           }
-          /{confirmations?.length}
-          successful signature
+          /{confirmations?.length} successful signature
           {confirmations?.filter(
             (el: any) => el.confirmationSignStatus === "CONFIRMED"
           )?.length > 1
