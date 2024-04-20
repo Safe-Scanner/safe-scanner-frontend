@@ -43,7 +43,9 @@ function Confirmations({ confirmation, txnInfo }: any) {
   console.log("===> this is the address", address);
 
   const signHandler = async () => {
-    await signTransaction(txnInfo.safeTxHash);
+    console.log(txnInfo);
+    console.log(network);
+    await signTransaction(txnInfo.safeTxHash, txnInfo);
   };
 
   useEffect(() => {
@@ -139,7 +141,7 @@ function Confirmations({ confirmation, txnInfo }: any) {
                         textTransform="capitalize"
                         color="text.secondary"
                       >
-                        Owner {i + 1}
+                        Owner {confirmations?.filter((el: any) => !el.confirmationSignStatus).length+1}
                       </Typography>
                     </Stack>
                   </Grid>

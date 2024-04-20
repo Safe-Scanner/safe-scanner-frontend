@@ -20,7 +20,7 @@ type Props = {};
 // const SAFE_OWNER = "0xDdCB44d30403EE073dfF476a7c707F42609e49c8";
 
 export type SafeHooks = {
-  signTransaction: (txnHash: any) => Promise<void>;
+  signTransaction: (txnHash: any, txnObject?: any) => Promise<void>;
   createTransaction: () => Promise<void>;
   sendTransaction: () => Promise<void>;
 };
@@ -45,7 +45,7 @@ const useSafeHooks = ({safeWallet, safeOwner}: any): SafeHooks => {
   const initializeProtocolKit = async (
     signer: ethers.JsonRpcSigner | undefined
   ) => {
-    let unwrapperSigner = await signer;
+    let unwrapperSigner = signer;
     let ethAdapter = new EthersAdapter({
       ethers,
       signerOrProvider: unwrapperSigner as
@@ -70,16 +70,21 @@ const useSafeHooks = ({safeWallet, safeOwner}: any): SafeHooks => {
     setSafeApiKit(safeApiKit);
   };
 
-  const signTransaction = async (safeTxHash: any) => {
+  const signTransaction = async (safeTxHash: any, txnObject?: any) => {
     // signMessage({ message: "hello world" });
     try {
+      console.log(txnObject);
       // Assuming `pendingTransaction` is a transaction object that the Safe SDK can sign
       console.log('====> this is the protocol kit', protocolKit);
-      const signature = await protocolKit!.signTransaction(safeTxHash);
+      // const signature = await signer!.signTransaction(safeTxHash);
+      // const signature = await signer!.signMessage(safeTxHash);
+      const signature = await protocolKit!.signHash(safeTxHash);
+      // const signature = await protocolKit!.signTransaction(safeTxHash);
   
       // Here, you would typically send the signature back to your backend or directly to the Safe transaction service
       // to append the signature to the transaction. This might look something like:
-      const response = await axios.post(`https://safe-transaction-sepolia.safe.global/api//v1/multisig-transactions/${safeTxHash}/confirmations`, {signature});
+      // const response = await axios.post(`https://safe-transaction-sepolia.safe.global/api//v1/multisig-transactions/${safeTxHash}/confirmations`, {signature});
+      const response = await safeApiKit!.confirmTransaction(safeTxHash, signature.data);
 
       console.log(response);
   
