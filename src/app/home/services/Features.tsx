@@ -12,10 +12,10 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 
 const concepts = [
-    "Redesigned UI to view safes and multisignature transactions.",
-    "Add Module Transaction page to safe scanner.",
-    "Display decoded parameters of transactions.",
-    "Enable signing of transactions in the transaction page.",
+    "Add support for ENS names.",
+    "Add support for transaction signing.",
+    "Updated transaction table view.",
+    "Feature to upgrade safe account to 1.4",
 ];
 
 function Features() {

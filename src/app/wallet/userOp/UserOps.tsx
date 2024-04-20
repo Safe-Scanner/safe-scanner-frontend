@@ -45,7 +45,7 @@ function UserOps(props: UserOpProps) {
 				<Paper sx={{ padding: 2 }}>
 					<Stack spacing={2.5} direction="row">
 						<Image
-							src={icon}
+							src={NETWORK_MAP[network]?.icon}
 							alt=""
 							width={40}
 							height={40}

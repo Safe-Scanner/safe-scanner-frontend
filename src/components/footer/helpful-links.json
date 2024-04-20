@@ -1,25 +1,21 @@
 [
-  {
-    "label": "Resources",
-    "url": [
-      ["/", "Documentation"],
-      ["/", "Help Center"]
-    ]
-  },
-  {
-    "label": "Community",
-    "url": [
-      ["/", "Leave Feedback"],
-      ["/", "Twitter"],
-      ["/", "Github"]
-    ]
-  },
-  {
-    "label": "Legal",
-    "url": [
-      ["/", "Terms & Conditions"],
-      ["/", "Privacy Policy"],
-      ["/", "Cookie Policy"]
-    ]
-  }
+    {
+        "label": "Resources",
+        "url": [["mailto:gautam@jiffyscan.xyz", "Help Center"]]
+    },
+    {
+        "label": "Community",
+        "url": [
+            ["mailto:gautam@jiffyscan.xyz", "Leave Feedback"],
+            ["https://twitter.com/safe_scanner", "Twitter"],
+            ["https://github.com/Safe-Scanner", "Github"]
+        ]
+    },
+    {
+        "label": "Legal",
+        "url": [
+            ["https://adityaagarwal.notion.site/Terms-of-Use-0012b80699cc4b948cdae9e42983035b?pvs=74", "Terms & Conditions"],
+            ["https://adityaagarwal.notion.site/Privacy-Policy-5f05315af636474797f1255d338a0d76?pvs=74", "Privacy Policy"]
+        ]
+    }
 ]
