@@ -1,11 +1,10 @@
 "use client";
 import React from "react";
-import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, styled } from "@mui/material/styles";
 import verdeNight from "@/theme/scanner";
 import Box from "@mui/material/Box";
 import Navbar from "./navbar";
 import Footer from "./footer";
-import { styled } from "@mui/material/styles";
 
 const Wrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,

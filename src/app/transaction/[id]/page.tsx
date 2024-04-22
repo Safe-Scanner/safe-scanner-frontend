@@ -44,6 +44,7 @@ function TransactionPage() {
 	);
 	const [key, setkey] = useState([] as any);
 	const [confirmation, setConfirmation] = useState<OwnerInfo[]>([]);
+	const [txnInfo, setTxnInfo] = useState<OwnerInfo[]>([]);
 	const [network, setNetwork] = useState("");
 
 	useEffect(() => {
@@ -84,6 +85,7 @@ function TransactionPage() {
 		console.log("Transaction data is ", transactionData?.transactionInfo);
 		if (transactionData != undefined) {
 			setConfirmation(transactionData?.transactionInfo?.confirmations);
+			setTxnInfo(transactionData?.transactionInfo);
 		}
 	}, [transactionData]);
 
@@ -118,7 +120,7 @@ function TransactionPage() {
 								</Stack>
 								<HashTab tabs={["Overview", "Confirmation"]}>
 									<Overview transactionData={transactionData} />
-									<Confirmations confirmation={confirmation} />
+									<Confirmations confirmation={confirmation} txnInfo={txnInfo} />
 								</HashTab>
 							</Stack>
 						</Container>

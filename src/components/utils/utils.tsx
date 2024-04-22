@@ -60,3 +60,7 @@ export const getCurrencySymbol = (amount: number, network: string): string => {
 		return "WEI";
 	}
 };
+
+export const ownerSlice = (str: string) => {
+	return `${str.slice(0, 5)}...${str.slice(str.length - 4, str.length)}`
+}
