@@ -19,8 +19,8 @@ export const NETWORK_MAP: {
   oeth: {
     label: "Optimism Mainnet",
     key: "oeth",
-    icon: "/images/ethereum-logo-rainbow.svg",
-    iconPathInverted: "/images/ethereum-logo-rainbow.svg",
+    icon: "/images/icon-container (6).svg",
+    iconPathInverted: "/images/icon-container (6).svg",
     explorerUrl: "https://optimistic.etherscan.io",
     isNew: true,
   },
