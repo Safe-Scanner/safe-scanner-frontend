@@ -31,6 +31,8 @@ import {
 } from "@/components/utils/utils";
 import { PowerButton } from "./PowerButton";
 import Action from "@/components/global/DataTable/Action";
+import ERC20Transfers from "./ERC20Transfers";
+import ERC721Transfers from "./ERC721Transfers";
 
 const determineAndSetStatus = (transactionData: any, func: any): void => {
   let status = "Signature Pending";
@@ -77,7 +79,7 @@ function UserOperation({ transactionData }: any) {
       setFee(calculatedFee);
     }
   }, [transactionData]);
-  
+
   return (
     <>
       {transactionData != undefined ? (
@@ -527,50 +529,16 @@ function UserOperation({ transactionData }: any) {
                   }
                 >
                   {data?.erc721Transfers?.map((item: any, i: number) => (
-                    <Typography
-                      fontWeight="medium"
-                      noWrap
-                      fontFamily="'DM Mono'"
+                    <ERC721Transfers
+                      index={i}
                       key={i}
-                      display="flex"
-                      width="100%"
-                    >
-                      <Typography marginTop="5px" marginRight="4px">
-                        From:
-                      </Typography>
-                      <Typography color="primary" marginTop="5px">
-                        {sixDigitShortrenString(item?.from)}
-                      </Typography>
-                      <CopyButton text={item?.from} setOpen={setOpen} />
-                      <RedirectButton
-                        redirectLink={`wallet?safe=${item?.from}&network=${network}`}
-                      />
-                      <Typography marginTop="5px" marginRight="4px">
-                        To:
-                      </Typography>
-                      <Typography color="primary" marginTop="5px">
-                        {sixDigitShortrenString(item?.to)}
-                      </Typography>
-                      <CopyButton text={item?.to} setOpen={setOpen} />
-                      <RedirectButton
-                        redirectLink={`wallet?safe=${item?.to}&network=${network}`}
-                      />
-                      <Typography marginTop="5px" marginRight="5px">
-                        TokenId:
-                      </Typography>
-                      <Typography color="primary" marginTop="5px">
-                        {item?.tokenId}
-                      </Typography>
-                      <Typography marginTop="5px">{item?.symbol}(</Typography>
-                      <Typography color="primary" marginTop="5px">
-                        {item?.name}
-                      </Typography>
-                      )
-                      <CopyButton text={item?.tokenId} setOpen={setOpen} />
-                      <RedirectButton
-                        redirectLink={`wallet?safe=${item?.tokenId}&network=${network}`}
-                      />
-                    </Typography>
+                      symbol={item?.symbol}
+                      from={item?.from}
+                      to={item?.to}
+                      tokenId={item?.tokenId}
+                      name={item?.name}
+                      transactionData={transactionData}
+                    />
                   ))}
                 </SmartRow>
               )}
@@ -600,50 +568,17 @@ function UserOperation({ transactionData }: any) {
                   }
                 >
                   {data?.erc20Transfers?.map((item: any, i: number) => (
-                    <Typography
-                      fontWeight="medium"
-                      noWrap
-                      fontFamily="'DM Mono'"
+                    <ERC20Transfers
                       key={i}
-                      display="flex"
-                      width="100%"
-                    >
-                      <Typography marginTop="5px" marginRight="5px">
-                        {" "}
-                        From:
-                      </Typography>{" "}
-                      <Typography color="primary" marginTop="5px">
-                        {sixDigitShortrenString(item?.from)}
-                      </Typography>
-                      <CopyButton text={item?.from} setOpen={setOpen} />
-                      <RedirectButton
-                        redirectLink={`wallet?safe=${item?.from}&network=${network}`}
-                      />
-                      <Typography marginTop="5px" marginRight="5px">
-                        {" "}
-                        To:
-                      </Typography>{" "}
-                      <Typography color="primary" marginTop="5px">
-                        {sixDigitShortrenString(item?.to)}
-                      </Typography>
-                      <CopyButton text={item?.to} setOpen={setOpen} />
-                      <RedirectButton
-                        redirectLink={`wallet?safe=${item?.to}&network=${network}`}
-                      />
-                      <Typography marginTop="5px" marginRight="5px">
-                        {" "}
-                        Amount:{getValue(item?.value, item?.decimals)}(
-                        {item?.symbol})(
-                      </Typography>{" "}
-                      <Typography color="primary" marginTop="5px">
-                        {item?.name}
-                      </Typography>
-                      )
-                      <CopyButton text={item?.value} setOpen={setOpen} />
-                      <RedirectButton
-                        redirectLink={`wallet?safe=${item?.value}&network=${network}`}
-                      />
-                    </Typography>
+                      index={i}
+                      symbol={item?.symbol}
+                      from={item?.from}
+                      to={item?.to}
+                      value={item?.value}
+                      decimals={item?.decimals}
+                      name={item?.name}
+                      transactionData={transactionData}
+                    />
                   ))}
                 </SmartRow>
               )}
